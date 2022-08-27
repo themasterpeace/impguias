@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+
+<br><br><br>
+<div class="box">
+            <div class="form">
+                <h2>Iniciar Sesión</h2>
+                <form method='POST'>
+                    {% csrf_token %}
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    {{ form }}
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    <div class="inputBox2">
+                        <p>Volver <a href="#">Inicio</a></p>
+                        <p>Registrar <a href="{% url 'link:registro' %}">Usuario</a></p>
+                    </div>
+                    <div class="inputBox">
+                        <button type="submit" class="btn btn-primary btn-user btn-block">Acceder</button>
+                    </div>
+                    {% if user.is_authenticated %}
+                        <p>Welcome, You are logged in as {{ user.username }}</p>
+                        {% else %}
+                        
+                    {% endif %}
+                </form>
+            </div>
+</div>
+
+{% endblock %}
