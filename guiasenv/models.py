@@ -1,4 +1,5 @@
 from enum import unique
+from random import choices
 from tabnanny import verbose
 from django.db.models.enums import Choices
 from django.db.models.fields import IntegerField
@@ -23,26 +24,50 @@ fpago=[
     [1, "CONTADO"],
     [2, "CREDITO"],
     [3, "PREPAGO"],
-    [4, "CREDITO X COBRAR"],
-    [5, "CONTADO X COBRAR"],
-    [6, "CREDITO X CREDITO"],
-    [7, "CORTESIA"],
-    [8, "TALONARIO"],
+    [4, "CONTADO X COBRAR"],
+    [5, "CREDITO X CREDITO"],
+    [6, "CORTESIA"],
+    [7, "TALONARIO"],
 ]
 
 class GuiasEnv( ClaseModelo):
-    fecha = models.DateField(auto_now=True)
+    fecha = models.DateField(auto_now=False)
     codigo = models.CharField(max_length=9)
     cliente = models.CharField(max_length=300)
     tipo_envio = models.IntegerField(choices=tipo_envio)
     numini = models.IntegerField(default=0, unique=True)
     numfin = models.IntegerField(default=0, unique=True)
     totenvio = models.IntegerField(default=0)
-    fpago = models.Index
+    fpago = models.IntegerField(choices=fpago)
     entregado = models.BooleanField(default=False)
 
-class Lotes(ClaseModelo):
+
+    def __str__(self):
+        return '{}'.format(self.codigo)
+    
+    def save(self):
+        self.codigo = self.codigo.upper()
+        super(GuiasEnv, self).save()
+
+    class Meta:
+        verbose_name_plural = "GuiasEnvs"
+
+
+
+class Lote(ClaseModelo):
     no_lote = models.IntegerField(default=0, unique=True)
     fecha = models.DateField(auto_now=True)
     manifiesto_local = models.IntegerField(default=0, null=False, blank=False)
     observaciones = models.TextField(max_length=100)
+
+    def __str__(self):
+        return '{}'.format(self.no_lote)
+    
+    def save(self):
+        self.no_lote = self.no_lote.upper()
+        super(Lote, self).save()
+
+    class Meta:
+        verbose_name_plural = "Lotes"
+
+

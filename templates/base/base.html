@@ -5,10 +5,21 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Dashboard | Transportes JR</title>
+	<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+
 	<link rel="stylesheet" type="text/css" href="{% static 'lib/css/dashboard.css' %}">
+
+	<!--Section Js-->
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+
+	<!--Seccion Jquery-->
+
 </head>
 <body>
-	<div class="container">
+	<div class="containerr">
 		<div class="navigation">
 			<ul>
 				<li>
@@ -18,25 +29,25 @@
 					</a>
 				</li>
 				<li>
-					<a href="principal.php">
+					<a href="{% url 'bases:home' %}">
 						<span class="icon"><ion-icon name="home-outline"></ion-icon></span>
 						<span class="title">Inicio</span>
 					</a>
 				</li>
 					<li>
-						<a href="controlUsuarios.php">
+						<a href="{% url 'guiasenv:guialist' %}">
 							<span class="icon"><ion-icon name="people-outline"></ion-icon></span>
-							<span class="title">Control Usuarios</span>
+							<span class="title">Guias Impresas</span>
 						</a>
 					</li>
 					<li>
-						<a href="crearUsuarios.php">
+						<a href="">
 							<span class="icon"><ion-icon name="person-add-outline"></ion-icon></span>
-							<span class="title">Crear Usuarios</span>
+							<span class="title">Lotes creados</span>
 						</a>
 					</li>
 				<li>
-					<a href="logout.php">
+					<a href="">
 						<span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
 						<span class="title">Cerrar Sesión</span>
 					</a>
@@ -44,7 +55,9 @@
 			</ul>
 		</div>
 		<!-- Main -->
+		
 		<div class="main">
+			
 			<div class="topbar">
 				<div class="toggle">
 					<ion-icon name="menu-outline"></ion-icon>
@@ -61,9 +74,18 @@
 					<span></span><ion-icon name="person-circle-outline"></ion-icon>
 				</div>
 			</div>
-
+			<div class="details">
+				<div>
+					{% block contenido %}
+					{% endblock %}
+				</div>
+			</div>
+			
 		</div>
+	
 	</div>
+	<div class="modal fade" id="popup"></div>
+
 	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 	<script>
@@ -87,6 +109,29 @@
 		list.forEach((item)=>{
 			item.addEventListener('mouseover', activeLink)
 		})
+		
 	</script>
+	{% block control_modal %}
+	<script>
+		function abrir_modal(url)
+			{
+
+			$("#popup").load(url, function(){
+				$(this).modal({
+				backdrop:'static',
+				keyboard: false
+				})
+				$(this).modal('show');
+			});
+			return false;
+			}
+
+			function cerrar_modal()
+			{
+			$('#popup').modal('hide');
+			return false;
+			}   
+	</script>
+	{% endblock%}
 </body>
 </html>

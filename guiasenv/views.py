@@ -1,3 +1,4 @@
+from audioop import reverse
 from re import template
 from django.http import request 
 from django.shortcuts import redirect, render, get_object_or_404
@@ -15,5 +16,29 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 #from openpyxl.writer.excel import save_virtual_workbook
 # Create your views here.
 
-class guiasnew(LoginRequiredMixin, generic.CreateView):
+class GuiasNew(generic.CreateView):
     model = GuiasEnv
+    template_name = "guiasenv/guianew.html"
+    context_object_name = "obj"
+    form_class = GuiaForm
+    succes_url = reverse_lazy("guiasenv:guialist")
+    
+    def form_valid(self, form):
+        form.instance.uc = self.request.user
+        return super().form_valid(form)
+
+class GuiaView(generic.ListView):
+    model = GuiasEnv
+    template_name = "guiasenv/guialist.html"
+    context_object_name = "obj"
+
+class GuiaEdit(generic.UpdateView):
+    model = GuiasEnv
+    template_name="guiasenv/guianew.html"
+    context_object_name="obj"
+    form_class = GuiaForm
+    success_url=reverse_lazy("guiasenv:guialist")
+    
+    def form_valid(self, form):
+        form.instance.um = self.request.user.id
+        return super().form_valid(form)

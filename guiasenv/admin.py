@@ -4,4 +4,4 @@ from .models import *
 # Register your models here.
 
 admin.site.register(GuiasEnv)
-admin.site.register(Lotes)
+admin.site.register(Lote)
