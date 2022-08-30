@@ -1,6 +1,7 @@
 from enum import unique
 from random import choices
 from tabnanny import verbose
+from django.urls import reverse
 from django.db.models.enums import Choices
 from django.db.models.fields import IntegerField
 from django.db.models.fields.related import ForeignKey
@@ -30,7 +31,7 @@ fpago=[
     [7, "TALONARIO"],
 ]
 
-class GuiasEnv( ClaseModelo):
+class GuiasEnv(models.Model):
     fecha = models.DateField(auto_now=False)
     codigo = models.CharField(max_length=9)
     cliente = models.CharField(max_length=300)
@@ -41,6 +42,8 @@ class GuiasEnv( ClaseModelo):
     fpago = models.IntegerField(choices=fpago)
     entregado = models.BooleanField(default=False)
 
+    def get_absolute_url(self):
+        return reverse ('guialist', kwargs={'guialist': self.guialist})
 
     def __str__(self):
         return '{}'.format(self.codigo)
@@ -54,7 +57,7 @@ class GuiasEnv( ClaseModelo):
 
 
 
-class Lote(ClaseModelo):
+class Lote(models.Model):
     no_lote = models.IntegerField(default=0, unique=True)
     fecha = models.DateField(auto_now=True)
     manifiesto_local = models.IntegerField(default=0, null=False, blank=False)

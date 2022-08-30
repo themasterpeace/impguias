@@ -314,28 +314,6 @@ select::-ms-expand {
 	border-radius: 6px;
 	display: inline-block;
 }
-.details table{
-	width: 100%;
-	border-collapse: collapse;
-	margin-top: 10px;
-}
-.details table thead td{
-	font-weight: 600;
-}
-.details .recentOrders table tr{
-	color: var(--black1);
-	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-.details .recentOrders table tr:last-child{
-	border-bottom: none;
-}
-.details .recentOrders table tbody tr:hover{
-	background: var(--colorprimary);
-	color: var(--white);
-}
-.details .recentOrders table tr td{
-	padding: 10px;
-}
 .errorGuia{
 	margin-top: 15px;
 }
@@ -420,25 +398,7 @@ select::-ms-expand {
 	height: 100%;
 	object-fit: cover;
 }
-.recentCustomers table tr:hover{
-	background: var(--colorprimary);
-	color: var(--white);
-}
-.recentCustomers table tr td{
-	padding: 12px;
-}
-.recentCustomers table tr h4{
-	font-size: 16px;
-	font-weight: 500;
-	line-height: 1.2em;
-}
-.recentCustomers table tr td h4 span{
-	font-size: 14px;
-	color: var(--black2);
-}
-.recentCustomers table tr:hover td h4 span{
-	color: var(--white);
-}
+
 /*Responsive*/
 @media(max-width: 991px){
 	.navigation{
