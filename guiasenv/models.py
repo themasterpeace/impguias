@@ -1,7 +1,7 @@
 from enum import unique
 from random import choices
 from tabnanny import verbose
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.db.models.enums import Choices
 from django.db.models.fields import IntegerField
 from django.db.models.fields.related import ForeignKey
@@ -15,9 +15,9 @@ from bases.models import ClaseModelo
 tipo_envio=[
     (0, "CONTRAENTREGA"),
     (1, "MANIFIESTOS"),
-    (0, "GUIA MADRE"),
-    (0, "GUIA HIJA"),
-    (0, "GUIA EN BLANCO"),
+    (2, "GUIA MADRE"),
+    (3, "GUIA HIJA"),
+    
 ]
 
 fpago=[
@@ -29,6 +29,8 @@ fpago=[
     [5, "CREDITO X CREDITO"],
     [6, "CORTESIA"],
     [7, "TALONARIO"],
+    (8, "GUIA EN BLANCO"),
+    (9, "COMPARTIDA"),
 ]
 
 class GuiasEnv(models.Model):
@@ -41,6 +43,9 @@ class GuiasEnv(models.Model):
     totenvio = models.IntegerField(default=0)
     fpago = models.IntegerField(choices=fpago)
     entregado = models.BooleanField(default=False)
+
+    def get_absolute_url(self):
+        return reverse_lazy("guiasenv:guialist")
 
     def __str__(self):
         return '{}'.format(self.codigo)
