@@ -42,9 +42,6 @@ class GuiasEnv(models.Model):
     fpago = models.IntegerField(choices=fpago)
     entregado = models.BooleanField(default=False)
 
-    def get_absolute_url(self):
-        return reverse ('guialist', kwargs={'guialist': self.guialist})
-
     def __str__(self):
         return '{}'.format(self.codigo)
     
