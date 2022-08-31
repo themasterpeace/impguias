@@ -53,7 +53,7 @@
                             <td>{{ item.numfin}}</td>
                             <td>{{ item.totenvio}}</td>
                             <td>{{ item.fpago}}</td>
-                            <td onclick="inactivarcli({{ item.id }})">{#item.estado|yesno:"Activo,Inactivo"#}
+                            <td onclick="a({{item.id}});">{#item.estado|yesno:"Activo,Inactivo"#}
                                 {% if item.entregado %}
                                 <i class="far fa-thumbs-up text-primary"></i>
                                 {% else %}
@@ -71,14 +71,12 @@
                     </tbody>
                 </table>
                 {% endif %}
-                <a href="{% url 'guiasenv:guiaexcel' %}">Reporte Clientes</a>
-                <button href="" type="button" >Generar reporte</button>
+                <a href="{% url 'guiasenv:guiaexcel' %}" class="btn btn-success">Reporte Clientes</a>
+                
             </div>
         </div>
-        {% endblock %}
-        {% block js %}
         <script>
-            function inactivarcli(id)
+            function a(id)
             {
                 var data = {id:id}
                 data = JSON.stringify(data); 
@@ -89,7 +87,40 @@
                 $.ajax({
                     headers : {"X-CSRFToken": token},
                     type:"POST",
-                    url:"/guiasenv/cliente/estado/"+id,
+                    url:"/guiasenv/guia/entregado/"+id,
+                    data: data,
+                    success: function(response){
+                        if(response==="OK")
+                        {
+                            location.reload(true);
+                        }
+                        else{
+                            mensaje("Error Intentando Cambiar Estado")
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrow){
+                        console.log(textStatus, errorThrow);
+                        mensaje(errorThrow,'blue');
+                        cerrar_modal(); 
+                    }
+                });
+            }
+        </script>
+        {% endblock %}
+        {% block js %}
+        <script>
+            function inactivar(id)
+            {
+                var data = {id:id}
+                data = JSON.stringify(data); 
+                var token = '{{csrf_token}}';
+                //alert(token);
+                //alert(id);
+                
+                $.ajax({
+                    headers : {"X-CSRFToken": token},
+                    type:"POST",
+                    url:"/guiasenv/guia/entregado/"+id,
                     data: data,
                     success: function(response){
                         if(response==="OK")
@@ -117,8 +148,14 @@
             $(document).mousemove(function(){
                 $("input#id_telefono").get(0).type = 'tel';
             });
+            
+            $(document).ready(function() {
+                $('guias')
+            });
+
         </script>
         
     </div>
 
     {% endblock %}
+    

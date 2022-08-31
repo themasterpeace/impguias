@@ -21,76 +21,10 @@
                             <div class="dropdown-divider"></div>
                             {% csrf_token %}
                             <div class="row cli_new">
-                                        <p>
-                                            <label for="id_fecha">Fecha:</label>
-                                            <input type="date" name="fecha" class="form-control" required="" id="id_fecha">
-                                        </p>
-                                        <p>
-                                            <label for="id_codigo">Codigo:</label>
-                                            <input type="text" name="codigo" maxlength="9" class="form-control" required="" id="id_codigo_cliente"> 
-                                        </p>
-                                        <p>
-                                            <label for="id_cliente">Cliente:</label>
-                                            <input type="text" name="cliente" maxlength="300" class="form-control" required="" id="id_cliente">
-                                        </p>
-                                        <p>
-                                            <label for="id_tipo_envio">Tipo Envio:</label>
-                                            <select name="tipo_envio" class="form-control" required="" id="id_tipo_envio">
-                                                <option value="" selected="">---------</option>
-                                                
-                                                <option value="0">CONTRAENTREGA</option>
-                                                
-                                                <option value="1">MANIFIESTOS</option>
-                                                
-                                                <option value="2">GUIA MADRE</option>
-                                                
-                                                <option value="3">GUIA HIJA</option>
-                                        </select>
-                                        </p>
-                                        <p>
-                                            <label for="id_numini">Numero Inicial:</label>
-                                            <input type="number" name="numini" value="0" class="form-control" required="" id="id_numini">
-                                        </p>
-                                        <p>
-                                            <label for="id_numfin">Numero Final:</label>
-                                            <input type="number" name="numfin" value="0" class="form-control" required="" id="id_numfin">
-                                        </p>
-                                        <p>
-                                            <label for="id_totenvio">Total Enviado:</label>
-                                            <input type="number" name="totenvio" value="0" class="form-control" required="" id="id_totenvio">
-                                        </p>
-                                        <p>
-                                            <label for="id_fpago">Forma Pago:</label>
-                                            <select name="fpago" class="form-control" required="" id="id_fpago">
-                                                <option value="" selected="">---------</option>
-                                                
-                                                <option value="0">POR COBRAR</option>
-                                                
-                                                <option value="1">CONTADO</option>
-                                                
-                                                <option value="2">CREDITO</option>
-                                                
-                                                <option value="3">PREPAGO</option>
-                                                
-                                                <option value="4">CONTADO X COBRAR</option>
-                                                
-                                                <option value="5">CREDITO X CREDITO</option>
-                                                
-                                                <option value="6">CORTESIA</option>
-                                                
-                                                <option value="7">TALONARIO</option>
-                                                
-                                                <option value="8">GUIA EN BLANCO</option>
-                                                <option value="9">COMPARTIDA</option>
-                                                
-                                        
-                                            </select>
-                                        </p>
-                                        <p>
-                                            <label for="id_entregado">Entregado:</label>
-                                            <input type="checkbox" name="entregado" class="form-control" id="id_entregado">
-                                        </p> 
-                                <!--{{ form.as_p }} -->
+                             <style>
+                              
+                             </style>       
+                                {{ form.as_p }} 
                             </div>
                             <div class="dropdown-divider"></div>
                             <div class="row">
@@ -109,6 +43,7 @@
                         var idco = $("input#id_codigo_cliente");
                         var idtel = $("input#id_telefono");
                         // Código Cliente Funcion
+                        $("#id_fecha").attr('type', 'date');
                         idco.keyup(function(event) {
                             if (event.keyCode !== 8) {
                                 value = idco.val()

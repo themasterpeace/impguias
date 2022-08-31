@@ -5,6 +5,7 @@ from django.views.generic import  ListView, CreateView, UpdateView, TemplateView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required, permission_required
 from openpyxl import Workbook
 from django.http.response import HttpResponse
 
@@ -50,6 +51,25 @@ class GuiaEdit(UpdateView):
     def form_valid(self, form):
         form.instance.um = self.request.user.id
         return super().form_valid(form)
+
+
+@login_required(login_url="/login/")
+@permission_required("guaisenv.change_guiasenv", login_url="/login/")
+def entregado(request, id):
+    codigo =GuiasEnv.objects.filter(pk=id).first()
+    
+    if request.method == 'POST':
+        if codigo:
+            codigo.entregado = not codigo.entregado
+            codigo.save()
+            return HttpResponse("OK")
+        return HttpResponse("FAIL")
+
+    return HttpResponse("FAIL")
+
+    return render(request, template_name, contexto)
+
+
 
 class ReporteClienteExcel(TemplateView):
     def get(self, request, *args, **kwargs):
