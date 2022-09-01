@@ -1,5 +1,10 @@
 {% extends 'base/base.html' %}
 
+{% block list %}
+
+
+{% endblock%}
+
 {% block contenido %}
     <div class="details">
         <div class="card shadow mb-4">
@@ -39,35 +44,10 @@
                         <th>Total Enviado</th>
                         <th>Forma Pago</th>
                         <th>Entregado</th>
-                        <th class="all">Acciones</th>
+                        <th>Acciones</th>
                     </thead>
                     <tbody>
-                        {% for item in obj %}
-                        <tr>
-                            <td>{{ item.id }}</td>
-                            <td>{{ item.fecha}}</td>
-                            <td>{{ item.codigo}}</td>
-                            <td>{{ item.cliente}}</td>
-                            <td>{{ item.tipo_envio}}</td>
-                            <td>{{ item.numini}}</td>
-                            <td>{{ item.numfin}}</td>
-                            <td>{{ item.totenvio}}</td>
-                            <td>{{ item.fpago}}</td>
-                            <td onclick="a({{item.id}});">{#item.estado|yesno:"Activo,Inactivo"#}
-                                {% if item.entregado %}
-                                <i class="far fa-thumbs-up text-primary"></i>
-                                {% else %}
-                                <i class="far fa-thumbs-down text-danger"></i>
-                                {% endif %}
-                            </td>
-                            
-                            <td>
-                                <button class="btn btn-warning btn-circle" onclick="return abrir_modal('{% url 'guiasenv:guiaedit' item.id %}')">
-                                <i class="far fa-edit"></i></button>
-                                
-                            </td>
-                        </tr>
-                        {% endfor %}
+                    
                     </tbody>
                 </table>
                 {% endif %}
@@ -75,39 +55,6 @@
                 
             </div>
         </div>
-        <script>
-            function a(id)
-            {
-                var data = {id:id}
-                data = JSON.stringify(data); 
-                var token = '{{csrf_token}}';
-                //alert(token);
-                //alert(id);
-                
-                $.ajax({
-                    headers : {"X-CSRFToken": token},
-                    type:"POST",
-                    url:"/guiasenv/guia/entregado/"+id,
-                    data: data,
-                    success: function(response){
-                        if(response==="OK")
-                        {
-                            location.reload(true);
-                        }
-                        else{
-                            mensaje("Error Intentando Cambiar Estado")
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrow){
-                        console.log(textStatus, errorThrow);
-                        mensaje(errorThrow,'blue');
-                        cerrar_modal(); 
-                    }
-                });
-            }
-        </script>
-        {% endblock %}
-        {% block js %}
         <script>
             function inactivar(id)
             {
@@ -138,24 +85,64 @@
                     }
                 });
             }
-            //llamado a datatables
-        
-            $(document).ready(function() {
-                $('#guias').DataTable();
-            });
-        
-            // Cambia el type="text" a type="tel"
-            $(document).mousemove(function(){
-                $("input#id_telefono").get(0).type = 'tel';
-            });
-            
-            $(document).ready(function() {
-                $('guias')
-            });
-
         </script>
+        {% block js %}
+        <script>
+            function alerta() {
+                $(document).ready(function() {
+                $('#guias').DataTable({
+                    responsive: true,
+                    autoWidth: false,
+                    destroy: true,
+                    deferRender: true,
+                    ajax: {
+                        url: window.location.pathname,
+                        type: 'post',
+                        data: {
+                            'action': 'searchdata'
+                        },
+                        dataSrc: ""
+                    },
+                    columns: [
+                        {"data": "id"},
+                        {"data": "fecha"},
+                        {"data": "codigo"},
+                        {"data": "cliente"},
+                        {"data": "tipo_envio"},
+                        {"data": "numini"},
+                        {"data": "numfin"},
+                        {"data": "totenvio"},
+                        {"data": "fpago"},
+                        {"data": "entregado"},
+                        {"data": "Acciones"},
+                       
+                        
+                    ],
+                    columnDefs:[
+                        {
+                            targets: [-1],
+                            class: 'text-center',
+                            orderable: false,
+                            render: function(data, type, row) {
+                                //return data;
+                                var url = "'/guiasenv/guia/edit/"+ row.id+"'";
+                                var buttons = '<button class="btn btn-warning btn-circle" onclick="return abrir_modal('+url+')"><i class="far fa-edit"></i></button> ';
+                                    return buttons;
+                            }   
+                        },
+                    ],
+                    initComplete: function(settings, json){
+                    }
+                });
+            });
+            }
+
+            alerta()
+        </script>
+        {% endblock %}
+        {% endblock %}
         
     </div>
 
-    {% endblock %}
+
     

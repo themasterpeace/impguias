@@ -2,6 +2,7 @@ from enum import unique
 from random import choices
 from tabnanny import verbose
 from django.urls import reverse, reverse_lazy
+from django.forms import model_to_dict
 from django.db.models.enums import Choices
 from django.db.models.fields import IntegerField
 from django.db.models.fields.related import ForeignKey
@@ -12,43 +13,49 @@ from bases.models import ClaseModelo
 
 
 # Create your models here.
-tipo_envio=[
-    (0, "CONTRAENTREGA"),
-    (1, "MANIFIESTOS"),
-    (2, "GUIA MADRE"),
-    (3, "GUIA HIJA"),
+TIPO_ENVIO=[
+    ("CTE", "CONTRAENTREGA"),
+    ("MANI", "MANIFIESTOS"),
+    ("GM", "GUIA MADRE"),
+    ("GH", "GUIA HIJA"),
     
 ]
 
-fpago=[
-    [0, "POR COBRAR"],
-    [1, "CONTADO"],
-    [2, "CREDITO"],
-    [3, "PREPAGO"],
-    [4, "CONTADO X COBRAR"],
-    [5, "CREDITO X CREDITO"],
-    [6, "CORTESIA"],
-    [7, "TALONARIO"],
-    (8, "GUIA EN BLANCO"),
-    (9, "COMPARTIDA"),
+FPAGO=[
+    ("XCO", "POR COBRAR"),
+    ("CON", "CONTADO"),
+    ("CRE", "CREDITO"),
+    ("PRE", "PREPAGO"),
+    ("COM", "COMPARTIDA"),
+    ("COR", "CORTESIA"),
+    ("TAL", "TALONARIO"),
+    ("GEB", "GUIA EN BLANCO"),
 ]
 
 class GuiasEnv(models.Model):
     fecha = models.DateField(auto_now=False)
     codigo = models.CharField(max_length=9)
     cliente = models.CharField(max_length=300)
-    tipo_envio = models.IntegerField(choices=tipo_envio)
+    tipo_envio = models.CharField(max_length=20, choices=TIPO_ENVIO)
     numini = models.IntegerField(default=0, unique=True)
     numfin = models.IntegerField(default=0, unique=True)
     totenvio = models.IntegerField(default=0)
-    fpago = models.IntegerField(choices=fpago)
+    fpago = models.CharField(max_length=20, choices=FPAGO)
     entregado = models.BooleanField(default=False)
 
     def get_absolute_url(self):
         return reverse_lazy("guiasenv:guialist")
 
     def __str__(self):
-        return '{}'.format(self.codigo)
+        return self.codigo
+    
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+    
+    @property
+    def tot_envio(self):
+        return self.numfin - self.numini + 1
     
     def save(self):
         self.codigo = self.codigo.upper()
@@ -56,6 +63,7 @@ class GuiasEnv(models.Model):
 
     class Meta:
         verbose_name_plural = "GuiasEnvs"
+        ordering = ['id']
 
 
 
@@ -73,6 +81,6 @@ class Lote(models.Model):
         super(Lote, self).save()
 
     class Meta:
-        verbose_name_plural = "Lotes"
+        verbose_name_plural = "Lote"
 
 
