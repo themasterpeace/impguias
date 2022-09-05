@@ -14,22 +14,22 @@ from bases.models import ClaseModelo
 
 # Create your models here.
 TIPO_ENVIO=[
-    ("CTE", "CONTRAENTREGA"),
-    ("MANI", "MANIFIESTOS"),
-    ("GM", "GUIA MADRE"),
-    ("GH", "GUIA HIJA"),
+    ("CONTRA ENTREGA", "CONTRA ENTREGA"),
+    ("MANIFIESTOS", "MANIFIESTOS"),
+    ("GUIA MADRE", "GUIA MADRE"),
+    ("GUIA HIJA", "GUIA HIJA"),
     
 ]
 
 FPAGO=[
-    ("XCO", "POR COBRAR"),
-    ("CON", "CONTADO"),
-    ("CRE", "CREDITO"),
-    ("PRE", "PREPAGO"),
-    ("COM", "COMPARTIDA"),
-    ("COR", "CORTESIA"),
-    ("TAL", "TALONARIO"),
-    ("GEB", "GUIA EN BLANCO"),
+    ("POR COBRAR", "POR COBRAR"),
+    ("CONTADO", "CONTADO"),
+    ("CREDITO", "CREDITO"),
+    ("PREPAGO", "PREPAGO"),
+    ("COMPARTIDA", "COMPARTIDA"),
+    ("CORTESIA", "CORTESIA"),
+    ("TALONARIO", "TALONARIO"),
+    ("GUIA EN BLANCO", "GUIA EN BLANCO"),
 ]
 
 class Cliente(models.Model):
