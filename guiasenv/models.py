@@ -32,6 +32,24 @@ FPAGO=[
     ("GEB", "GUIA EN BLANCO"),
 ]
 
+class Cliente(models.Model):
+    codigo = models.CharField(max_length=8)
+    nombre = models.CharField(max_length=200)
+    direccion = models.CharField(max_length=200)
+    formapago = models.CharField(max_length=20)
+    telefono = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.codigo
+
+    def save(self):
+        self.codigo = self.codigo.upper()
+        super(Cliente, self).save()
+
+    class Meta:
+        verbose_name_plural = "Clienes"
+        ordering = ['codigo'] 
+
 class GuiasEnv(models.Model):
     fecha = models.DateField(auto_now=False)
     codigo = models.CharField(max_length=9)
@@ -81,6 +99,6 @@ class Lote(models.Model):
         super(Lote, self).save()
 
     class Meta:
-        verbose_name_plural = "Lote"
+        verbose_name_plural = "Lotes"
 
 

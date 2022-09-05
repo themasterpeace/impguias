@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse_lazy
-
+from datetime import datetime
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views import generic
+
 
 class MixinFormInvalid:
     def form_invalid(self,form):
@@ -29,6 +30,18 @@ class Home(LoginRequiredMixin, generic.TemplateView):
     template_name = 'bases/home.html'
     login_url='bases:login'
 
+    def graph_sales_year_month(self):
+        year = datetime().year
+        for m in range(1, 13):
+            Sale.objects.filter(date_joined__years=year, data_joined__month=m)
+            
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['panel'] = 'Panel de Administracion'
+        reporte['graph_sales_year_month'] = []
+        return context
+    
 
 class HomeSinPrivilegios(LoginRequiredMixin, generic.TemplateView):
     login_url = "bases:login"

@@ -3,22 +3,26 @@ from pipes import Template
 from urllib import request
 from django.shortcuts import render, redirect
 from django.views.generic import  ListView, CreateView, UpdateView, TemplateView
-
-from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
+
 from django.contrib.auth.decorators import login_required, permission_required
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.utils.decorators import method_decorator
 from openpyxl import Workbook
 from django.http.response import HttpResponse, JsonResponse
 
+from bases.views import SinPrivilegios
 from .models import *
 from .forms import GuiaForm
 
 
 
-class GuiaView(LoginRequiredMixin, ListView):
+class GuiaView( SinPrivilegios, ListView):
+    permission_required = "guias.view_guia"
     model = GuiasEnv
     template_name = "guiasenv/guialist.html"
     context_object_name = "obj"
@@ -46,13 +50,15 @@ class GuiaView(LoginRequiredMixin, ListView):
 
 
 
-class GuiaNew(LoginRequiredMixin, CreateView):
+class GuiaNew(SuccessMessageMixin, SinPrivilegios,\
+    CreateView):
+    permission_required = "guiasenv.create_guia"
     model = GuiasEnv
     template_name = "guiasenv/guianew.html"
     context_object_name = "obj"
     form_class = GuiaForm
-    #succes_url = reverse_lazy("guiasenv:guialist")
-    succes_message = 'Correlativo agregado exitosamente'
+    succes_url = reverse_lazy("guiasenv:guialist")
+    success_message = 'CORRELATIVO DE GUIAS IMPRESAS AGREGADO CORRECTAMENTE'
     login_url = "bases:login"
 
     def form_valid(self, form):
@@ -60,12 +66,14 @@ class GuiaNew(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class GuiaEdit(UpdateView):
+class GuiaEdit(SuccessMessageMixin, SinPrivilegios, UpdateView):
+    permission_required = "guiasenv.update_guia"
     model = GuiasEnv
     template_name="guiasenv/guianew.html"
     context_object_name="obj"
     form_class = GuiaForm
     success_url=reverse_lazy("guiasenv:guialist")
+    success_message = 'CORRELATIVO DE GUIAS IMPRESAR ACTUALIZADO CORRECTAMENTE'
     login_url = "bases:login"
 
     def form_valid(self, form):
