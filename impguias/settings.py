@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'impguias',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': '021ManEse*',
         'HOST': 'localhost',
         'PORT': '3306',
         

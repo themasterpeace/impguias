@@ -332,12 +332,11 @@ class ReporteClienteExcel(TemplateView):
 class ReporteFechaExcel(TemplateView):
     def get(self, request, *args, **kwargs):
         #campo = request.GET.get('campo')
-        fecha_desde = request.POST.get['fecha']
-        fecha_hasta = request.POST.get['fecha_hasta']
+        fecha_desde = request.GET.get('fecha')
+        fecha_hasta = request.GET.get('fecha_hasta')
         #clientes= GuiasEnv.objects.all()
         clientes = GuiasEnv.objects.filter(fecha__range=[fecha_desde, fecha_hasta])
-        print(clientes)
-        
+               
         wb = Workbook()
         ws = wb.active
 
