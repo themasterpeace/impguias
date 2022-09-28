@@ -1,0 +1,474 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background: url(https://i.ibb.co/DCN0zZx/Transjr.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow-x: hidden;
+}
+body:before {
+    content: "";
+    width: 100%;
+    height: 190vh;
+    background-color: rgb(175, 173, 173);
+    position: fixed;
+    opacity: 0.87;
+}
+h2{
+    text-align: center;
+    color: #071A2C;
+    position: relative;
+}
+.row{
+    --bs-gutter-x: -1.5rem;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+}
+.box{
+    position: relative;
+    width: 100%;
+    max-width: 30%;
+    padding: 50px;
+    height: 480px;
+    margin: auto;
+    background: linear-gradient(-45deg, #003300 0%, #006600a2 50%, #071a2caf 50%, #607d8b 100%);
+    border-radius: 6px;
+    box-shadow: 0 5px 35px rgba(0, 0, 0, 0.2);
+}
+.card{
+    background: linear-gradient(-45deg, #003300 0%, #006600a2 50%, #071a2caf 50%, #607d8b 100%) !important;
+    padding: 30px;
+    width: 60%;
+    left: 20%;
+}
+.box::after{
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 5px;
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 15%, transparent 50%, transparent 85%, rgba(255,255,255,0.3) 100%);
+}
+.box .form{
+    position: relative;
+    width: 100%;
+}
+.box .form h2{
+    color: #FFF;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+}
+.box .form .inputBox{
+    position: relative;
+    width: 87%;
+    margin-bottom: 20px;
+}
+#id_username,
+#id_password{
+    width: 100%;
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
+    padding: 8px 10px;
+    margin-bottom: 5px;
+    padding-left: 35px;
+    border-radius: 6px;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 300;
+    box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.2);
+}
+.box .form input::placeholder{
+    color: #FFF;
+}
+.box .form .inputBox input[type="submit"]{
+    background: #cc0000;
+    border-radius: 6px;
+    color: #FFF;
+    border: 1px solid #000;
+    max-width: 100px;
+    padding: 8px 10px;
+    box-shadow: none;
+    /* font-weight: 600; */
+    letter-spacing: 1px;
+    cursor: pointer;
+    position: relative;
+    left: 100%;
+}
+.box .form .a{
+    display: flex;
+}
+.box .form .fa-user{
+    position: absolute;
+    top: 105px;
+    left: 15px;
+    transform: scale(1.2);
+    color: #FFF;
+}
+.box .form .fa-lock{
+    position: absolute;
+    top: 175px;
+    left: 15px;
+    transform: scale(1.2);
+    color: #FFF;
+}
+.remember{
+    position: relative;
+    display: inline-block;
+    color: #FFF;
+    font-weight: 600;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.box .form p{
+    color: #FFF;
+    font-weight: 300;
+    font-size: 15px;
+    margin-top: 5px;
+    padding-right: 30px;
+}
+.box .form .inputBox2{
+    display: flex;
+}
+.box .form a{
+    color: #FFF;
+}
+label[for="id_username"],
+label[for="id_password"]{
+    display: flex !important;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #FFF;
+    background-color: rgb(175, 173, 173);
+}
+.hidden {
+    overflow: hidden;
+}
+#logo {
+    height: 100px;
+    left: -40%;
+}
+
+#numero {
+    color: white;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    margin-top: -10px;
+}
+#num {
+    color: #139e13;
+    right: -38%;
+    margin-top: -8%;
+    font-size: 40px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+#contac {
+    right: -44%;
+    margin-top: 10px;
+    font-size: 30px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    color: #006100;
+}
+/* SECTION */
+section{
+    display: flex;
+    position: relative;
+}
+section .panel_control{
+    background: #071A2C;
+    width: 20%;
+    height: 100vh;
+}
+section .panel_control h1{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    border-bottom: dotted #fff;
+    margin-top: 5px;
+}
+section .bodega,
+section .guias,
+section .prueba_entrega{
+    border-bottom: dotted #fff;
+}
+section .bodega a,
+section .guias a,
+section .prueba_entrega a{
+    text-decoration: none;
+    margin: 3px;
+    margin-left: 40px;
+    color: #fff;
+    display: flex;
+}
+section .vista h1{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    position: relative;
+    display: flex;
+    left: 50%;
+    top: 1%;
+    width: 50%;
+}
+section .vista .formulario{
+    background: #071A2C;
+    height: 44em;
+    width: 50em;
+    padding: 50px;
+    position: relative;
+    transform: translate(15%, 2%);
+}
+label[for="no_guia"]{
+    position: absolute;
+    top: 23%;
+    left: 6%;
+    margin: -41px 0 0 0;
+}
+#no_guia{
+    width: 25%;
+    position: absolute;
+    top: 23%;
+    left: 6%;
+    margin: -20px 0 0 0;
+    padding-top: 0;
+}
+#no_guia::placeholder{
+    font-size: 14pt;
+    margin: 0;
+    font-weight: 900;
+}
+.form-row {
+    display: flex;
+}
+.form-group.col-md-6.mb-0 {
+    width: 25%;
+
+}
+.form-group.codigo_cliente.mb-0{
+    width: 25%;
+    margin-right: 20px;
+}
+.form-group.col-md-10.mb-0 {
+    width: 70%;
+}
+div#div_id_Direccion_remitente {
+    width: 70%;
+    left: 27.5%;
+    position: relative;
+}
+div#div_id_Telefono,
+div#div_id_Zona{
+    width: 135% !important;
+}
+.form-row.hylia {
+    position: relative;
+    left: 27.5%;
+    width: 120%;
+}
+div#div_id_Direccion_Destinatario {
+    width: 70%;
+    left: 27.5%;
+    position: relative;
+}
+.form-group.cantidad.mb-0{
+    width: 12%;
+}
+.form-group.tipo_envio.mb-0{
+    width: 15%;
+}
+.form-group.peso.mb-0{
+    width: 10%;
+}
+.form-group.tarifa.mb-0{
+    width: 10%;
+}
+.form-group.descripcion{
+    width: 25%;
+}
+.link{
+    margin-right: 44px;
+}
+.btn-primary {
+    color: #fff;
+    background: #cc0000;
+    border-color: #cc0000;
+}
+.btn-secondary {
+    color: #fff;
+    background-color: #071A2C;
+    border-color: #071A2C;
+}
+.form-group.col-md-2.mb-0 {
+    width: 15.2%;
+}
+.form-group.col-md-0.mb-0 {
+    width: 5%;
+}
+.observacion {
+    width: 25%;
+    margin-right: 20px;
+}
+textarea::placeholder{
+    color: #000;
+}
+#nose{
+    width: 20%;
+}
+label[for="total_pieza"],
+#total_pieza,
+label[for="total_guias"],
+#total_guias{
+    position: absolute;
+    left: 50%;
+    width: 10em;
+    height: 10em;
+    margin: -120px 0 0 0;
+}
+label[for="total_guias"],
+#total_guias{
+    margin-top: -120px;
+    left: 70%;
+}
+label[for="total_guias"],
+label[for="total_pieza"]{
+    margin-top: -139px;
+}
+.formulario a{
+    float: right;
+    margin-right: 50px;
+    color: #FFF;
+    text-decoration: none;
+    background: #006600;
+    padding: 10px 40px;
+    border-radius: 5px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+input[type="button"]{
+    float: left;
+    cursor: pointer;
+    width: 8em;
+    padding: 2px;
+    height: 3em;
+    margin: 0px 2px;
+    border: none;
+    border-radius: 5px;
+    color: #FFF;
+    background: #006600;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.no_bodega,
+.ruta_entrega{
+    width: 45%;
+    margin-right: 50px;
+}
+.fecha_ingreso,
+.piloto_ruta,
+.auxiliar_ruta{
+    width: 45%;
+}
+.depplis{
+    margin-left: 0;
+    width: 100%;
+}
+.undivanonimoxD{
+    width: 45%;
+}
+.saliendodelpaso{
+    display: flex;
+    height: 65px;
+}
+div#div_id_personalrecibe {
+    width: 96.8%;
+}
+.saliendodelpaso2xD{
+    width: 40%;
+    margin-left: 60px;
+}
+.saliendodelpaso2xD input{
+    height: 160px;
+}
+input#id_guias{
+    margin-left: 12px;
+}
+.saliendodelpaso2xD input {
+    height: 160px;
+    font-size: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+.text-muted{
+    color: #FFF !important;
+}
+.box.registro{
+    height: auto;
+}
+.box.registro i.fas.fa-at{
+    position: absolute;
+    top: 340px;
+    left: 15px;
+    transform: scale(1.2);
+    color: #FFF;
+}
+.box.registro i.fa.fa-lock{
+    position: absolute;
+    top: 410px;
+    left: 15px;
+    transform: scale(1.2);
+    color: #FFF;
+}
+.box.registro i.fa.fa-lock.c{
+    position: absolute;
+    top: 580px !important;
+    left: 15px;
+    transform: scale(1.2);
+    color: #FFF;
+}
+.box.registro i.fas.fa-address-card{
+    position: absolute;
+    top: 200px;
+    left: 15px;
+    transform: scale(1.2);
+    color: #FFF;
+}
+.box.registro i.far.fa-address-card{
+    position: absolute;
+    top: 270px;
+    left: 15px;
+    transform: scale(1.2);
+    color: #FFF;
+}
+.box.registro input#id_first_name,
+.box.registro input#id_last_name,
+.box.registro input#id_password1,
+.box.registro input#id_password2,
+.box.registro input#id_email{
+    width: 100%;
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
+    padding: 8px 10px;
+    margin-bottom: 5px;
+    padding-left: 40px;
+    border-radius: 6px;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 300;
+    box-shadow: inset 0 0 25px rgb(0 0 0 / 20%);
+}

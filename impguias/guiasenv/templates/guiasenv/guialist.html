@@ -1,0 +1,148 @@
+{% extends 'base/base.html' %}
+
+{% block list %}
+
+
+{% endblock%}
+
+{% block contenido %}
+    <div class="details">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Listado Guias Impresas</h6>
+                <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-pencil-alt"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-header">Acciones:</div>
+                        <a class="dropdown-item" onclick="return abrir_modal('{% url 'guiasenv:guianew' %}')" href="#"><i class="fas fa-calendar-plus"></i> Nueva Impresion</a>
+                        <a class="dropdown-item" href="#"></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#"></a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 5Body -->
+            <div class="card-body"> 
+                {% if not obj  %}
+                   <div class="alert alert-info">No Hay guias Impresas</div>
+                {% else %}
+        
+                <table class="table table-striped table-hover" id="guias">
+                    <thead>
+                        <th>Id</th>
+                        <th>Fecha</th>
+                        <th>Codigo</th>
+                        <th>Cliente</th>
+                        <th>Tipo Envio</th>
+                        <th>Numero Inicial</th>
+                        <th>Numero Final</th>
+                        <th>Total Enviado</th>
+                        <th>Forma Pago</th>
+                        <th>Entregado</th>
+                        <th>Acciones</th>
+                    </thead>
+                    <tbody>
+                    
+                    </tbody>
+                </table>
+                {% endif %}
+                <a href="{% url 'guiasenv:guiaexcel' %}" class="btn btn-success">Reporte Clientes</a>
+                
+            </div>
+        </div>
+        <script>
+            function inactivar(id)
+            {
+                var data = {id:id}
+                data = JSON.stringify(data); 
+                var token = '{{csrf_token}}';
+                //alert(token);
+                //alert(id);
+                
+                $.ajax({
+                    headers : {"X-CSRFToken": token},
+                    type:"POST",
+                    url:"/guiasenv/guia/entregado/"+id,
+                    data: data,
+                    success: function(response){
+                        if(response==="OK")
+                        {
+                            location.reload(true);
+                        }
+                        else{
+                            mensaje("Error Intentando Cambiar Estado")
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrow){
+                        console.log(textStatus, errorThrow);
+                        mensaje(errorThrow,'blue');
+                        cerrar_modal(); 
+                    }
+                });
+            }
+        </script>
+        {% block js %}
+        <script>
+            function alerta() {
+                $(document).ready(function() {
+                $('#guias').DataTable({
+                    responsive: true,
+                    autoWidth: false,
+                    destroy: true,
+                    deferRender: true,
+                    ajax: {
+                        url: window.location.pathname,
+                        type: 'post',
+                        data: {
+                            'action': 'searchdata'
+                        },
+                        dataSrc: ""
+                    },
+                    columns: [
+                        {"data": "id"},
+                        {"data": "fecha"},
+                        {"data": "codigo"},
+                        {"data": "cliente"},
+                        {"data": "tipo_envio"},
+                        {"data": "numini"},
+                        {"data": "numfin"},
+                        {"data": "totenvio"},
+                        {"data": "fpago"},
+                        {"data": "entregado"},
+                        {"data": "Acciones"},
+                       
+                        
+                    ],
+                    columnDefs:[
+                        {
+                            targets: [-1],
+                            class: 'text-center',
+                            orderable: false,
+                            render: function(data, type, row) {
+                                //return data;
+                                var url = "'/guiasenv/guia/edit/"+ row.id+"'";
+                                var buttons = '<button class="btn btn-warning btn-circle" onclick="return abrir_modal('+url+')"><i class="far fa-edit"></i></button> ';
+                                    return buttons;
+                            }   
+                        },
+                    ],
+                    initComplete: function(settings, json){
+                    }
+                });
+            });
+            }
+
+            alerta()
+        </script>
+        {% endblock %}
+        {% endblock %}
+        
+    </div>
+
+
+    

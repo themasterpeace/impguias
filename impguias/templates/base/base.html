@@ -1,0 +1,229 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Dashboard  Transportes JR</title>
+	<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+	
+	<link rel="stylesheet" href="{% static 'lib/css/Dashboard.css' %}">
+	<link rel="stylesheet" href="{% static 'lib/css/index.css' %}">
+	<link rel="stylesheet" href="{% static 'lib/css/login.css' %}">
+	<link rel="stylesheet" href="{% static 'lib/css/jquery-confirm.min.css' %}">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'lib/css/sb-admin-2.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'lib/css/sb-admin-2.min.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+	
+
+	
+
+	<!--Section Js-->
+	<script src="{% static 'lib/js/jquery-confirm.min.js' %}"></script>
+	<script src="{% static 'lib/js/mijs.js' %}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+	<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js" ></script>
+	<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+	
+
+	<!--Seccion Jquery-->
+
+</head>
+<body>
+	<div class="containerr">
+		<div class="navigation">
+			<ul>
+				<li>
+					<a href="#">
+						<span class="icon"><ion-icon name="car-outline"></ion-icon></span>
+						<span class="title">TRANSPORTES JR</span>
+					</a>
+				</li>
+				<li>
+					<a href="{% url 'bases:home' %}">
+						<span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+						<span class="title">Inicio</span>
+					</a>
+				</li>
+					<li>
+						{% if perms.guisenv.view_guia %}
+						<a href="{% url 'guiasenv:guialist' %}">
+							<span class="icon"><ion-icon name="people-outline"></ion-icon></span>
+							<span class="title">Guias Impresas</span>
+						</a>
+						{% endif %}
+					</li>
+					<li>
+						{% if perms.guiasenv.view_lote %}
+						<a href="">
+							<span class="icon"><ion-icon name="person-add-outline"></ion-icon></span>
+							<span class="title">Lotes creados</span>
+						</a>
+						{% endif %}
+					</li>
+				<li>
+					<a href="{% url 'bases:logout' %}">
+						<span class="icon" ><ion-icon name="log-out-outline" ></ion-icon></span>
+						<span class="title" href="">Cerrar Sesión</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<!-- Main -->
+		
+		<div class="main">
+			
+			<div class="topbar">
+				<div class="toggle">
+					<ion-icon name="menu-outline"></ion-icon>
+				</div>
+				<!-- search -->
+				<!--<div class="search">
+					<label>
+						<input type="text" placeholder="Search here">
+						<ion-icon name="search-outline"></ion-icon>
+					</label>
+				</div>-->
+				<!-- userImg -->
+				{% if user.is_authenticated %}
+				<div class="user">
+					<span class="usuario">Iniciaste Sesión como: {{ user.get_username }}</span><ion-icon name="person-circle-outline"></ion-icon>
+				</div>
+				{% endif %}
+			</div>
+
+			{% block login %} {% endblock %}
+
+			<div class="details">
+				<div>
+					{% block contenido %}
+					{% endblock %}
+				</div>
+			</div>
+			
+		</div>
+	
+	</div>
+	<div class="modal fade" id="popup"></div>
+
+	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<script>
+		//MenuToggle
+		let toggle = document.querySelector('.toggle');
+		let navigation = document.querySelector('.navigation');
+		let main = document.querySelector('.main');
+
+		toggle.onclick = function(){
+			navigation.classList.toggle('active');
+			main.classList.toggle('active');
+		}
+		//add hovered class in selected list item
+		let list = document.querySelectorAll('.navigation li');
+		function activeLink() {
+			list.forEach((item)=>{
+				item.classList.remove('hovered');
+			});
+			this.classList.add('hovered');
+		}
+		list.forEach((item)=>{
+			item.addEventListener('mouseover', activeLink)
+		})
+
+		
+	</script>
+	{% block control_modal %}
+	<script type="application/javascript">
+		function abrir_modal(url)
+			{
+
+			$("#popup").load(url, function(){
+				$(this).modal({
+				backdrop:'static',
+				keyboard: false
+				})
+				$(this).modal('show');
+			});
+			return false;
+			}
+
+			function cerrar_modal()
+			{
+				$('#popup').modal('hide');
+				return false;
+			}
+            
+                $('#guias').DataTable({
+					"language": {
+					"sProcessing":     "Procesando...",
+					"sLengthMenu":     "Mostrar _MENU_ registros",
+					"sZeroRecords":    "No se encontraron resultados",
+					"sEmptyTable":     "Ningún dato disponible en esta tabla =(",
+					"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+					"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+					"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+					"sInfoPostFix":    "",
+					"sSearch":         "Buscar:",
+					"sUrl":            "",
+					"sInfoThousands":  ",",
+					"sLoadingRecords": "Cargando...",
+					"oPaginate": {
+						"sFirst":    "Primero",
+						"sLast":     "Último",
+						"sNext":     "Siguiente",
+						"sPrevious": "Anterior"
+					},
+					"oAria": {
+						"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+						"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+					},
+					"buttons": {
+						"copy": "Copiar",
+						"colvis": "Visibilidad"
+					},
+                    responsive: "true",
+                    dom: 'Bfrtilp',       
+        buttons:[ 
+			{
+				extend:    'excelHtml5',
+				text:      '<i class="fas fa-file-excel"></i> ',
+				titleAttr: 'Exportar a Excel',
+				className: 'btn btn-success'
+			},
+			{
+				extend:    'pdfHtml5',
+				text:      '<i class="fas fa-file-pdf"></i> ',
+				titleAttr: 'Exportar a PDF',
+				className: 'btn btn-danger'
+			},
+			{
+				extend:    'print',
+				text:      '<i class="fa fa-print"></i> ',
+				titleAttr: 'Imprimir',
+				className: 'btn btn-info'
+			},
+		]	
+					
+				}
+				
+			 });
+	{% if messages %}
+      {% for message in messages %}
+        console.log("{{ message.tags }}");
+        mensaje("{{ message }}","{{ message.tags }}");
+      {% endfor %}
+    {% endif %}       
+			
+	</script>
+	{% endblock%}
+		
+{% block js_page %}
+	
+
+
+{% endblock %}
+</body>
+</html>
