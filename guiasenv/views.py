@@ -115,7 +115,7 @@ class ReporteGeneralExcel(TemplateView):
                                     top = Side(border_style = "thin"), bottom = Side(border_style = "thin") ) 
         ws['A1'].fill = PatternFill(start_color = '66FFCC', end_color = '66FFCC', fill_type = "solid")
         ws['A1'].font = Font(name = 'Calibri', size = 12, bold = True)
-        ws['A1'] = 'REPORTE DE CLIENTES'
+        ws['A1'] = 'REPORTE GENERAL GUIAS IMPRESAS'
 
         ws.merge_cells('A1:I1')
         ws.row_dimensions[1].height = 25
@@ -194,7 +194,7 @@ class ReporteGeneralExcel(TemplateView):
         ws['I3'].font = Font(name = 'Calibro', size = 10, bold = True)
         ws['I3'] = 'ENTREGADO'
 
-        cont = 5 
+        cont = 4 
 
         for cliente in clientes:
             ws.cell(row = cont, column=1).value = cliente.fecha
@@ -229,7 +229,7 @@ class ReporteClienteExcel(TemplateView):
                                     top = Side(border_style = "thin"), bottom = Side(border_style = "thin") ) 
         ws['A1'].fill = PatternFill(start_color = '66FFCC', end_color = '66FFCC', fill_type = "solid")
         ws['A1'].font = Font(name = 'Calibri', size = 12, bold = True)
-        ws['A1'] = 'REPORTE DE CLIENTES'
+        ws['A1'] = 'REPORTE GUIAS IMPRESAS POR CLIENTE'
 
         ws.merge_cells('A1:I1')
         ws.row_dimensions[1].height = 25
@@ -308,7 +308,7 @@ class ReporteClienteExcel(TemplateView):
         ws['I3'].font = Font(name = 'Calibro', size = 10, bold = True)
         ws['I3'] = 'ENTREGADO'
 
-        cont = 5 
+        cont = 4 
 
         for cliente in clientes:
             ws.cell(row = cont, column=1).value = cliente.fecha
@@ -346,7 +346,7 @@ class ReporteFechaExcel(TemplateView):
                                     top = Side(border_style = "thin"), bottom = Side(border_style = "thin") ) 
         ws['A1'].fill = PatternFill(start_color = '66FFCC', end_color = '66FFCC', fill_type = "solid")
         ws['A1'].font = Font(name = 'Calibri', size = 12, bold = True)
-        ws['A1'] = 'REPORTE DE CLIENTES'
+        ws['A1'] = 'REPORTE GUIAS IMPRESAS POR FECHA'
 
         ws.merge_cells('A1:I1')
         ws.row_dimensions[1].height = 25
@@ -425,7 +425,7 @@ class ReporteFechaExcel(TemplateView):
         ws['I3'].font = Font(name = 'Calibro', size = 10, bold = True)
         ws['I3'] = 'ENTREGADO'
 
-        cont = 5 
+        cont = 4 
 
         for cliente in clientes:
             ws.cell(row = cont, column=1).value = cliente.fecha

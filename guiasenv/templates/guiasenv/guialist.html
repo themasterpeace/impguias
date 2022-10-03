@@ -112,6 +112,7 @@
                     autoWidth: false,
                     destroy: true,
                     deferRender: true,
+                    processing: true,
                     ajax: {
                         url: window.location.pathname,
                         type: 'post',
@@ -143,7 +144,8 @@
                             render: function(data, type, row) {
                                 //return data;
                                 var url = "'/guiasenv/guia/edit/"+ row.id+"'";
-                                var buttons = '<button class="btn btn-warning btn-circle" onclick="return abrir_modal('+url+')"><i class="far fa-edit"></i></button> ';
+                                
+                                var buttons = '<button class="btn btn-warning btn-circle" onclick="return abrir_modal('+url+')"><i class="far fa-edit"></i><br><br></button><button class="btn btn-warning btn-circle" onclick="return inactivar('+url+')"><i class="fa-regular fa-thumbs-up"></i></button>';
                                     return buttons;
                             }   
                         },
