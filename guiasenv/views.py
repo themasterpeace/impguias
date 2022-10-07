@@ -19,7 +19,7 @@ from django.http.response import HttpResponse, JsonResponse
 
 from bases.views import SinPrivilegios
 from .models import *
-from .forms import GuiaForm
+from .forms import GuiaForm, ClienteForm
 
 
 
@@ -49,8 +49,6 @@ class GuiaView( SinPrivilegios, ListView):
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
         
-
-
 
 class GuiaNew(SuccessMessageMixin, SinPrivilegios,\
     CreateView):
@@ -330,6 +328,7 @@ class ReporteClienteExcel(TemplateView):
         return response
 
 class ReporteFechaExcel(TemplateView):
+
     def get(self, request, *args, **kwargs):
         #campo = request.GET.get('campo')
         fecha_desde = request.GET.get('fecha')
@@ -445,3 +444,62 @@ class ReporteFechaExcel(TemplateView):
         response['Content-Disposition']= content
         wb.save(response)
         return response
+
+
+"""Zona de operaciones CRUD de listado de clientes """
+class ClienteListView(SinPrivilegios, ListView):
+    permission_required = "guias.view_cliente"
+    model = Cliente
+    template_name = "guiasenv/clientelist.html"
+    context_object_name = "obj"
+    login_url = "bases:login"
+
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+    
+    def post(self, request, *args, **kwargs):
+
+        data = []
+        try:
+            action = request.POST['action']
+            if action == 'searchdata':
+                data = []
+                for i in Cliente.objects.all():
+                    data.append(i.toJSON())
+            else:
+                data['error'] = 'Ha ocurrido un error'
+        except Exception as e:
+            print(data)
+            data['error'] = str(e)
+        return JsonResponse(data, safe=False)
+
+class ClienteNew(SuccessMessageMixin, SinPrivilegios, CreateView):
+    
+    permission_required = "guiasenv.create_cliente"
+    model = Cliente
+    template_name = "guiasenv/clientenew.html"
+    context_object_name = "obj"
+    form_class = ClienteForm
+    succes_url = reverse_lazy("guiasenv:clientelist")
+    success_message = 'CLIENTE REGISTRADO EXITOSAMENTE'
+    login_url = "bases:login"
+
+    def form_valid(self, form):
+        form.instance.uc = self.request.user
+        return super().form_valid(form)
+
+class ClienteEdit(SuccessMessageMixin, SinPrivilegios, UpdateView):
+    permission_required = "guiasenv.update_cliente"
+    model = Cliente
+    template_name="guiasenv/clientenew.html"
+    context_object_name="obj"
+    form_class = ClienteForm
+    success_url=reverse_lazy("guiasenv:clientelist")
+    success_message = 'CLIENTE ACTUALIZADO EXITOSAMENTE'
+    login_url = "bases:login"
+
+    def form_valid(self, form):
+        form.instance.um = self.request.user.id
+        return super().form_valid(form)

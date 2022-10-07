@@ -45,10 +45,14 @@ class Cliente(models.Model):
     def save(self):
         self.codigo = self.codigo.upper()
         super(Cliente, self).save()
+    
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
 
     class Meta:
-        verbose_name_plural = "Clienes"
-        ordering = ['codigo'] 
+        verbose_name_plural = "Clientes"
+        ordering = ['id'] 
 
 class GuiasEnv(models.Model):
     fecha = models.DateField(auto_now=False)
@@ -71,10 +75,6 @@ class GuiasEnv(models.Model):
         item = model_to_dict(self)
         return item
     
-    @property
-    def tot_envio(self):
-        return self.numfin - self.numini + 1
-    
     def save(self):
         self.codigo = self.codigo.upper()
         super(GuiasEnv, self).save()
@@ -89,7 +89,7 @@ class Lote(models.Model):
     no_lote = models.IntegerField(default=0, unique=True)
     fecha = models.DateField(auto_now=True)
     manifiesto_local = models.IntegerField(default=0, null=False, blank=False)
-    observaciones = models.TextField(max_length=100)
+    observaciones = models.TextField(max_length=200)
 
     def __str__(self):
         return '{}'.format(self.no_lote)

@@ -58,6 +58,14 @@
 						{% endif %}
 					</li>
 					<li>
+						{% if perms.guiasenv.view_cliente %}
+						<a href="{% url 'guiasenv:clientelist' %}">
+							<span class="icon"><ion-icon name="people-circle-outline"></ion-icon></span>
+							<span class="title">Clientes</span>
+						</a>
+						{% endif %}
+					</li>
+					<li>
 						{% if perms.guiasenv.view_lote %}
 						<a href="">
 							<span class="icon"><ion-icon name="person-add-outline"></ion-icon></span>
@@ -151,7 +159,7 @@
 			return false;
 			}
 
-			function cerrar_modal()
+		function cerrar_modal()
 			{
 				$('#popup').modal('hide');
 				return false;
