@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-*q*m5_sa1y0bec6p!m*h1w2of&_gtq7!+b*qbi(ugflq4v(r+0
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = ['172.16.10.119']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'impguias',
         'USER': 'root',
-        'PASSWORD': '021ManEse*',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
         
