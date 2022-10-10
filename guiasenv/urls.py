@@ -16,6 +16,7 @@ urlpatterns = [
     path('cliente/edit/<int:pk>', ClienteEdit.as_view(), name="clienteedit"),
     #path('cliente/entregado/<int:id>', entregado, name="entregado"),
 
+    path('guia/reporte', Reportes.as_view(), name="reporte"),
     path('guia/excel', ReporteClienteExcel.as_view(), name="guiaexcel"),
     path('guia/excelgen', ReporteGeneralExcel.as_view(), name="guiaexcelgen"),
     path('guia/excelfech', ReporteFechaExcel.as_view(), name="guiaexcelfech"),

@@ -11,7 +11,7 @@
             <!-- Card Header - Dropdown -->
             <div
                 class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Listado Guias Impresas</h6>
+                <h4 class="alert alert-info"> <b>Listado Guias Impresas</b> </h4>
                 <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -31,23 +31,6 @@
                 {% if not obj  %}
                    <div class="alert alert-info">No Hay guias Impresas</div>
                 {% else %}
-                <form action="{% url 'guiasenv:guiaexcelfech' %}" method="get" class="form-inline">
-                    <div class="form group mb-2">
-                        <input type="date" id="fecha" class="form-control" name="fecha" placeholder="Fecha Inicial" >
-                        <input type="date" id="fechfin" class="form-control" name="fecha_hasta" placeholder="Fecha Final" >
-                        <button type="submit"  class="btn btn-success">Reporte Por Fecha</button>
-                      
-                       
-                    </div>
-                </form>
-                <form action="{% url 'guiasenv:guiaexcel' %}" method="get" class="form-inline">
-                    <div class="form group mb-2">
-                        <input type="text" id="id_codigo" class="form-control" name="campo" placeholder="Consulta Por Codigo" style="text-transform:uppercase">
-                        <button type="submit"  class="btn btn-success">Reporte Por Codigo</button>
-                    </div>
-                </form>
-                <a href="{% url 'guiasenv:guiaexcelgen' %}" class="btn btn-success">Reporte General</a>
-                
                 <table class="table table-striped table-hover" id="guias">
                     <thead>
                         <th>Id</th>

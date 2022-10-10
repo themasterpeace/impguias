@@ -97,7 +97,11 @@ def entregado(request, id):
 
     return render(request, template_name, contexto)
 
+"""Seccion de Reportes de impresion de guias """
 
+class Reportes(LoginRequiredMixin, TemplateView):
+    template_name = 'guiasenv/reportes.html'
+    login_url = 'bases:login'
 
 class ReporteGeneralExcel(TemplateView):
     def get(self, request, *args, **kwargs):

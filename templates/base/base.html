@@ -73,6 +73,14 @@
 						</a>
 						{% endif %}
 					</li>
+					<li>
+						{% if perms.guiasenv.view_lote %}
+						<a href="{% url 'guiasenv:reporte' %}">
+							<span class="icon"><ion-icon name="pie-chart-outline"></ion-icon></span>
+							<span class="title">Generar Reportes</span>
+						</a>
+						{% endif %}
+					</li>
 				<li>
 					<a href="{% url 'bases:logout' %}">
 						<span class="icon" ><ion-icon name="log-out-outline" ></ion-icon></span>
@@ -99,7 +107,7 @@
 				<!-- userImg -->
 				{% if user.is_authenticated %}
 				<div class="user">
-					<span class="usuario">Iniciaste Sesión como: {{ user.get_username }}</span><ion-icon name="person-circle-outline"></ion-icon>
+					<span class="alert alert-warning"><b>Iniciaste Sesión como: {{ user.get_username }}</b> </span><ion-icon name="person-circle-outline"></ion-icon>
 				</div>
 				{% endif %}
 			</div>
