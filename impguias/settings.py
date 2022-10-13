@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django_plotly_dash.apps.DjangoPlotlyDashConfig',
     'bases',
     'guiasenv',
+    'usuarios',
+   
     
 ]
 
@@ -82,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'impguias',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': '021ManEse*',
         'HOST': 'localhost',
         'PORT': '3306',
         
@@ -125,7 +127,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),)
 
@@ -141,3 +143,5 @@ LOGOUT_REDIRECT_URL = '/login/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+AUTH_USER_MODEL = 'usuarios.Usuario'
