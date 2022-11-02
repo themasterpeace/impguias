@@ -33,7 +33,7 @@
                 {% else %}
                 <table class="table table-striped table-hover" id="guias">
                     <thead>
-                        <th>Id</th>
+                        {% comment %} <th>Id</th> {% endcomment %}
                         <th>Fecha</th>
                         <th>Codigo</th>
                         <th>Cliente</th>
@@ -135,7 +135,7 @@
                         dataSrc: ""
                     },
                     columns: [
-                        {"data": "id"},
+                        {% comment %} {"data": "id"}, {% endcomment %}
                         {"data": "fecha"},
                         {"data": "codigo"},
                         {"data": "cliente"},
