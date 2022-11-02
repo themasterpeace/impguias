@@ -66,6 +66,14 @@
 						{% endif %}
 					</li>
 					<li>
+						{% if perms.rutas.view_ruta %}
+						<a href="{% url 'rutas:list_ruta' %}">
+							<span class="icon"><ion-icon name="people-circle-outline"></ion-icon></span>
+							<span class="title">Rutas</span>
+						</a>
+						{% endif %}
+					</li>
+					<li>
 						{% if perms.guiasenv.view_lote %}
 						<a href="">
 							<span class="icon"><ion-icon name="receipt-outline"></ion-icon></span>

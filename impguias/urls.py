@@ -19,6 +19,7 @@ from django.urls import path, include
 urlpatterns = [
     path('', include(('bases.urls','bases'), namespace='bases')),
     path('guiasenv/', include(('guiasenv.urls', 'guiasenv'), namespace='guiasenv')),
+    path('rutas/', include(('rutas.urls', 'rutas'), namespace='rutas')),
     path("accounts/", include("django.contrib.auth.urls")),
     path('django_plotly_dash/', include('django_plotly_dash.urls')),
 
