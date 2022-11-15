@@ -20,6 +20,7 @@ urlpatterns = [
     path('', include(('bases.urls','bases'), namespace='bases')),
     path('guiasenv/', include(('guiasenv.urls', 'guiasenv'), namespace='guiasenv')),
     path('rutas/', include(('rutas.urls', 'rutas'), namespace='rutas')),
+    path('imphijas/', include(('imphijas.urls', 'imphijas'), namespace='imphijas')),
     path("accounts/", include("django.contrib.auth.urls")),
     path('django_plotly_dash/', include('django_plotly_dash.urls')),
 

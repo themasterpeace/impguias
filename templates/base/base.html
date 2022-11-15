@@ -58,6 +58,15 @@
 						{% endif %}
 					</li>
 					<li>
+						{% if perms.imphijas.view_imphija %}
+						<a href="{% url 'imphijas:hijalist' %}">
+							
+							<span class="icon"><ion-icon name="newspaper-outline"></ion-icon></span>
+							<span class="title">Guias Hija Impresas</span>
+						</a>
+						{% endif %}
+					</li>
+					<li>
 						{% if perms.guiasenv.view_cliente %}
 						<a href="{% url 'guiasenv:clientelist' %}">
 							<span class="icon"><ion-icon name="people-circle-outline"></ion-icon></span>
