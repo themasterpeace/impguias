@@ -17,17 +17,17 @@ from .forms import HijaForm
 class HijaView(SinPrivilegios, ListView):
     permission_required = "imphijas.view_imphija"
     model = ImpHija
-    template_name = "imphijas/hijalist.html"
+    template_name = "imphijas/hijaslist.html"
     context_object_name = "obj"
     login_url = "bases:login"
 
 class HijaNew(SuccessMessageMixin, SinPrivilegios, CreateView):
     permission_required = "imphijas.create_imphija"
     model = ImpHija
-    template_name = "imphijas/hijanew.html"
+    template_name = "imphijas/hijasnew.html"
     context_object_name = "obj"
     form_class = HijaForm
-    success_url = reverse_lazy("imphijas:hijalist")
+    success_url = reverse_lazy("imphijas:hijaslist")
     success_message = "IMPRESION DE GUIAS EXITOSA"
     login_url = "bases:login"
 

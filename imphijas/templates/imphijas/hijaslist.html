@@ -1,4 +1,118 @@
-<h1>Imprimir Guias hija</h1>
+{% extends 'base/base.html' %}
+{% load static %}
 
-{ form.as_p}
+<link rel="stylesheet" href="{% static 'lib/css/hija.css' %}">
 
+{% block contenido %} 
+
+	<div class="canvas" id="canvas">
+		<div class="guia">
+			<p class="guiaMadre"></p>
+			<p class="fecha"></p>
+			<p class="piezas"></p>
+			<p class="de"></p>
+			<p class="origen"></p>
+			<p class="destino"></p>
+		</div>
+	</div>
+
+	<form>
+		<label for="">Guia madre</label><br>
+		<input type="text" id="guiaMadre"><br>
+		<label for="">Piezas</label><br>
+		<input type="number" id="piezas" value="2"><br>
+		<label for="">De</label><br>
+		<input type="number" id="de"><br>
+		<label>Origen</label><br>
+		<input type="text" id="origen"><br>
+		<label >Destino</label><br>
+		<input type="text" id="destino"><br><br>
+
+		<button type="button" class="print">Imprimir</button>
+	</form>
+    <script>
+        console.log("A")
+        // DATE
+        var today = new Date();
+        var day = today.getDate();
+        var month = today.getMonth() + 1;
+        var year = today.getFullYear();
+        var fecha = `${month}/${day}/${year}`;
+    
+        $('.fecha').text(fecha);
+    
+        let contadorDe;
+        let piezas;
+        let print = $('.print');
+        let datos = [$('#guiaMadre'), $('#piezas'), $('#de'), $('#origen'), $('#destino')]
+        let etiquetas = [$('.guiaMadre'), $('.piezas'), $('.de'), $('.origen'), $('.destino')]
+    
+        print.click(()=>{
+            console.log(contadorDe, piezas);
+            imprSelec('canvas');
+        })
+    
+        //Change data when writing
+        datos[0].keyup(()=>{
+            etiquetas[0].text(datos[0].val());
+        })
+        datos[1].keyup(()=>{
+            etiquetas[1].text(datos[1].val());
+        })
+        datos[1].blur(()=>{
+            piezas = parseInt(datos[1].val());
+            console.log("PIEZA: " + piezas);
+        })
+        datos[2].keyup(()=>{
+            etiquetas[2].text(datos[2].val());
+        })
+        datos[2].blur(()=>{
+            contadorDe = parseInt(datos[2].val());
+            console.log("DE: " + contadorDe);
+        })
+        datos[3].keyup(()=>{
+            etiquetas[3].text(datos[3].val());
+        })
+        datos[4].keyup(()=>{
+            etiquetas[4].text(datos[4].val());
+        })
+    
+        function imprSelec(nombre) {
+            var ficha = document.getElementById(nombre)
+            var ventana = window.open(' ', 'popimpr');
+            ventana.document.write('<html><head><title>' + document.title + '</title>');
+            ventana.document.write('<link rel="stylesheet" href="index.css">'); //Aquí agregué la hoja de estilos
+            ventana.document.write('</head><body >');
+            //ventana.document.write('<div class="canvas"></div>')
+            for(var i = piezas; i <= contadorDe; i++){
+                ventana.document.write(
+                    ficha.innerHTML = `
+                        <div class="guia">
+                            <p class="guiaMadre">${datos[0].val()}</p>
+                            <p class="fecha">${fecha}</p>
+                            <p class="piezas">${i}</p>
+                            <p class="de">${datos[2].val()}</p>
+                            <p class="origen">${datos[3].val()}</p>
+                            <p class="destino">${datos[4].val()}</p>
+                        </div>
+                        <div class="break"></div>
+                    `
+                );
+            }
+            ventana.document.write('</body></html>');
+            ventana.document.close();
+            setTimeout(()=>{
+                ventana.print( );
+                ventana.close( );
+            }, 100)
+        }
+    </script>
+
+{% endblock %}
+
+{% block jspage %}
+
+
+{% endblock %}
+
+	
