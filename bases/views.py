@@ -1,11 +1,15 @@
 import imp
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse_lazy
 from datetime import date
 from collections import Counter
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views import generic
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from .models import *
+from .forms import *
 from guiasenv.models import GuiasEnv
 
 
@@ -44,4 +48,20 @@ class HomeSinPrivilegios(LoginRequiredMixin, generic.TemplateView):
     login_url = "bases:login"
     template_name="bases/sin_privilegios.html"
 
+def registro(request):
+    data = {
+        'form': CustomUserCreationForm()
+    }
 
+    if request.method == 'POST':
+        formulario = CustomUserCreationForm(data=request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            user = authenticate(
+                username=formulario.cleaned_data["username"], password=formulario.cleaned_data["password1"])
+            login(request, user)
+            messages.success(request, "Te has registrado exitosamente")
+            #redirigir al home
+            return redirect(to="home")
+        data["form"] = formulario
+    return render(request, 'bases/registro.html', data)

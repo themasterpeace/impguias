@@ -1,0 +1,82 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+{% load crispy_forms_tags %}
+<br><br><br>
+<div class="box registro">
+    <div class="form">
+                <h2>Registro de Usuario</h2>
+                <form action="" method="POST" autocomplete="off">
+                    {% csrf_token %}
+                    {% comment %} {{ form.as_p }} {% endcomment %}
+                    <p>
+                        <span class="helptext"><ul><li>Su contraseña no puede asemejarse tanto a su otra información personal.</li><li>Su contraseña debe contener al menos 8 caracteres.</li><li>Su contraseña no puede ser una clave utilizada comúnmente.</li><li>Su contraseña no puede ser completamente numérica.</li></ul></span>
+                        <label for="id_username">Nombre de usuario:</label>
+                        <input type="text" name="username" maxlength="150" autofocus required id="id_username">
+                        
+                          <span class="helptext">Requerido. 150 carácteres como máximo. Únicamente letras, dígitos y @/./+/-/_ </span>
+                        
+                        
+                      </p>
+                    
+                      
+                      <p>
+                        <label for="id_first_name">Nombre:</label>
+                        <input type="text" name="first_name" maxlength="150" id="id_first_name">
+                        
+                        
+                      </p>
+                    
+                      
+                      <p>
+                        <label for="id_last_name">Apellidos:</label>
+                        <input type="text" name="last_name" maxlength="150" id="id_last_name">
+                        
+                        
+                      </p>
+                    
+                      
+                      <p>
+                        <label for="id_email">Dirección de correo electrónico:</label>
+                        <input type="email" name="email" maxlength="254" id="id_email">
+                        
+                        
+                      </p>
+                    
+                      
+                      <p>
+                        <label for="id_password1">Contraseña:</label>
+                        <input type="password" name="password1" autocomplete="new-password" required id="id_password1">
+                        
+                        
+                        
+                        
+                      </p>
+                    
+                      
+                      <p>
+                        <label for="id_password2">Contraseña (confirmación):</label>
+                        <input type="password" name="password2" autocomplete="new-password" required id="id_password2">
+                        
+                          <span class="helptext">Para verificar, introduzca la misma contraseña anterior.</span>
+                        
+                        
+                          
+                        
+                      </p>
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <i class="fas fa-address-card" aria-hidden="true"></i>
+                    <i class="far fa-address-card" aria-hidden="true"></i>
+                    <i class="fas fa-at"></i>
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    <i class="fa fa-lock c" aria-hidden="true"></i>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-danger"><a href="{% url 'bases:home' %}">Regresar a Inicio</a></button>
+                        <button class="btn btn-warning" type="submit">Registrar</button>
+                    </div>    
+                </form>
+            </div>
+</div>
+{% endblock %}
