@@ -1,7 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 
-from bases.views import Home, HomeSinPrivilegios, registro
+from bases.views import Home, HomeSinPrivilegios
 
 urlpatterns = [
     path('',Home.as_view(), name='home'),
@@ -15,6 +15,4 @@ urlpatterns = [
          HomeSinPrivilegios.as_view(),
          name='sin_privilegios'),
     
-    path('registro/', registro, name='registro'),
-
 ]
