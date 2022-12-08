@@ -38,8 +38,6 @@
                 </form>
 </div>
     
-{% endblock %}
-{% block js_page %}
 <script>
     {% if form.errors %}
         {% for field in form %}
@@ -57,5 +55,9 @@
         {% endif %}
     {% endif %}
   </script>
+
+{% endblock %}
+{% block js_page %}
+
 
 {% endblock %}

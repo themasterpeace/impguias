@@ -1,0 +1,118 @@
+{% comment %} {% extends 'base/base.html' %} {% endcomment %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'lib/css/hija.css' %}">
+
+{% block contenido %} 
+
+	<div class="canvas" id="canvas">
+		
+	</div>
+    <div class="break"></div>
+
+	<section>
+		<div class="box">
+			<div class="form">
+				<h2>IMPRESION DE GUIAS HIJA</h2>
+				<form method="POST" role="form" class="form-inline" action="{% url 'imphijas:hijanew' %}" name="aaa">
+					{% csrf_token %}
+                    <div class="inputBox guiaMadre">
+						{% comment %} <input type="text" class="form-control" id="id_guiaMadre" placeholder="Guia Madre:" maxlength="7" name="madre" required> {% endcomment %}
+                        <input type="number" name="madre" class="form-control" required id="id_madre" placeholder="Guia Madre:" maxlength="7">
+					</div>
+					<div class="inputBox piezas">
+						{% comment %} <input readonly="readonly" class="form-control" id="id_piezas" value="2" placeholder="Piezas:" name="pieza" required> {% endcomment %}
+                        <input type="number" name="pieza" value="2" class="form-control" required id="id_pieza" placeholder="Pieza:">
+					</div>
+					<div class="inputBox de">
+						{% comment %} <input type="number" class="form-control" id="id_de" placeholder="De:" name="de" required> {% endcomment %}
+                        <input type="number" name="de" class="form-control" required id="id_de" placeholder="De:">
+					</div>
+					<div class="inputBox origen">
+						{% comment %} <input type="text" class="form-control" id="id_origen" placeholder="Origen:" name="origen" required> {% endcomment %}
+                        <input type="text" name="origen" maxlength="3" class="form-control" required id="id_origen" placeholder="Origen:">
+					</div>
+					<div class="inputBox destino">
+						{% comment %} <input type="text" class="form-control" id="id_destino" placeholder="Destino:" name="destino" required> {% endcomment %}
+                        <input type="text" name="destino" maxlength="3" class="form-control" required id="id_destino" placeholder="Destino:">
+					</div>
+                    
+                    <div class="dropdown divider">
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="print">Imprimir</button>
+
+                                <button type="button" class="btn btn-danger"> <a href="{% url 'bases:home' %}">Regresar a Home</a> </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% comment %} <br>
+                    {{ form.as_p }} {% endcomment %}
+				</form>
+			</div>
+		</div>
+	</section>
+    <script>
+        // DATE
+        var today = new Date();
+        var day = today.getDate();
+        var month = today.getMonth() + 1;
+        var year = today.getFullYear();
+        var fecha = `${month}/${day}/${year}`;
+    
+        $('.fecha').text(fecha);
+    
+        let contadorDe;
+        let piezas;
+        let print = $('.print');
+        let datos = [$('#id_madre'), $('#id_pieza'), $('#id_de'), $('#id_origen'), $('#id_destino')]
+        let etiquetas = [$('.guiaMadre'), $('.piezas'), $('.de'), $('.origen'), $('.destino')]
+    
+        print.click(()=>{
+            piezas = parseInt(datos[1].val());
+            contadorDe = parseInt(datos[2].val());
+
+            console.log(contadorDe, piezas);
+            imprSelec('canvas');
+        })
+    
+        function imprSelec(nombre) {
+            var ficha = document.getElementById(nombre)
+            var ventana = window.open(' ', 'popimpr');
+            ventana.document.write('<html><head><title>' + document.title + '</title>');
+            ventana.document.write('<link rel="stylesheet" href="{% static 'lib/css/print.css' %}">'); //Aquí agregué la hoja de estilos
+            ventana.document.write('</head><body >');
+            //ventana.document.write('<div class="canvas"></div>')
+            for(var i = piezas; i <= contadorDe; i++){
+                ventana.document.write(
+                    ficha.innerHTML = `
+                        <div class="guia">
+                            <p class="guiaMadre">${datos[0].val()}</p>
+                            <p class="fecha">${fecha}</p>
+                            <p class="piezas">${i}</p>
+                            <p class="de">${datos[2].val()}</p>
+                            <p class="origen">${datos[3].val()}</p>
+                            <p class="destino">${datos[4].val()}</p>
+                        </div>
+                        <div class="break"></div>
+                    `
+                );
+            }
+            ventana.document.write('</body></html>');
+            ventana.document.close();
+            setTimeout(()=>{
+                ventana.print( );
+                ventana.close( );
+                document.aaa.submit()
+            }, 100)
+        }
+    </script>
+
+{% endblock %}
+
+{% block jspage %}
+
+
+{% endblock %}
+
+	

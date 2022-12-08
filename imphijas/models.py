@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import model_to_dict
 
 from bases.models import ClaseModelo
 
@@ -6,17 +7,20 @@ from bases.models import ClaseModelo
 
 class ImpHija(ClaseModelo):
     madre = models.IntegerField(unique=True)
-    pieza = models.IntegerField(unique=True)
-    de = models.IntegerField(unique=True)
+    pieza = models.IntegerField()
+    de = models.IntegerField()
     origen = models.CharField(max_length=3)
     destino = models.CharField(max_length=3)
 
     def __str__(self):
-        return self.madre
+        return self.origen
 
     def save(self):
-        self.madre = self.madre.upper()
         super(ImpHija, self).save()
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
 
     class Meta:
         verbose_name_plural = "ImpHijas"

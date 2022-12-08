@@ -1,101 +1,171 @@
 {% extends 'base/base.html' %}
 {% load static %}
+{% block contenido %}
+    <div class="details">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h5 class="m-0 font-weight-bold text-primary"><b>Listado de Guias Hija Impresas</b> </h5>
+                <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa-solid fa-cart-plus"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-header">Acciones:</div>
+                        <a class="dropdown-item" onclick="return abrir_modal('{% url 'imphijas:hijanew' %}')" href="#"><i class="fas fa-calendar-plus"></i>Imprimir Guias Hija</a>
+                        <a class="dropdown-item" href="#"></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#"></a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 5Body -->
+            <div class="card-body"> 
+                {% if not obj  %}
+                   <div class="alert alert-warning">No Existen Guias Hija Impresas</div>
+                {% else %}
+                
+                <table class="table table-striped table-hover" id="hijas">
+                    <thead>
+                        
+                        <th>Id</th>
+                        <th>Madre</th>
+                        <th>Pieza</th>
+                        <th>De</th>
+                        <th>Origen</th>
+                        <th>Destino</th>
+                        {% comment %} <th>Fc</th> {% endcomment %}
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </thead>
+                    <tbody>
+                    
+                    </tbody>
+                </table>
+                {% endif %}
+                
+                
+                
+            </div>
+        </div>
+        
+        {% block js %}
+        <script>
+            function alerta() {
+                $(document).ready(function() {
+                $('#hijas').DataTable({
 
-<link rel="stylesheet" href="{% static 'lib/css/hija.css' %}">
+                    "language": {
+                        "sProcessing":     "Procesando...",
+                        "sLengthMenu":     "Mostrar _MENU_ registros",
+                        "sZeroRecords":    "No se encontraron resultados",
+                        "sEmptyTable":     "Ningún dato disponible en esta tabla =(",
+                        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix":    "",
+                        "sSearch":         "Buscar:",
+                        "sUrl":            "",
+                        "sInfoThousands":  ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst":    "Primero",
+                            "sLast":     "Último",
+                            "sNext":     "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        },
+                        "buttons": {
+                            "copy": "Copiar",
+                            "colvis": "Visibilidad"
+                        },                  
+                            },
 
-{% block contenido %} 
-
-	<div class="canvas" id="canvas">
-		
-	</div>
-    <div class="break"></div>
-
-	<section>
-		<div class="box">
-			<div class="form">
-				<h2>IMPRESION DE GUIAS</h2>
-				<form>
-					<div class="inputBox guiaMadre">
-						<input type="text" id="guiaMadre" placeholder="Guia Madre:">
-					</div>
-					<div class="inputBox piezas">
-						<input readonly="readonly" id="piezas" value="2" placeholder="Piezas:">
-					</div>
-					<div class="inputBox de">
-						<input type="number" id="de" placeholder="De:">
-					</div>
-					<div class="inputBox origen">
-						<input type="text" id="origen" placeholder="Origen:">
-					</div>
-					<div class="inputBox destino">
-						<input type="text" id="destino" placeholder="Destino:">
-					</div>
-
-					<button type="button" class="print">Imprimir</button>
-				</form>
-			</div>
-		</div>
-	</section>
-    <script>
-        // DATE
-        var today = new Date();
-        var day = today.getDate();
-        var month = today.getMonth() + 1;
-        var year = today.getFullYear();
-        var fecha = `${month}/${day}/${year}`;
-    
-        $('.fecha').text(fecha);
-    
-        let contadorDe;
-        let piezas;
-        let print = $('.print');
-        let datos = [$('#guiaMadre'), $('#piezas'), $('#de'), $('#origen'), $('#destino')]
-        let etiquetas = [$('.guiaMadre'), $('.piezas'), $('.de'), $('.origen'), $('.destino')]
-    
-        print.click(()=>{
-            piezas = parseInt(datos[1].val());
-            contadorDe = parseInt(datos[2].val());
-
-            console.log(contadorDe, piezas);
-            imprSelec('canvas');
-        })
-    
-        function imprSelec(nombre) {
-            var ficha = document.getElementById(nombre)
-            var ventana = window.open(' ', 'popimpr');
-            ventana.document.write('<html><head><title>' + document.title + '</title>');
-            ventana.document.write('<link rel="stylesheet" href="{% static '/lib/css/hija.css' %}">'); //Aquí agregué la hoja de estilos
-            ventana.document.write('</head><body >');
-            //ventana.document.write('<div class="canvas"></div>')
-            for(var i = piezas; i <= contadorDe; i++){
-                ventana.document.write(
-                    ficha.innerHTML = `
-                        <div class="guia">
-                            <p class="guiaMadre">${datos[0].val()}</p>
-                            <p class="fecha">${fecha}</p>
-                            <p class="piezas">${i}</p>
-                            <p class="de">${datos[2].val()}</p>
-                            <p class="origen">${datos[3].val()}</p>
-                            <p class="destino">${datos[4].val()}</p>
-                        </div>
-                        <div class="break"></div>
-                    `
-                );
+                        responsive: true,
+                        autoWidth: false,
+                        destroy: true,
+                        deferRender: true,
+                        processing: true,
+                        ajax: {
+                            url: window.location.pathname,
+                            type: 'post',
+                            data: {
+                                'action': 'searchdata'
+                            },
+                            dataSrc: ""
+                    },
+                    
+                    columns: [
+                       
+                        {"data": "id"},
+                        {"data": "madre"},
+                        {"data": "pieza"},
+                        {"data": "de"},
+                        {"data": "origen"},
+                        {"data": "destino"},
+                        {% comment %} {"data": "fc"}, {% endcomment %}
+                        {"data": "estado"},
+                        {"data": "acciones"},
+                       
+                        
+                    ],
+                    columnDefs:[                   
+                        {
+                            targets: [-1],
+                            class: 'text-center',
+                            orderable: false,
+                            render: function(data, type, row) {
+                                //return data;
+                                var url = "'/imphijas/hija/edit/"+ row.id+"'";
+                                
+                                var buttons = '<button class="btn btn-warning btn-circle" onclick="return abrir_modal('+url+')"><i class="far fa-edit"></i>';
+                                    return buttons;
+                            }   
+                        },
+                    ],
+                    initComplete: function(settings, json){
+                    }
+                    
+                });
+            });
             }
-            ventana.document.write('</body></html>');
-            ventana.document.close();
-            setTimeout(()=>{
-                ventana.print( );
-                ventana.close( );
-            }, 100)
-        }
-    </script>
 
-{% endblock %}
+            alerta()
 
-{% block jspage %}
+         // Funcion que agrega guión(-) al escribir 3 caracteres
+         var idco = $("input#id_codigo");
+                        var idtel = $("input#id_telefono");
+                        // Código Cliente Funcion
+                        $("#id_fecha").attr('type', 'date');
+                        idco.keyup(function(event) {
+                            if (event.keyCode !== 8) {
+                                value = idco.val()
+
+                                if (value.length == 3) {
+                                    idco.val(value + '-');
+                                }
+                            }
+                        })
+                        // Telefono Funcion
+                        idtel.keyup(function(event) {
+                            if (event.keyCode !== 8) {
+                                value = idtel.val()
+
+                                if (value.length == 4) {
+                                    idtel.val(value + '-');
+                                }
+                            }
+                        })
+        </script>
+        {% endblock %}
+        {% endblock %}
+        
+    </div>
 
 
-{% endblock %}
-
-	
+    

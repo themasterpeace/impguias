@@ -1,0 +1,81 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: sans-serif;
+}
+.canvas{
+	width: 11.5cm;
+	height: 5cm;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	/* background-image: url('a.jpg'); */
+}
+.guia{
+	width: fit-content;
+	padding-top: .8cm;
+	padding-left: .5cm;
+	color: #000;
+	font-size: 14pt;
+	display: grid; 
+	grid-template-columns: 1fr 1fr; 
+	grid-template-rows: 1fr 1fr 1fr; 
+	gap: 22px 20px; 
+	grid-template-areas: 
+	"guiaMadre fecha"
+	"piezas de"
+	"origen destino"; 
+}
+.guiaMadre { grid-area: guiaMadre; }
+.fecha { grid-area: fecha; }
+.piezas { grid-area: piezas; text-align: center;}
+.de { grid-area: de; text-align: center;}
+.origen { grid-area: origen; text-align: center;}
+.destino { grid-area: destino; text-align: center;}
+
+p{
+	margin: 0;
+	padding: 0;
+	text-transform: uppercase;
+}
+/*.guiaMadre {
+	position: absolute;
+	margin-top: .5cm;
+	margin-left: 2cm;
+}
+.fecha {
+	position: absolute;
+	margin-top: .5cm;
+	margin-left: 4.3cm;
+}
+.piezas {
+	position: absolute;
+	margin-top: 1.5cm;
+	margin-left: 2.3cm;
+}
+.de {
+	position: absolute;
+	margin-top: 1.5cm;
+	margin-left: 4.9cm;
+}
+.origen {
+	position: absolute;
+	margin-top: 3cm;
+	margin-left: 2cm;
+}
+.destino {
+	position: absolute;
+	margin-top: 3cm;
+	margin-left: 4.5cm;
+}*/
+@page{
+	margin: 0;
+}
+@media print{
+	/* indicamos el salto de pagina */
+	.break{
+		display:block;
+		page-break-before:always;
+	}
+}

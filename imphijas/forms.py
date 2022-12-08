@@ -1,5 +1,6 @@
 from django import forms
 
+from bases.models import ClaseModelo
 from .models import ImpHija
 
 class HijaForm(forms.ModelForm):

@@ -9,6 +9,7 @@
 	
 	<link rel="stylesheet" href="{% static 'lib/css/Dashboard.css' %}">
 	<link rel="stylesheet" href="{% static 'lib/css/hija.css' %}">
+	<link rel="stylesheet" href="{% static 'lib/css/print.css' %}">
 	<link rel="stylesheet" href="{% static 'lib/css/index.css' %}">
 	<link rel="stylesheet" href="{% static 'lib/css/login.css' %}">
 	<link rel="stylesheet" href="{% static 'lib/css/registro.css' %}">
@@ -50,6 +51,7 @@
 						<span class="title">Inicio</span>
 					</a>
 				</li>
+				<hr>
 					<li>
 						{% if perms.guisenv.view_guia %}
 						<a href="{% url 'guiasenv:guialist' %}">
@@ -59,15 +61,26 @@
 						</a>
 						{% endif %}
 					</li>
+					<hr>
 					<li>
 						{% if perms.imphijas.view_imphija %}
 						<a href="{% url 'imphijas:hijalist' %}">
 							
 							<span class="icon"><ion-icon name="newspaper-outline"></ion-icon></span>
-							<span class="title">Guias Hija Impresas</span>
+							<span class="title">Imprimir Madres</span>
 						</a>
 						{% endif %}
 					</li>
+					<li>
+						{% if perms.imphijas.view_imphija %}
+						<a href="{% url 'imphijas:hijalist' %}">
+							
+							<span class="icon"><ion-icon name="newspaper-outline"></ion-icon></span>
+							<span class="title">Imprimir Hijas</span>
+						</a>
+						{% endif %}
+					</li>
+					<hr>
 					<li>
 						{% if perms.guiasenv.view_cliente %}
 						<a href="{% url 'guiasenv:clientelist' %}">
