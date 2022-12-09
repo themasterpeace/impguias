@@ -1,9 +1,14 @@
+import imp
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse_lazy
-
+from datetime import date
+from collections import Counter
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views import generic
+from guiasenv.models import GuiasEnv
+
+
 
 class MixinFormInvalid:
     def form_invalid(self,form):
@@ -29,6 +34,11 @@ class Home(LoginRequiredMixin, generic.TemplateView):
     template_name = 'bases/home.html'
     login_url='bases:login'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["qs"]=GuiasEnv.objects.all()
+        return context
+  
 
 class HomeSinPrivilegios(LoginRequiredMixin, generic.TemplateView):
     login_url = "bases:login"

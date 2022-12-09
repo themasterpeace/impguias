@@ -1,0 +1,44 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static './lib/css/reportes.css' %} "></li>
+
+{% block contenido  %}
+<main>
+    <div class = "container">
+        <div class="row">
+            <div class="col-sm">
+                <h5>Reporte por fecha</h5>
+                <form action="{% url 'guiasenv:guiaexcelfech' %}" method="get" class="form-inline">
+                    <div class="form group mb-2">
+                        <input type="date" id="fecha" class="form-control" name="fecha" placeholder="Fecha Inicial" >
+                        <input type="date" id="fechfin" class="form-control" name="fecha_hasta" placeholder="Fecha Final" >
+                        
+                    </div>
+                    <button type="submit"  class="btn btn-success">Reporte Por Fecha</button>
+                </form>
+            </div>
+            <div class="col-sm">
+                <h5>Reporte Por Cliente</h5>
+                <form action="{% url 'guiasenv:guiaexcel' %}" method="get" class="form-inline">
+                    <div class="form group mb-2">
+                        <input type="text" id="id_codigo" class="form-control" name="campo" placeholder="Consulta Por Codigo" style="text-transform:uppercase">
+                        
+                    </div>
+                    <button type="submit"  class="btn btn-success">Reporte Por Codigo</button>
+                </form>
+            </div>
+            <div class="col-sm">
+                <h5>Reporte General</h5>
+                <div class="form group-mb-2">
+                    <a href="{% url 'guiasenv:guiaexcelgen' %}" class="btn btn-success">Reporte General</a>
+                </div>
+            </div>
+        </div>
+       
+
+    </div>
+</main>   
+
+
+{% endblock  %}

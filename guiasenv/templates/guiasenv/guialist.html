@@ -11,15 +11,15 @@
             <!-- Card Header - Dropdown -->
             <div
                 class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Listado Guias Impresas</h6>
+                <h4 class="alert alert-info"> <b>Listado Guias Impresas</b> </h4>
                 <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-pencil-alt"></i>
+                        <i class="fa-solid fa-cart-plus"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                         <div class="dropdown-header">Acciones:</div>
-                        <a class="dropdown-item" onclick="return abrir_modal('{% url 'guiasenv:guianew' %}')" href="#"><i class="fas fa-calendar-plus"></i> Nueva Impresion</a>
+                        <button class="dropdown-item" onclick="return abrir_modal('{% url 'guiasenv:guianew' %}')" href="#"><i class="fas fa-calendar-plus"></i> Nueva Impresion</button>
                         <a class="dropdown-item" href="#"></a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#"></a>
@@ -31,7 +31,6 @@
                 {% if not obj  %}
                    <div class="alert alert-info">No Hay guias Impresas</div>
                 {% else %}
-        
                 <table class="table table-striped table-hover" id="guias">
                     <thead>
                         <th>Id</th>
@@ -51,7 +50,8 @@
                     </tbody>
                 </table>
                 {% endif %}
-                <a href="{% url 'guiasenv:guiaexcel' %}" class="btn btn-success">Reporte Clientes</a>
+                
+                
                 
             </div>
         </div>
@@ -91,10 +91,41 @@
             function alerta() {
                 $(document).ready(function() {
                 $('#guias').DataTable({
+
+                    "language": {
+                        "sProcessing":     "Procesando...",
+                        "sLengthMenu":     "Mostrar _MENU_ registros",
+                        "sZeroRecords":    "No se encontraron resultados",
+                        "sEmptyTable":     "Ningún dato disponible en esta tabla =(",
+                        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix":    "",
+                        "sSearch":         "Buscar:",
+                        "sUrl":            "",
+                        "sInfoThousands":  ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst":    "Primero",
+                            "sLast":     "Último",
+                            "sNext":     "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        },
+                        "buttons": {
+                            "copy": "Copiar",
+                            "colvis": "Visibilidad"
+                        },
+                            },
+
                     responsive: true,
                     autoWidth: false,
                     destroy: true,
                     deferRender: true,
+                    processing: true,
                     ajax: {
                         url: window.location.pathname,
                         type: 'post',
@@ -104,7 +135,7 @@
                         dataSrc: ""
                     },
                     columns: [
-                        {"data": "id"},
+                        {"data": "id"}, 
                         {"data": "fecha"},
                         {"data": "codigo"},
                         {"data": "cliente"},
@@ -119,6 +150,19 @@
                         
                     ],
                     columnDefs:[
+                    //{
+                    //    targets: [9],
+                    //    class: 'text-center',
+                    //    orderable: false,
+                    //    render: function(data, type, row) {
+                    //        //return data;
+                    //        var url = "'"+ row.id+"'";
+                    //        
+                    //        var buttons = '<button class="btn btn-warning btn-circle" onclick="return inactivar('+url+')"><i class="fa-regular fa-thumbs-up"></i>';
+                    //            return buttons;
+                    //    }   
+                    //},
+                    
                         {
                             targets: [-1],
                             class: 'text-center',
@@ -126,7 +170,8 @@
                             render: function(data, type, row) {
                                 //return data;
                                 var url = "'/guiasenv/guia/edit/"+ row.id+"'";
-                                var buttons = '<button class="btn btn-warning btn-circle" onclick="return abrir_modal('+url+')"><i class="far fa-edit"></i></button> ';
+                                
+                                var buttons = '<button class="btn btn-warning btn-circle" onclick="return abrir_modal('+url+')"><i class="far fa-edit"></i>';
                                     return buttons;
                             }   
                         },
@@ -138,6 +183,31 @@
             }
 
             alerta()
+
+         // Funcion que agrega guión(-) al escribir 3 caracteres
+         var idco = $("input#id_codigo");
+                        var idtel = $("input#id_telefono");
+                        // Código Cliente Funcion
+                        $("#id_fecha").attr('type', 'date');
+                        idco.keyup(function(event) {
+                            if (event.keyCode !== 8) {
+                                value = idco.val()
+
+                                if (value.length == 3) {
+                                    idco.val(value + '-');
+                                }
+                            }
+                        })
+                        // Telefono Funcion
+                        idtel.keyup(function(event) {
+                            if (event.keyCode !== 8) {
+                                value = idtel.val()
+
+                                if (value.length == 4) {
+                                    idtel.val(value + '-');
+                                }
+                            }
+                        })
         </script>
         {% endblock %}
         {% endblock %}

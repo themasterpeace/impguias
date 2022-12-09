@@ -2,36 +2,27 @@
 
 {% load static %}
 
-{% block contenido %}
 
-
+{% block login %}
 <br><br><br>
-<div class="box">
-            <div class="form">
-                <h2>Iniciar Sesión</h2>
-                <small class="text-danger">
-                    {% if form.erros %}
-                        {% for field in form%}
-                            {% if field.errors %}
-                                {% for error in field.erros %}
-                                    {{ error|escape }}
-                                {% endfor %}
-                            {% endif %}
-                        {% endfor%}
-
-                        {% if form.non_field_errors %}
-                            {% for error in form.non_field_errors %}
-                                {{ error|escape}}
-                            {% endfor %}
-                        {% endif %}
-                    {% endif %}
-                    
-                </small>
-                <form class="user" method='POST'>
+<div class="wrapper">
+    <div class="tex-center mt-4 name">
+        Iniciar Sesión
+    </div>        
+                <form class="p-3 mt-3" method='POST'>
                     {% csrf_token %}
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    {{ form }}
-                    <i class="fa fa-lock" aria-hidden="true"></i>
+                 
+                    <div class="form-field d-flex align-items-center">
+                        <span class="far fa-user"></span>
+                        <input type="text" name="username" id="id_username" placeholder="Usuairo">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <span class="fas fa-key"></span>
+                        <input type="password" name="password" id="id_password" placeholder="Password">
+                    </div>
+
+                   <!-- {{ form }}-->
+                    
                     <div class="inputBox2">
                         <p>Volver <a href="{% url 'bases:home' %}">Inicio</a></p>
                         <p>Registrar <a href="#">Usuario</a></p>
@@ -45,7 +36,26 @@
                         
                     {% endif %}
                 </form>
-            </div>
 </div>
+    
+{% endblock %}
+{% block js_page %}
+<script>
+    {% if form.errors %}
+        {% for field in form %}
+            {% if field.errors %}
+                {% for error in field.errors %}
+                  mensaje('{{ error|escape }}','red');
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    
+        {% if form.non_field_errors%}
+            {% for error in form.non_field_errors %}
+              mensaje('{{ error|escape }}','red');
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+  </script>
 
 {% endblock %}

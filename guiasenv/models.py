@@ -14,23 +14,45 @@ from bases.models import ClaseModelo
 
 # Create your models here.
 TIPO_ENVIO=[
-    ("CTE", "CONTRAENTREGA"),
-    ("MANI", "MANIFIESTOS"),
-    ("GM", "GUIA MADRE"),
-    ("GH", "GUIA HIJA"),
+    ("CONTRA ENTREGA", "CONTRA ENTREGA"),
+    ("MANIFIESTOS", "MANIFIESTOS"),
+    ("GUIA MADRE", "GUIA MADRE"),
+    ("GUIA HIJA", "GUIA HIJA"),
     
 ]
 
 FPAGO=[
-    ("XCO", "POR COBRAR"),
-    ("CON", "CONTADO"),
-    ("CRE", "CREDITO"),
-    ("PRE", "PREPAGO"),
-    ("COM", "COMPARTIDA"),
-    ("COR", "CORTESIA"),
-    ("TAL", "TALONARIO"),
-    ("GEB", "GUIA EN BLANCO"),
+    ("POR COBRAR", "POR COBRAR"),
+    ("CONTADO", "CONTADO"),
+    ("CREDITO", "CREDITO"),
+    ("PREPAGO", "PREPAGO"),
+    ("COMPARTIDA", "COMPARTIDA"),
+    ("CORTESIA", "CORTESIA"),
+    ("TALONARIO", "TALONARIO"),
+    ("GUIA EN BLANCO", "GUIA EN BLANCO"),
 ]
+
+class Cliente(models.Model):
+    codigo = models.CharField(max_length=8)
+    nombre = models.CharField(max_length=200)
+    direccion = models.CharField(max_length=200)
+    formapago = models.CharField(max_length=20)
+    telefono = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.codigo
+
+    def save(self):
+        self.codigo = self.codigo.upper()
+        super(Cliente, self).save()
+    
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+
+    class Meta:
+        verbose_name_plural = "Clientes"
+        ordering = ['id'] 
 
 class GuiasEnv(models.Model):
     fecha = models.DateField(auto_now=False)
@@ -53,10 +75,6 @@ class GuiasEnv(models.Model):
         item = model_to_dict(self)
         return item
     
-    @property
-    def tot_envio(self):
-        return self.numfin - self.numini + 1
-    
     def save(self):
         self.codigo = self.codigo.upper()
         super(GuiasEnv, self).save()
@@ -71,7 +89,7 @@ class Lote(models.Model):
     no_lote = models.IntegerField(default=0, unique=True)
     fecha = models.DateField(auto_now=True)
     manifiesto_local = models.IntegerField(default=0, null=False, blank=False)
-    observaciones = models.TextField(max_length=100)
+    observaciones = models.TextField(max_length=200)
 
     def __str__(self):
         return '{}'.format(self.no_lote)
@@ -81,6 +99,6 @@ class Lote(models.Model):
         super(Lote, self).save()
 
     class Meta:
-        verbose_name_plural = "Lote"
+        verbose_name_plural = "Lotes"
 
 

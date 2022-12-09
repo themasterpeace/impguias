@@ -3,5 +3,7 @@ from .models import *
 
 # Register your models here.
 
+admin.site.register(Cliente)
 admin.site.register(GuiasEnv)
 admin.site.register(Lote)
+

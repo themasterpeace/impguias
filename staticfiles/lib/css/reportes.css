@@ -1,0 +1,9 @@
+* {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+.col-sm {
+    border-radius: 5px;
+    border-style: double;
+}
