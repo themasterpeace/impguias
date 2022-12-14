@@ -1,14 +1,16 @@
 import imp
+import calendar
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse_lazy
 from datetime import date, datetime
+from django.db.models import Sum
 from django.db.models.functions import Coalesce
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from collections import Counter
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.views import generic
+from django.views.generic import TemplateView
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from .models import *
@@ -37,45 +39,28 @@ class SinPrivilegios(LoginRequiredMixin, PermissionRequiredMixin, MixinFormInval
         return HttpResponseRedirect(reverse_lazy(self.login_url))
 
 
-class Home(LoginRequiredMixin, generic.TemplateView):
+class Home(TemplateView):
     template_name = 'bases/home.html'
-    login_url='bases:login'
-
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        data = {}
-        try:
-            action = request.POST['action']
-            if action == 'get_report_sales_months':
-                data = self.get_report_sales_months()
-            else:
-                data['error'] = 'Ha ocurrido un error'
-        except Exception as e:
-            data['error'] = str(e)
-        return JsonResponse(data, safe=False)
-
-    def get_report_sales_months(self):
+   
+    def get_graph_sales_year_month(self):
         data = []
         try:
             year = datetime.now().year
             for m in range(1, 13):
-                total = GuiasEnv.objects.filter(fecha_año=year, fecha_mes=m)
-                data.append(float(total))
+                totenvio = GuiasEnv.objects.filter(fecha__year=year, fecha__month=m).aggregate(r=Coalesce(Sum('totenvio'), 0)).get('r')
+                data.append(float(totenvio))
         except:
             pass
         return data
-    
+        
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['panel']= 'Panel de Administracion'
-        context['report_sales_months'] = self.get_report_sales_months()
+        context['grafico'] = self.get_graph_sales_year_month()
         return context
   
 
-class HomeSinPrivilegios(LoginRequiredMixin, generic.TemplateView):
+class HomeSinPrivilegios(LoginRequiredMixin, TemplateView):
     login_url = "bases:login"
     template_name="bases/sin_privilegios.html"
 

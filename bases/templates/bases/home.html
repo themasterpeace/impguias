@@ -14,19 +14,19 @@
         </div>
     </div>
 </div>
-<script>
-    Highcharts.chart('container', {
-        chart: {
-          type: 'column'
-        },
-        title: {
-          text: 'Reporte de impresiones por mes'
-        },
-        subtitle: {
-          text: 'Reporte de columnas'
-        },
-        xAxis: {
-          categories: [
+<script type="application/javascript">
+  Highcharts.chart('container', {
+    chart: {
+        type: 'line'
+    },
+    title: {
+        text: 'Reporte de Impresiones del Año 2022'
+    },
+    subtitle: {
+        text: 'Reporte por columnas'
+    },
+    xAxis: {
+        categories: [
             'Enero',
             'Febrero',
             'Marzo',
@@ -39,61 +39,36 @@
             'Octubre',
             'Noviembre',
             'Diciembre'
-          ],
-          crosshair: true
-        },
-        yAxis: {
-          min: 0,
-          title: {
-            text: 'Cantidad'
-          }
-        },
-        tooltip: {
-          headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-          pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} C</b></td></tr>',
-          footerFormat: '</table>',
-          shared: true,
-          useHTML: true
-        },
-        plotOptions: {
-          column: {
+        ],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Valores '
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} GUI </b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
             pointPadding: 0.2,
             borderWidth: 0
-          }
-        },
-        series: [{
-          name: 'Tokyo',
-          showInLegend: false,
-          colorByPoint: true,
-          data: {{ report_sales_months|safe }}
-        }]
-      });
-
-      function get_report_sales_months(){
-        $.ajax({
-          url: window.location.pathname,
-          type: 'POST',
-          data: {
-            'action': 'get_report_sales_months'
-          },
-          datatype: 'json',
-        }).done(function(data){
-          console.log(data);
-          if(!data.hasOwnProperty('error')){
-            console.log(data) 
-            return false;
-          }
-          console.log(data.error);
-        }).fail(function (jqXHR, textStatus, errorThrown){
-          alter(textStatus + ' : ' + errorThrown);
-        }).always(function(data) {
-
-        });
-      }
-      $(function(){{
-        get_report_sales_months();
-      }})
+        }
+    },
+    series: [{
+        name: 'Porcentaje de impresiones',
+        colorByPoint: true,
+        showInLegend: false,
+        data: {{ grafico|safe }}
+    }]
+});
 
 </script>
 
