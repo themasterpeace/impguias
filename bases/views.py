@@ -42,6 +42,33 @@ class SinPrivilegios(LoginRequiredMixin, PermissionRequiredMixin, MixinFormInval
 class Home(TemplateView):
     template_name = 'bases/home.html'
    
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        data = {}
+        try:
+            action = request.POST['action']
+            if action == 'get_graph_sales_year_month':
+                data = {
+                    'name':'Porcentaje de Impresiones',
+                    'colorByPoint': True,
+                    'showInLegend': False,
+                    'data': self.get_graph_sales_year_month()
+                }
+            elif action == 'get_graph_sales_fpago_year_month':
+                data = {
+                    'name':'Brands',
+                    'colorByPoint': True,
+                    'data': self.get_graph_sales_fpago_year_month()
+                }
+            else:
+                data['error'] = 'No existen datos que mostrar'
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data, safe=False)
+
     def get_graph_sales_year_month(self):
         data = []
         try:
@@ -53,6 +80,21 @@ class Home(TemplateView):
             pass
         return data
         
+    def get_graph_sales_fpago_year_month(self):
+        data = []
+        year = datetime.now().year
+        month = datetime.now().month
+        try:
+            for f in GuiasEnv.all():
+                fpago = GuiasEnv.objects.filter(fecha__year=year, fecha__month=month, fpago_id=id).aggregate(r=Coalesce(Sum('totenvio'), 0)).get('r')
+                data.append({
+                    'name':fpago,
+                    'y': float(fpago)
+                })
+        except:
+            pass
+        return data
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['panel']= 'Panel de Administracion'

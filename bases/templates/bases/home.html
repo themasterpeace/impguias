@@ -13,11 +13,18 @@
             <div id="container"></div>
         </div>
     </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="container-pie"></div>
+        </div>
+    </div>
+    <br>
 </div>
 <script type="application/javascript">
-  Highcharts.chart('container', {
+ var graphcolumn = Highcharts.chart('container', {
     chart: {
-        type: 'line'
+        type: 'column'
     },
     title: {
         text: 'Reporte de Impresiones del Año 2022'
@@ -62,12 +69,86 @@
             borderWidth: 0
         }
     },
-    series: [{
-        name: 'Porcentaje de impresiones',
-        colorByPoint: true,
-        showInLegend: false,
-        data: {{ grafico|safe }}
-    }]
+});
+
+ var graphpie = Highcharts.chart('container-pie', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Impresion por forma de pago Junio de 2021',
+        align: 'left'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            }
+        }
+    },
+
+});
+
+function get_graph_sales_year_month(){
+    $.ajax({
+        url: window.location.pathname,
+        type: 'POST',
+        data: {
+            action: 'get_graph_sales_year_month'
+        },
+        datatype: 'json',
+    }).done(function(data){
+        if(!data.hasOwnProperty('error')){
+            graphcolumn.addSeries(data);
+            return false;
+        }
+        message_error(data.error);
+    }).fail(function(jqXHR, textStatus, errorThrown){
+        alert(textStatus + ':' + errorThrown);
+    }).always(function(data){
+
+    });
+}
+function get_graph_sales_fpago_year_month(){
+    $.ajax({
+        url: window.location.pathname,
+        type: 'POST',
+        data: {
+            action: 'get_graph_sales_fpago_year_month'
+        },
+        datatype: 'json',
+    }).done(function(data){
+        if(!data.hasOwnProperty('error')){
+            graphpie.addSeries(data);
+            return false;
+        }
+        message_error(data.error);
+    }).fail(function(jqXHR, textStatus, errorThrown){
+        alert(textStatus + ':' + errorThrown);
+    }).always(function(data){
+
+    });
+}
+
+$(function(){
+    
+    get_graph_sales_year_month();
+
+    get_graph_sales_fpago_year_month();
 });
 
 </script>
