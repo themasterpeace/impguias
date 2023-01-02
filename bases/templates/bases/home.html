@@ -8,14 +8,14 @@
 <h1>Dashboard de Guias Impresas</h1>
 <div class="container">
     <div class="row">
-        <div class="col-md-6 col-12">
+        <div class="col-md-6 col-lg-12">
             <div class="card" style="margin-top: 30px;">
                 <div class="card-body">
                     <canvas id="myChart1" width="300" height="300"></canvas>
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-12">
+        <div class="col-md-6 col-lg-12">
             <div class="card" style="margin-top: 30px;">
                 <div class="card-body">
                     <canvas id="myChart" width="300" height="300"></canvas>
@@ -25,14 +25,14 @@
     </div>
     
     <div class="row">
-        <div class="col-md-6 col-12">
+        <div class="col-md-6 col-lg-12">
             <div class="card" style="margin-top: 30px;">
                 <div class="card-body">
                     <canvas id="SalesPerProduct" width="300" height="300"></canvas>
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-12">
+        <div class="col-md-6 col-lg-12">
             <div class="card" style="margin-top: 30px;">
                 <div class="card-body">
                     <canvas id="SalesYearCount" width="300" height="300"></canvas>
@@ -41,14 +41,14 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6 col-12">
+        <div class="col-md-6 col-lg-12">
             <div class="card" style="margin-top: 30px;">
                 <div class="card-body">
                     <canvas id="SalesYearSum" width="300" height="300"></canvas>
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-12">
+        <div class="col-md-6 col-lg-12">
             <div class="card" style="margin-top: 30px;">
                 <div class="card-body">
                     <canvas id="NewCostumers" width="300" height="300"></canvas>
@@ -60,9 +60,9 @@
 <script type="text/javascript">
    var ctx = document.getElementById('myChart1').getContext('2d');
     var myChart1 = new Chart(ctx, {
-        type: 'bar',
+        type: 'pie',
         data: {
-            labels: [{% for guias in qs %} '{{ guias.fpago }}', {% endfor %}],
+            labels: [{% for guias in qs %} '{{ guias.cliente }}', {% endfor %}],
             datasets: [{
                 label:'Tipo Envio',
                 data: [{% for guias in qs %} '{{ guias.totenvio }}', {% endfor %}],
@@ -112,11 +112,11 @@
     
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
-        type: 'line',
+        type: 'bar',
         data: {
-            labels: [{% for guias in qs%} '{{ guias.fpago }}', {% endfor %}],
+            labels: [{% for guias in qs%} '{{ guias.totenvio }}', {% endfor %}],
             datasets: [{
-                label:'Forma de Pago',
+                label:'Total Impreso',
                 data: [{% for guias in qs %} '{{ guias.totenvio }}', {% endfor %}],
                 backgroundColor:[
                 'rgba(255, 99, 132, 1)',

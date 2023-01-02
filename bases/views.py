@@ -34,9 +34,9 @@ class Home(LoginRequiredMixin, generic.TemplateView):
     template_name = 'bases/home.html'
     login_url='bases:login'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["qs"]=GuiasEnv.objects.all()
+    def get_context_data(self,*args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["qs"]=GuiasEnv.objects.filter().count()
         return context
   
 
