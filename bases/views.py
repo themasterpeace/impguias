@@ -1,11 +1,20 @@
 import imp
-from django.shortcuts import render
+import calendar
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse_lazy
-from datetime import date
+from datetime import date, datetime
+from django.db.models import Sum
+from django.db.models.functions import Coalesce
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from collections import Counter
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.views import generic
+from django.views.generic import TemplateView
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from .models import *
+#from .forms import *
 from guiasenv.models import GuiasEnv
 
 
@@ -30,18 +39,52 @@ class SinPrivilegios(LoginRequiredMixin, PermissionRequiredMixin, MixinFormInval
         return HttpResponseRedirect(reverse_lazy(self.login_url))
 
 
-class Home(LoginRequiredMixin, generic.TemplateView):
+class Home(TemplateView):
     template_name = 'bases/home.html'
-    login_url='bases:login'
 
-    def get_context_data(self,*args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context["qs"]=GuiasEnv.objects.filter().count()
+    def get_graph_sales_pastyear_month(self):
+        data = []
+        try:
+            year = datetime.now().year -1
+            for m in range(1, 13):
+                totenvio = GuiasEnv.objects.filter(fecha__year=year, fecha__month=m).aggregate(r=Coalesce(Sum('totenvio'), 0)).get('r')
+                data.append(float(totenvio))
+        except:
+            pass
+        return data
+   
+    def get_graph_sales_year_month(self):
+        data = []
+        try:
+            year = datetime.now().year
+            for m in range(1, 13):
+                totenvio = GuiasEnv.objects.filter(fecha__year=year, fecha__month=m).aggregate(r=Coalesce(Sum('totenvio'), 0)).get('r')
+                data.append(float(totenvio))
+        except:
+            pass
+        return data
+
+    def get_graph_sales_year_tipoenvio(self):
+        data = []
+        try:
+            year = datetime.now().year
+            for tipo_envio in data:
+                totenvio = GuiasEnv.objects.filter(fecha__year=year, tipo_envio=tipo_envio).aggregate(r=Coalesce(Sum('totenvio'), 0)).get('r')
+                data.append(float(totenvio))
+                print(data)
+        except:
+            pass
+        return data
+        
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['panel']= 'Panel de Administracion'
+        context['grafico'] = self.get_graph_sales_year_month()
+        context['grafico2'] = self.get_graph_sales_pastyear_month()
+        context['grafico3'] = self.get_graph_sales_year_tipoenvio()
         return context
   
 
-class HomeSinPrivilegios(LoginRequiredMixin, generic.TemplateView):
+class HomeSinPrivilegios(LoginRequiredMixin, TemplateView):
     login_url = "bases:login"
     template_name="bases/sin_privilegios.html"
-
-
