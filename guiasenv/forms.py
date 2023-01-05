@@ -36,3 +36,22 @@ class ClienteForm(forms.ModelForm):
             self.fields[field].widget.attrs.update({
                 'class':'form-control'
             })
+
+
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
+class CustomUserCreationForm(UserCreationForm):
+    
+    class Meta:
+        model = User
+        fields = ['username', "first_name", "last_name", 
+        "email", "password1", "password2"]
+
+from django.forms import *
+
+class ReportForm(Form):
+    date_range = CharField(widget=TextInput(attrs={
+        'class': 'form-control',
+        'autocomplete':'off'
+    })) 

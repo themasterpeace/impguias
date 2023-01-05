@@ -14,5 +14,5 @@ urlpatterns = [
     path('sin_privilegios/',
          HomeSinPrivilegios.as_view(),
          name='sin_privilegios'),
-
+    
 ]

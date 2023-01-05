@@ -36,8 +36,12 @@ class Cliente(models.Model):
     codigo = models.CharField(max_length=8)
     nombre = models.CharField(max_length=200)
     direccion = models.CharField(max_length=200)
-    formapago = models.CharField(max_length=20)
     telefono = models.IntegerField(default=0)
+    nit = models.CharField(max_length=10)
+    departamento = models.CharField(max_length=50)
+    municipio = models.CharField(max_length=150)
+    contacto = models.CharField(max_length=150)
+    formapago = models.CharField(max_length=20,choices=FPAGO)
 
     def __str__(self):
         return self.codigo
@@ -82,8 +86,6 @@ class GuiasEnv(models.Model):
     class Meta:
         verbose_name_plural = "GuiasEnvs"
         ordering = ['id']
-
-
 
 class Lote(models.Model):
     no_lote = models.IntegerField(default=0, unique=True)

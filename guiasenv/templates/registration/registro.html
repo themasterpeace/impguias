@@ -1,0 +1,73 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+<br><br><br>
+
+  
+    <h2>Registro de Usuario</h2>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <div class="row">
+        <div class="card-body col-md-10">
+           {% comment %} {{ form.as_p }}  {% endcomment %}
+            <div class="form-group>
+              <label for="id_username">Nombre de usuario:</label> 
+              <div class="col-sm-10">
+                  <input class="form-control" type="text" name="username" maxlength="150" autofocus required id="id_username"> 
+              </div>
+            </div>  
+            <div class="form-group>
+              <label for="id_first_name">Nombre:</label> 
+              <div class="col-sm-10">
+                  <input class="form-control" type="text" name="first_name" maxlength="150" id="id_first_name">
+                  <span class="helptext">Requerido. 150 carácteres como máximo. Únicamente letras, dígitos y @/./+/-/_ </span>
+              </div>
+            </div>  
+            <div class="form-group>
+              <label for="id_last_name">Apellidos:</label> 
+              <div class="col-sm-10">
+                  <input class="form-control" type="text" name="last_name" maxlength="150" id="id_last_name">
+              </div>
+            </div>  
+            <div class="form-group>
+              <label for="id_email">Dirección de correo electrónico:</label> 
+              <div class="col-sm-10">
+                  <input class="form-control" type="email" name="email" maxlength="254" id="id_email">
+              </div>
+            </div>  
+            <div class="form-group>
+              <label for="id_password1">Contraseña:</label>
+              <div class="col-sm-10">   
+                  <input class="form-control" type="password" name="password1" autocomplete="new-password" required id="id_password1"> 
+                  <span class="helptext"><ul>
+                    <li>Su contraseña no puede asemejarse tanto a su otra información personal.</li>
+                    <li>Su contraseña debe contener al menos 8 caracteres.</li>
+                    <li>Su contraseña no puede ser una clave utilizada comúnmente.</li>
+                    <li>Su contraseña no puede ser completamente numérica.</li></ul>
+                  </span>
+              </div>
+            </div>  
+            <div class="form-group>
+              <label for="id_password2">Contraseña (confirmación):</label> 
+              <div class="col-sm-10">
+                  <input class="form-control" type="password" name="password2" autocomplete="new-password" required id="id_password2"> 
+                  <span class="helptext">Para verificar, introduzca la misma contraseña anterior.</span> 
+              </div>
+            </div>
+        </div>
+      </div>
+     
+      <button type="button" class="btn btn-success"><a href="{% url 'bases:home' %}">Regresar</a></button>
+          
+          <button class="btn btn-warning" type="submit">Registrar</button>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          
+      </div>    
+    </form>
+  </div>
+</div>
+                
+{% endblock %}

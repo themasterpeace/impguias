@@ -10,10 +10,22 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12">
+<<<<<<< HEAD
             <div id="container2"></div>
+=======
+            <div id="container"></div>
         </div>
     </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="container-pie"></div>
+>>>>>>> 1c8954badf90d7b6dbf73074e04cc47f750d8369
+        </div>
+    </div>
+    <br>
 </div>
+<<<<<<< HEAD
 
 <div class="container-fluid">
     <div class="row">
@@ -87,6 +99,59 @@
     });
 
   Highcharts.chart('container', {
+=======
+<script type="application/javascript">
+ var graphcolumn = Highcharts.chart('container', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Reporte de Impresiones del Año 2022'
+    },
+    subtitle: {
+        text: 'Reporte por columnas'
+    },
+    xAxis: {
+        categories: [
+            'Enero',
+            'Febrero',
+            'Marzo',
+            'Abril',
+            'Mayo',
+            'Junio',
+            'Julio',
+            'Agosto',
+            'Septiembre',
+            'Octubre',
+            'Noviembre',
+            'Diciembre'
+        ],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Valores '
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} GUI </b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+});
+
+ var graphpie = Highcharts.chart('container-pie', {
+>>>>>>> 1c8954badf90d7b6dbf73074e04cc47f750d8369
     chart: {
         type: 'column'
     },
@@ -133,6 +198,7 @@
             borderWidth: 0
         }
     },
+<<<<<<< HEAD
     series: [{
         name: 'Porcentaje de impresiones',
         colorByPoint: true,
@@ -186,6 +252,58 @@ Highcharts.chart('container2', {
         showInLegend: false,
         data: {{ grafico3|safe }}
     }]
+=======
+
+});
+
+function get_graph_sales_year_month(){
+    $.ajax({
+        url: window.location.pathname,
+        type: 'POST',
+        data: {
+            action: 'get_graph_sales_year_month'
+        },
+        datatype: 'json',
+    }).done(function(data){
+        if(!data.hasOwnProperty('error')){
+            graphcolumn.addSeries(data);
+            return false;
+        }
+        message_error(data.error);
+    }).fail(function(jqXHR, textStatus, errorThrown){
+        alert(textStatus + ':' + errorThrown);
+    }).always(function(data){
+
+    });
+}
+function get_graph_sales_fpago_year(){
+    $.ajax({
+        url: window.location.pathname,
+        type: 'POST',
+        data: {
+            action: 'get_graph_sales_fpago_year'
+        },
+        datatype: 'json',
+    }).done(function(data){
+        if(!data.hasOwnProperty('error')){
+            console.log(data);
+            graphpie.addSeries(data);
+            return false;
+        }
+        message_error(data.error);
+    }).fail(function(jqXHR, textStatus, errorThrown){
+        alert(textStatus + ':' + errorThrown);
+    }).always(function(data){
+
+    });
+}
+
+$(function(){
+    
+    get_graph_sales_year_month();
+
+    get_graph_sales_fpago_year();
+>>>>>>> 1c8954badf90d7b6dbf73074e04cc47f750d8369
 });
 
 </script>

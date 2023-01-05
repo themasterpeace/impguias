@@ -14,12 +14,12 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.utils.decorators import method_decorator
 from openpyxl import Workbook
 from openpyxl.styles import Alignment,Border,Font,PatternFill,Side
-
+from django.contrib.auth import authenticate, login
 from django.http.response import HttpResponse, JsonResponse
 
 from bases.views import SinPrivilegios
 from .models import *
-from .forms import GuiaForm, ClienteForm
+from .forms import *
 
 
 
@@ -102,6 +102,12 @@ def entregado(request, id):
 class Reportes(LoginRequiredMixin, TemplateView):
     template_name = 'guiasenv/reportes.html'
     login_url = 'bases:login'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = ReportForm()
+
+        return context
 
 class ReporteGeneralExcel(TemplateView):
     def get(self, request, *args, **kwargs):
@@ -450,6 +456,7 @@ class ReporteFechaExcel(TemplateView):
         return response
 
 
+
 """Zona de operaciones CRUD de listado de clientes """
 class ClienteListView(SinPrivilegios, ListView):
     permission_required = "guias.view_cliente"
@@ -508,3 +515,20 @@ class ClienteEdit(SuccessMessageMixin, SinPrivilegios, UpdateView):
         form.instance.um = self.request.user.id
         return super().form_valid(form)
 
+def registro(request):
+    data = {
+        'form': CustomUserCreationForm()
+    }
+
+    if request.method == 'POST':
+        formulario = CustomUserCreationForm(data=request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            user = authenticate(
+                username=formulario.cleaned_data["username"], password=formulario.cleaned_data["password1"])
+            login(request, user)
+            messages.success(request, "Te has registrado exitosamente")
+            #redirigir al home
+            return redirect(to="base:home")
+        data["form"] = formulario
+    return render(request, 'registration/registro.html', data)

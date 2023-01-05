@@ -11,8 +11,8 @@ function mensaje(msg,color='green')
 
 
       $.alert({
-        title:'',
-        theme:'supervan',
+        title:'¡¡Lo sentimos!!',
+        theme:'bootstrap',
         type:color,
         content:msg
       });

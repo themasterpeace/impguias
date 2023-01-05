@@ -20,4 +20,6 @@ urlpatterns = [
     path('guia/excel', ReporteClienteExcel.as_view(), name="guiaexcel"),
     path('guia/excelgen', ReporteGeneralExcel.as_view(), name="guiaexcelgen"),
     path('guia/excelfech', ReporteFechaExcel.as_view(), name="guiaexcelfech"),
+
+     path('registro/', registro, name='registro'),
 ]
