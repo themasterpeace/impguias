@@ -57,11 +57,12 @@ class Home(TemplateView):
                     'showInLegend': False,
                     'data': self.get_graph_sales_year_month()
                 }
-            elif action == 'get_graph_sales_fpago_year_month':
+            elif action == 'get_graph_sales_fpago_year':
                 data = {
-                    'name':'Brands',
+                    'name':'FPAGO',
                     'colorByPoint': True,
-                    'data': self.get_graph_sales_fpago_year_month()
+                    'showInLegend': False,
+                    'data': self.get_graph_sales_fpago_year()
                 }
             else:
                 data['error'] = 'No existen datos que mostrar'
@@ -72,7 +73,7 @@ class Home(TemplateView):
     def get_graph_sales_year_month(self):
         data = []
         try:
-            year = datetime.now().year
+            year = datetime.now().year - 1
             for m in range(1, 13):
                 totenvio = GuiasEnv.objects.filter(fecha__year=year, fecha__month=m).aggregate(r=Coalesce(Sum('totenvio'), 0)).get('r')
                 data.append(float(totenvio))
@@ -80,25 +81,28 @@ class Home(TemplateView):
             pass
         return data
         
-    def get_graph_sales_fpago_year_month(self):
+    def get_graph_sales_fpago_year(self):
         data = []
-        year = datetime.now().year
-        month = datetime.now().month
         try:
-            for f in GuiasEnv.all():
-                fpago = GuiasEnv.objects.filter(fecha__year=year, fecha__month=month, fpago_id=id).aggregate(r=Coalesce(Sum('totenvio'), 0)).get('r')
-                data.append({
-                    'name':fpago,
-                    'y': float(fpago)
-                })
-        except:
+            year = datetime.now().year - 1
+            for m in range(1, 13):
+                fpagos = GuiasEnv.objects.filter(fecha__year=year, fecha__month=m).values('tipo_envio').annotate(total=Sum('totenvio'))
+                for fpago in fpagos:
+                    data.append({
+                        'name': fpago['tipo_envio'],
+                        'y': float(fpago['total'])
+                    })
+        except Exception as e:
+            print(e)
             pass
+        print(data)
         return data
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['panel']= 'Panel de Administracion'
         context['grafico'] = self.get_graph_sales_year_month()
+        context['grafico1'] = self.get_graph_sales_fpago_year()
         return context
   
 

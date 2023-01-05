@@ -73,31 +73,49 @@
 
  var graphpie = Highcharts.chart('container-pie', {
     chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
+        type: 'column'
     },
     title: {
-        text: 'Impresion por forma de pago Junio de 2021',
-        align: 'left'
+        text: 'Reporte de Impresiones del Año 2023'
     },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    subtitle: {
+        text: 'Reporte por columnas'
     },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
+    xAxis: {
+        categories: [
+            'Enero',
+            'Febrero',
+            'Marzo',
+            'Abril',
+            'Mayo',
+            'Junio',
+            'Julio',
+            'Agosto',
+            'Septiembre',
+            'Octubre',
+            'Noviembre',
+            'Diciembre'
+        ],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Valores '
         }
     },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} GUI </b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
     plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-            }
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
         }
     },
 
@@ -123,16 +141,17 @@ function get_graph_sales_year_month(){
 
     });
 }
-function get_graph_sales_fpago_year_month(){
+function get_graph_sales_fpago_year(){
     $.ajax({
         url: window.location.pathname,
         type: 'POST',
         data: {
-            action: 'get_graph_sales_fpago_year_month'
+            action: 'get_graph_sales_fpago_year'
         },
         datatype: 'json',
     }).done(function(data){
         if(!data.hasOwnProperty('error')){
+            console.log(data);
             graphpie.addSeries(data);
             return false;
         }
@@ -148,7 +167,7 @@ $(function(){
     
     get_graph_sales_year_month();
 
-    get_graph_sales_fpago_year_month();
+    get_graph_sales_fpago_year();
 });
 
 </script>

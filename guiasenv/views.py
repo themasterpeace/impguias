@@ -103,6 +103,12 @@ class Reportes(LoginRequiredMixin, TemplateView):
     template_name = 'guiasenv/reportes.html'
     login_url = 'bases:login'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = ReportForm()
+
+        return context
+
 class ReporteGeneralExcel(TemplateView):
     def get(self, request, *args, **kwargs):
         campo = request.GET.get('campo')
@@ -448,6 +454,7 @@ class ReporteFechaExcel(TemplateView):
         response['Content-Disposition']= content
         wb.save(response)
         return response
+
 
 
 """Zona de operaciones CRUD de listado de clientes """

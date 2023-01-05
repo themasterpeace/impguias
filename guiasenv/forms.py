@@ -47,3 +47,11 @@ class CustomUserCreationForm(UserCreationForm):
         model = User
         fields = ['username', "first_name", "last_name", 
         "email", "password1", "password2"]
+
+from django.forms import *
+
+class ReportForm(Form):
+    date_range = CharField(widget=TextInput(attrs={
+        'class': 'form-control',
+        'autocomplete':'off'
+    })) 

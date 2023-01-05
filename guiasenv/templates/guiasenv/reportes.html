@@ -1,7 +1,11 @@
-{% extends 'base/base.html' %}
+{% extends 'guiasenv/guialist.html' %}
 
 {% load static %}
 <link rel="stylesheet" href="{% static './lib/css/reportes.css' %} "></li>
+
+
+
+
 
 {% block contenido  %}
 <main>
@@ -35,10 +39,37 @@
                 </div>
             </div>
         </div>
-       
-
     </div>
 </main>   
 
+<div class="card-body">
+    <table class="table table-striped table-hover" id="data">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label>Rango de fechas</label>
+                    {{ form.date_range }}
+                </div>
+            </div>
+        </div>
+        <thead>
+            <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Codigo</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Tipo Envio</th>
+                <th scope="col">Numero Inicial</th>
+                <th scope="col">Numero Final</th>
+                <th scope="col">Total Enviado</th>
+                <th scope="col">Forma Pago</th>
+                <th scope="col">Entregado</th>
+            </tr>
+        </thead>
+    </table>    
+</div>
+<script src="{% static './lib/daterange/moment.min.js' %}"></script>
+<script src="{% static './lib/daterange/daterangepicker.js' %}"></script>
+<link rel="stylesheet" href="{% static './lib/daterange/daterangepicker.css' %} "></li>
+<script src="{% static './lib/js/sale.js' %}"></script>
 
 {% endblock  %}
