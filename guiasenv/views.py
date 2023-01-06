@@ -103,6 +103,40 @@ class Reportes(LoginRequiredMixin, TemplateView):
     template_name = 'guiasenv/reportes.html'
     login_url = 'bases:login'
 
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+    
+    def post(self, request, *args, **kwargs):
+        data = {}
+        try:
+            action = request.POST['action']
+            if action == 'search_report':
+                data = []
+                start_date =request.POST.get('start_date', '')
+                end_date =request.POST.get('end_date', '')
+                search = GuiasEnv.objects.all()
+                if len(start_date) and len(end_date):
+                    search = search.filter(date_joined__range=[start_date, end_date])
+                for s in search:
+                    data.append([
+                        s.id,
+                        s.date_joined.strftime('%Y-%m-%d'),
+                        s.codigo,
+                        s.cliente,
+                        s.tipo_envio,
+                        s.numini,
+                        s.numfin,
+                        format(s.totenvio, '.2f'),
+                        s.fpago
+                    ])
+            else:
+                data['error'] = 'Ha ocurrido un error'
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data, safe=False)
+        
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = ReportForm()

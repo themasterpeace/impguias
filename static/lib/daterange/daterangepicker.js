@@ -66,14 +66,14 @@
 
         this.buttonClasses = 'btn btn-sm';
         this.applyButtonClasses = 'btn-primary';
-        this.cancelButtonClasses = 'btn-default';
+        this.cancelButtonClasses = 'btn-danger';
 
         this.locale = {
             direction: 'ltr',
             format: moment.localeData().longDateFormat('L'),
             separator: ' - ',
-            applyLabel: 'Apply',
-            cancelLabel: 'Cancel',
+            applyLabel: 'Aplicar',
+            cancelLabel: 'Cancelar',
             weekLabel: 'W',
             customRangeLabel: 'Custom Range',
             daysOfWeek: moment.weekdaysMin(),
