@@ -38,8 +38,8 @@
                         <th>Codigo</th>
                         <th>Nombre</th>
                         <th>Direccion</th>
-                        <th>Forma Pago</th>
                         <th>Telefono</th>
+                        <th>Forma Pago</th>
                         <th>Acciones</th>
                     </thead>
                     <tbody>
@@ -55,7 +55,7 @@
         
         {% block js %}
         <script>
-            function alerta() {
+            function cliente() {
                 $(document).ready(function() {
                 $('#clientes').DataTable({
 
@@ -107,8 +107,8 @@
                         {"data": "codigo"},
                         {"data": "nombre"},
                         {"data": "direccion"},
-                        {"data": "formapago"},
                         {"data": "telefono"},
+                        {"data": "formapago"},
                         {"data": "Acciones"},
                        
                         
@@ -134,7 +134,7 @@
             });
             }
 
-            alerta()
+            cliente()
 
          // Funcion que agrega guión(-) al escribir 3 caracteres
          var idco = $("input#id_codigo");

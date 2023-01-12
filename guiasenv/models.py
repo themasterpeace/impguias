@@ -37,17 +37,17 @@ class Cliente(models.Model):
     nombre = models.CharField(max_length=200)
     direccion = models.CharField(max_length=200)
     telefono = models.IntegerField(default=0)
-    nit = models.CharField(max_length=10)
-    departamento = models.CharField(max_length=50)
-    municipio = models.CharField(max_length=150)
-    contacto = models.CharField(max_length=150)
+    #nit = models.CharField(max_length=10)
+    #departamento = models.CharField(max_length=50)
+    #municipio = models.CharField(max_length=150)
+    #contacto = models.CharField(max_length=150)
     formapago = models.CharField(max_length=20,choices=FPAGO)
 
     def __str__(self):
         return self.codigo
 
     def save(self):
-        self.codigo = self.codigo.upper()
+        self.nombre = self.nombre.upper()
         super(Cliente, self).save()
     
     def toJSON(self):
@@ -56,7 +56,7 @@ class Cliente(models.Model):
 
     class Meta:
         verbose_name_plural = "Clientes"
-        ordering = ['id'] 
+        ordering = ['codigo'] 
 
 class GuiasEnv(models.Model):
     fecha = models.DateField(auto_now=False)
@@ -77,6 +77,14 @@ class GuiasEnv(models.Model):
     
     def toJSON(self):
         item = model_to_dict(self)
+        item['id'] = self.id.toJSON()
+        item['fecha'] = self.fecha.strftime('%Y-%m-%d')
+        item['codigo'] = self.codigo.toJson()
+        item['cliente'] = self.cliente.toJson()
+        item['tipo_envio'] = self.tipo_envio.toJson()
+        item['numini'] = self.numini.toJson()
+        item['numfin'] = self.numfin.toJson()
+        item['totenvio'] = format(self.totenvio, '2f')
         return item
     
     def save(self):
