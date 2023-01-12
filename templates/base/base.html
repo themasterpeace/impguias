@@ -7,7 +7,7 @@
 	<title>Dashboard  Transportes JR</title>
 	<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 	
-	<link rel="stylesheet" href="{% static 'lib/css/Dashboard.css' %}">
+	<link rel="stylesheet" href="{% static 'lib/css/dashboard.css' %}">
 	<link rel="stylesheet" href="{% static 'lib/css/hija.css' %}">
 	<link rel="stylesheet" href="{% static 'lib/css/print.css' %}">
 	<link rel="stylesheet" href="{% static 'lib/css/index.css' %}">
@@ -29,6 +29,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
 	<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js" ></script>
 	<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+	<script src="{% static 'lib/js/moment.js' %}"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
 	
 
@@ -41,8 +42,8 @@
 			<ul>
 				<li>
 					<a href="#">
-						<span class="icon"><ion-icon name="car-outline"></ion-icon></span>
-						<span class="title">TRANSPORTES JR</span>
+						<span class="icon"><ion-icon name="radio-outline"></ion-icon></span>
+						<span class="title">LINEN ADMIN</span>
 					</a>
 				</li>
 				<li>
@@ -51,37 +52,53 @@
 						<span class="title">Inicio</span>
 					</a>
 				</li>
+				{% comment %} URLS de recursos humanos {% endcomment %}
+				<li class="dropdown">
+					<a href="#">
+						<span class="title">Recursos Humanos</span>
+						<span class="icon"><ion-icon name="chevron-down-outline"></ion-icon></span>
+					</a>
+					<ol>
+						<li><a href="{% url 'empleados:nacionalidad' %}"><i class="fa-regular fa-flag"></i> Nacionalidad</a></li>
+						<li><a href="{% url 'empleados:sexolist' %}"><i class="fa-solid fa-venus-mars"></i> Genero</a></li>
+						<li><a href="{% url 'empleados:civillist' %}"><i class="fa-solid fa-rings-wedding"></i> Estado Civil</a></li>
+						<li><a href="{% url 'empleados:salariolist' %}"><i class="fa-solid fa-money-bill-transfer"></i> Sircunscripcion</a></li>
+						<li><a href="{% url 'empleados:gerencialist' %}"><i class="fa-solid fa-bars-progress"></i> Gerencia</a></li>
+						<li><a href="{% url 'empleados:deptolist' %}"><i class="fa-solid fa-apartment"></i> Departamento</a></li>
+						<li><a href="#"><i class="fa-solid fa-chair-office"></i> Puesto</a></li>
+						<li><a href="#"><i class="fa-solid fa-code-branch"></i> Sucursal</a></li>
+						<li><a href="#"><i class="fa-solid fa-briefcase"></i> Registo Empleado</a></li>
+						<li><a href="#"><i class="fa-brands fa-paypal"></i> Datos para Nomina</a></li>
+						<li><a href="#"><i class="fa-sharp fa-solid fa-paperclip-vertical"></i> Papeleria</a></li>					
+					</ol>
+				</li>
 				<hr>
-					<li>
-						{% if perms.guisenv.view_guia %}
-						<a href="{% url 'guiasenv:guialist' %}">
-							
-							<span class="icon"><ion-icon name="newspaper-outline"></ion-icon></span>
-							<span class="title">Guias Impresas</span>
+				{% comment %} URlS de impresiond e guias  {% endcomment %}
+					<li class="dropdown">
+						<a href="#">
+							<span class="title"><i class="fa-regular fa-shredder"></i>  Impresion de Guías</span>
+							<span class="icon"><ion-icon name="chevron-down-outline"></ion-icon></span>
 						</a>
-						{% endif %}
-					</li>
-					<hr>
+						<ol>
+							<li>
+								{% if perms.imphijas.view_guia %}
+									<a href="{% url 'guiasenv:guialist' %}"><i class="fa-regular fa-newspaper"></i>Guias Impresas</a>
+								{% endif %}
+							</li>
+							<li>
+								{% if perms.imphijas.view_imphija %}
+								<a href="{% url 'imphijas:hijalist' %}"><i class="fa-regular fa-newspaper"></i>Imprimir Madres</a>
+								{% endif %}
+							</li>
+							<li>
+								{% if perms.imphijas.view_imphija %}
+									<a href="{% url 'imphijas:hijalist' %}"><i class="fa-regular fa-newspaper"></i>Imprimir Hijas</a>
+								{% endif %}
+							</li>
+						</ol>
 					<li>
-						{% if perms.imphijas.view_imphija %}
-						<a href="{% url 'imphijas:hijalist' %}">
-							
-							<span class="icon"><ion-icon name="newspaper-outline"></ion-icon></span>
-							<span class="title">Imprimir Madres</span>
-						</a>
-						{% endif %}
-					</li>
-					<li>
-						{% if perms.imphijas.view_imphija %}
-						<a href="{% url 'imphijas:hijalist' %}">
-							
-							<span class="icon"><ion-icon name="newspaper-outline"></ion-icon></span>
-							<span class="title">Imprimir Hijas</span>
-						</a>
-						{% endif %}
-					</li>
-					<hr>
-					<li>
+				<hr>		
+					<li>	
 						{% if perms.guiasenv.view_cliente %}
 						<a href="{% url 'guiasenv:clientelist' %}">
 							<span class="icon"><ion-icon name="people-circle-outline"></ion-icon></span>
@@ -89,6 +106,7 @@
 						</a>
 						{% endif %}
 					</li>
+					<hr>
 					<li>
 						{% if perms.rutas.view_ruta %}
 						<a href="{% url 'rutas:list_ruta' %}">
@@ -97,6 +115,7 @@
 						</a>
 						{% endif %}
 					</li>
+					<hr>
 					<li>
 						{% if perms.guiasenv.view_lote %}
 						<a href="">
@@ -105,6 +124,7 @@
 						</a>
 						{% endif %}
 					</li>
+					<hr>
 					<li>
 						{% if perms.guiasenv.view_lote %}
 						<a href="{% url 'guiasenv:reporte' %}">
@@ -113,7 +133,7 @@
 						</a>
 						{% endif %}
 					</li>
-					
+					<hr>
 					<li class="dropdown">
 						{% if perms.guiasenv.view_lote %}
 						<a href="#">
@@ -122,7 +142,7 @@
 						</a>
 						{% endif %}
 					</li> 
-					
+					<hr>
 				<li>
 					
 					<a href="{% url 'bases:logout' %}">
@@ -130,6 +150,7 @@
 						<span class="title" href="">Cerrar Sesión</span>
 					</a>
 				</li>
+				<hr>
 			</ul>
 		</div>
 		<!-- Main -->
@@ -187,32 +208,9 @@
 		}
 	</script>
 
+	<script src="{% static 'lib/js/dash.js' %}"></script>
 	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-	<script>
-		//MenuToggle
-		let toggle = document.querySelector('.toggle');
-		let navigation = document.querySelector('.navigation');
-		let main = document.querySelector('.main');
-
-		toggle.onclick = function(){
-			navigation.classList.toggle('active');
-			main.classList.toggle('active');
-		}
-		//add hovered class in selected list item
-		let list = document.querySelectorAll('.navigation li');
-		function activeLink() {
-			list.forEach((item)=>{
-				item.classList.remove('hovered');
-			});
-			this.classList.add('hovered');
-		}
-		list.forEach((item)=>{
-			item.addEventListener('mouseover', activeLink)
-		})
-
-		
-	</script>
 	{% block control_modal %}
 	<script type="application/javascript">
 		function abrir_modal(url)

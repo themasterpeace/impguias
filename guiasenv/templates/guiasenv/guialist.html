@@ -58,7 +58,7 @@
         <script>
             function inactivar(id)
             {
-                var data = {id:id}
+                var data = {codigo:codigo}
                 data = JSON.stringify(data); 
                 var token = '{{csrf_token}}';
                 //alert(token);
@@ -135,7 +135,7 @@
                         dataSrc: ""
                     },
                     columns: [
-                        {% comment %} {"data": "id"}, {% endcomment %}
+                        
                         {"data": "fecha"},
                         {"data": "codigo"},
                         {"data": "cliente"},
@@ -150,18 +150,6 @@
                         
                     ],
                     columnDefs:[
-                    //{
-                    //    targets: [9],
-                    //    class: 'text-center',
-                    //    orderable: false,
-                    //    render: function(data, type, row) {
-                    //        //return data;
-                    //        var url = "'"+ row.id+"'";
-                    //        
-                    //        var buttons = '<button class="btn btn-warning btn-circle" onclick="return inactivar('+url+')"><i class="fa-regular fa-thumbs-up"></i>';
-                    //            return buttons;
-                    //    }   
-                    //},
                     
                         {
                             targets: [-1],

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'guiasenv',
     'rutas',
     'imphijas',
+    'empleados',
     
    
     

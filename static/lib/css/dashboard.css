@@ -6,7 +6,7 @@
 	font-family: 'Ubuntu', sans-serif;
 }
 :root{
-	--colorprimary: #123B1A;
+	--colorprimary: #E29C19;
 	--colorsecondary: #b50001;
 	--thirstnsecondary: #071A2C;
 	--white: #FFF;
@@ -47,8 +47,8 @@ body{
 	border-top-left-radius: 30px;
 	border-bottom-left-radius: 30px;
 }
-.navigation ul li:hover,
-.navigation ul li.hovered{
+.navigation ul li.hovered,
+.navigation ul li.dropActive{
 	background: var(--white);
 }
 .navigation ul li:nth-child(1){
@@ -64,8 +64,8 @@ body{
 	text-decoration: none;
 	color: var(--white);
 }
-.navigation ul li:hover a,
-.navigation ul li.hovered a{
+.navigation ul li.hovered a,
+.navigation ul li.dropActive a{
 	color: var(--colorprimary);
 }
 .navigation ul li a .icon{
@@ -89,8 +89,8 @@ body{
 	white-space: nowrap;
 }
 /*Curve outside*/
-.navigation ul li:hover a::before,
-.navigation ul li.hovered a::before{
+.navigation ul li.hovered a::before,
+.navigation ul li.dropActive a::before{
 	content: "";
 	position: absolute;
 	right: 0;
@@ -101,8 +101,8 @@ body{
 	box-shadow: 35px 35px 0 10px var(--white);
 	pointer-events: none;
 }
-.navigation ul li:hover a::after,
-.navigation ul li.hovered a::after {
+.navigation ul li.hovered a::after,
+.navigation ul li.dropActive a::after{
 	content: "";
 	position: absolute;
 	right: 0;
@@ -112,6 +112,29 @@ body{
 	border-radius: 50%;
 	box-shadow: 35px -35px 0 10px var(--white);
 	pointer-events: none;
+}
+.navigation ul li ol{
+	display: none;
+	padding-left: 85px;
+	padding-bottom: 5px;
+}
+.navigation ul li ol li{
+	padding: 10px;
+	transition: 0.1s;
+}
+.navigation ul li ol li:hover{
+	background: var(--colorprimary);
+  border-left: 10px solid var(--colorprimary);
+}
+.navigation ul li ol li:hover a{
+	color: var(--white);
+}
+.navigation ul li ol li:nth-child(1){
+	pointer-events: visible;
+	margin-bottom: 0;
+}
+.navigation ul li.dropActive ol{
+	display: block;
 }
 /* main  */
 .main{
@@ -186,7 +209,7 @@ body{
 	padding: 0 10px;
 	cursor: pointer;
 }
-select {
+.formBx select {
 	appearance: none;
 	outline: 0;
 	border: 0;
@@ -198,7 +221,7 @@ select {
 	background-image: none;
 	cursor: pointer;
 }
-select::-ms-expand {
+.formBx select::-ms-expand {
   display: none;
 }
 .select {
@@ -223,6 +246,12 @@ select::-ms-expand {
 }
 .select:hover::after {
   color: #FFF;
+}
+select{
+	background: var(--thirstnsecondary);
+	color: #FFF;
+	border-radius: 3px;
+	padding: 2px 20px;
 }
 .user{
 	position: relative;
@@ -440,6 +469,11 @@ select::-ms-expand {
 	color: var(--white);
 }
 /*Responsive*/
+@media(max-width: 1700px){
+	.recentOrders{
+		overflow-x: auto;
+	}
+}
 @media(max-width: 991px){
 	.navigation{
 		left: -300px;
@@ -447,6 +481,9 @@ select::-ms-expand {
 	.navigation.active{
 		width: 300px;
 		left: 0
+	}
+	.recentOrders{
+		overflow-x: auto;
 	}
 	.main{
 		width: 100%;

@@ -17,6 +17,9 @@ from openpyxl.styles import Alignment,Border,Font,PatternFill,Side
 from django.contrib.auth import authenticate, login
 from django.http.response import HttpResponse, JsonResponse
 
+from django.db.models.functions import Coalesce
+from django.db.models import Sum
+
 from bases.views import SinPrivilegios
 from .models import *
 from .forms import *
@@ -108,28 +111,41 @@ class Reportes(LoginRequiredMixin, TemplateView):
         return super().dispatch(request, *args, **kwargs)
     
     def post(self, request, *args, **kwargs):
-        data = {}
+        data = []
         try:
             action = request.POST['action']
             if action == 'search_report':
                 data = []
-                start_date =request.POST.get('start_date', '')
-                end_date =request.POST.get('end_date', '')
+                start_date = request.POST.get('start_date', '')
+                end_date = request.POST.get('end_date', '')
                 search = GuiasEnv.objects.all()
                 if len(start_date) and len(end_date):
-                    search = search.filter(date_joined__range=[start_date, end_date])
+                    search = search.filter(fecha__range=[start_date, end_date])
                 for s in search:
                     data.append([
                         s.id,
-                        s.date_joined.strftime('%Y-%m-%d'),
+                        s.fecha.strfdate('%Y-%m-%d'),
                         s.codigo,
                         s.cliente,
                         s.tipo_envio,
                         s.numini,
                         s.numfin,
                         format(s.totenvio, '.2f'),
-                        s.fpago
                     ])
+                
+                total = search.aggregate(r=Coalesce(Sum('totenvio'), 0)).get('r')
+
+                data.append([
+                    '---',
+                    '---',
+                    '---',
+                    '---',
+                    '---',
+                    '---',
+                    '---',
+                    format(total, '.2f'),
+                ])
+
             else:
                 data['error'] = 'Ha ocurrido un error'
         except Exception as e:
