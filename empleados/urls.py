@@ -29,6 +29,10 @@ urlpatterns = [
     ################urls de departamentos#############################
     path('depto/list', DepartamentoView.as_view(), name='deptolist'),
     path('depto/new', DepartamentoNew.as_view(), name='deptonew'),
+
+    ################urls de puestos#############################
+    path('puesto/list', PuestoView.as_view(), name='puestolist'),
+    path('puesto/new', PuestoNew.as_view(), name='puestonew'),
     
 
 ]

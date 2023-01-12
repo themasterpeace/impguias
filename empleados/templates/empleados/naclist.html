@@ -103,7 +103,9 @@
                         columns: [
                            
                             {"data": "id"},
-                            {"data": "estado"},
+                            {"data": "estado"}, "render":function(data){
+                                return data ? 'Activo' : 'Inactivo';
+                            }},
                             {% comment %} {"data": "fc"},
                             {"data": "fm"}, {% endcomment %}
                             {"data": "nacionalidad"},
