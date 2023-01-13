@@ -63,11 +63,11 @@ class TipoSalario(ClaseModelo):
     sircunscripcion = models.IntegerField(default=0)
     salario = models.FloatField(default=0)
 
-    def __str__(self):
-        return self.salrio
+    # def __str__(self):
+    #     return self.sircunscripcion
 
     def save(self):
-        self.salario = self.salario
+        self.sircunscripcion = self.sircunscripcion
         super(TipoSalario, self).save()
     
     def toJSON(self):
@@ -161,14 +161,14 @@ class Empleado(ClaseModelo):
     cel = models.IntegerField(default=0)
     fechanace = models.DateField(auto_now=False, auto_now_add=False)
     lnace = models.CharField(max_length=100)
-    dpi = models.IntegerField(default=0, unique=True)
+    dpi = models.CharField(max_length=13)
     nit = models.IntegerField(default=0, unique=True)
     email = models.EmailField(max_length=254)
     ecivil = models.ForeignKey("EstadoCivil", on_delete=models.CASCADE)
     hijo = models.CharField(max_length=2)
     nacionalidad = models.ForeignKey("Nacionalidad", on_delete=models.CASCADE)
     sexo = models.ForeignKey("Sexo", on_delete=models.CASCADE)
-    foto = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=None)
+    foto = models.ImageField(upload_to='fotos/', null=True, blank=True)
 
     def __str__(self):
         return self.dpi

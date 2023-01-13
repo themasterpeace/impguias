@@ -304,6 +304,24 @@ class SucursalView(SinPrivilegios, ListView):
     context_object_name = "obj"
     login_url = "bases:login"
 
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+    
+    def post(self, request, *args, **kwargs):
+        data = []
+        try:
+            action = request.POST['action']
+            if action == 'searchdata':
+                data = []
+                for i in Sucursal.objects.all():
+                    data.append(i.toJSON())
+            else:
+                data['error'] = 'Ha ocurrido un error'
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data, safe=False)
+
 class SucursalNew(SuccessMessageMixin, SinPrivilegios, CreateView):
     permission_required = "empleados.create_sucursal"
     model = Sucursal
@@ -325,6 +343,24 @@ class EmpleadoView(SinPrivilegios, ListView):
     template_name = "empleados/empleadolist.html"
     context_object_name = "obj"
     login_url = "bases:login"
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+    
+    def post(self, request, *args, **kwargs):
+        data = []
+        try:
+            action = request.POST['action']
+            if action == 'searchdata':
+                data = []
+                for i in Empleado.objects.all():
+                    data.append(i.toJSON())
+            else:
+                data['error'] = 'Ha ocurrido un error'
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data, safe=False)
 
 class EmpleadoNew(SuccessMessageMixin, SinPrivilegios, CreateView):
     permission_required = "empleados.create_empleado"
@@ -361,10 +397,28 @@ class DanosNominaView(SinPrivilegios, ListView):
     context_object_name = "obj"
     login_url = "bases:login"
 
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+    
+    def post(self, request, *args, **kwargs):
+        data = []
+        try:
+            action = request.POST['action']
+            if action == 'searchdata':
+                data = []
+                for i in Empleado.objects.all():
+                    data.append(i.toJSON())
+            else:
+                data['error'] = 'Ha ocurrido un error'
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data, safe=False)
+
 class DanosNominaNew(SuccessMessageMixin, SinPrivilegios, CreateView):
     permission_required = "empleados.create_datosnomina"
     model = DatosNomina
-    template_name = "empleados/nomimanew.html"
+    template_name = "empleados/nominanew.html"
     context_object_name = "obj"
     form_class = DatosNominaForm
     success_url = reverse_lazy("empleados:papelerianew")
@@ -395,6 +449,24 @@ class PapeleriaView(SinPrivilegios, ListView):
     template_name = "empleados/papelerialist.html"
     context_object_name = "obj"
     login_url = "bases:login"
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+    
+    def post(self, request, *args, **kwargs):
+        data = []
+        try:
+            action = request.POST['action']
+            if action == 'searchdata':
+                data = []
+                for i in Empleado.objects.all():
+                    data.append(i.toJSON())
+            else:
+                data['error'] = 'Ha ocurrido un error'
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data, safe=False)
 
 class PapeleriaNew(SuccessMessageMixin, SinPrivilegios, CreateView):
     permission_required = "empleados.create_papeleria"

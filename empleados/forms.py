@@ -90,14 +90,51 @@ class PuestoForm(forms.ModelForm):
         
 
 class SucursalForm(forms.ModelForm):
-    pass
+    class Meta:
+        model = Sucursal
+        fields = '__all__'
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args,**kwargs)
+            for field in iter(self.fields):
+                self.fields[field]-widgets.attrs.update({
+                    'class':'form-control'
+                })
 
 class EmpleadoForm(forms.ModelForm):
-    pass
+    class Meta:
+        model = Empleado
+        fields = '__all__'
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args,**kwargs)
+            for field in iter(self.fields):
+                self.fields[field]-widgets.attrs.update({
+                    'class':'form-control'
+                })
+
 
 class DatosNominaForm(forms.ModelForm):
-    pass
+    class Meta:
+        model = DatosNomina
+        fields = '__all__'
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args,**kwargs)
+            for field in iter(self.fields):
+                self.fields[field]-widgets.attrs.update({
+                    'class':'form-control'
+                })
 
 class PapeleriaForm(forms.ModelForm):
-    pass
+    class Meta:
+        model = Papeleria
+        fields = '__all__'
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args,**kwargs)
+            for field in iter(self.fields):
+                self.fields[field]-widgets.attrs.update({
+                    'class':'form-control'
+                })
 

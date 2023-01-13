@@ -1,0 +1,136 @@
+{% extends 'base/base.html' %}
+
+{% block list %}
+
+
+{% endblock%}
+
+{% block contenido %}
+    <div class="details">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h5 class="m-0 font-weight-bold text-primary"><b>Listado De Empleados </b> </h5>
+                <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa-solid fa-cart-plus"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-header">Acciones:</div>
+                        <a class="dropdown-item" onclick="return abrir_modal('{% url 'empleados:empleadonew' %}')" href="#"><i class="fas fa-calendar-plus"></i> Registrar Empleado</a>
+                        <a class="dropdown-item" href="#"></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#"></a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 5Body -->
+            <div class="card-body"> 
+                {% if not obj  %}
+                   <div class="alert alert-warning">No Existen Empleados Registrados</div>
+                {% else %}
+                
+                <table class="table table-striped table-hover" id="empleado">
+                    <thead>
+                        
+                        <th>id</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>DPI</th>
+                        <th>Fecha Nacimiento</th>
+                        <th>Telefono</th>
+                        <th>Celular</th>
+                        {% comment %} <th>Fotografía</th> {% endcomment %}
+                        <th>Estado</th>
+                    </thead>
+                    <tbody>
+                    
+                    </tbody>
+                </table>
+                {% endif %}
+            </div>
+        </div>
+        
+        {% block js %}
+        <script>
+                function empleado() {
+                    $(document).ready(function() {
+                    $('#empleado').DataTable({
+    
+                        "language": {
+                            "sProcessing":     "Procesando...",
+                            "sLengthMenu":     "Mostrar _MENU_ registros",
+                            "sZeroRecords":    "No se encontraron resultados",
+                            "sEmptyTable":     "Ningún dato disponible en esta tabla =(",
+                            "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix":    "",
+                            "sSearch":         "Buscar:",
+                            "sUrl":            "",
+                            "sInfoThousands":  ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst":    "Primero",
+                                "sLast":     "Último",
+                                "sNext":     "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            },
+                            "buttons": {
+                                "copy": "Copiar",
+                                "colvis": "Visibilidad"
+                            },                  
+                                },
+    
+                            responsive: true,
+                            autoWidth: false,
+                            destroy: true,
+                            deferRender: true,
+                            processing: true,
+                            ajax: {
+                                url: window.location.pathname,
+                                type: 'post',
+                                data: {
+                                    'action': 'searchdata'
+                                },
+                                dataSrc: ""
+                        },
+                        
+                        columns: [
+                           
+                            {"data": "id"},
+                            {"data": "nombre"},
+                            {"data": "apellido"},
+                            {"data": "dpi"},
+                            {"data": "fechanace"},
+                            {"data": "tel"},
+                            {"data": "cel"},
+                            //{"data": "foto"},
+                            {"data": "estado", "render" : function(data){
+                                return data ? 'Activo' : 'Inactivo';
+                            }}, 
+                            
+                        ],
+                        initComplete: function(settings, json){
+                        }
+                        
+                    });
+                });
+                }
+    
+                empleado()
+
+        </script>
+        {% endblock %}
+        {% endblock %}
+        
+    </div>
+
+
+    

@@ -33,6 +33,26 @@ urlpatterns = [
     ################urls de puestos#############################
     path('puesto/list', PuestoView.as_view(), name='puestolist'),
     path('puesto/new', PuestoNew.as_view(), name='puestonew'),
+
+    ################urls de Sucursales#############################
+    path('sucursal/list', SucursalView.as_view(), name='suclist'),
+    path('sucursal/new', SucursalNew.as_view(), name='sucnew'),
+
+    ################urls de Empleados#############################
+    path('empleado/list', EmpleadoView.as_view(), name='empleadolist'),
+    path('empleado/new', EmpleadoNew.as_view(), name = 'empleadonew'),
+
+    ################urls de Datos Nomina#############################
+    path('nomina/list', DanosNominaView.as_view(), name='nominalist'),
+    path('nomina/new', DanosNominaNew.as_view(), name='nominanew'),
+
+    ################urls de Papeleria #############################
+    path('papeleria/list', PapeleriaView.as_view(), name='papelerialist'),
+    path('papeleria/new', PapeleriaNew.as_view(), name='papelerianew'),
+
+    
+
+
     
 
 ]
