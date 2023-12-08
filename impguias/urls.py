@@ -20,7 +20,10 @@ urlpatterns = [
     path('', include(('bases.urls','bases'), namespace='bases')),
     path('guiasenv/', include(('guiasenv.urls', 'guiasenv'), namespace='guiasenv')),
     path('rutas/', include(('rutas.urls', 'rutas'), namespace='rutas')),
+    path('porvee/', include(('porvee.urls', 'porvee'), namespace='porvee')),
     path("accounts/", include("django.contrib.auth.urls")),
+    path('api/', include(('api.urls', 'api'), namespace='api')),
+    path('conectdbf/', include(('conectdbf.urls', 'conectdbf'), namespace='conectdbf')),
     path('django_plotly_dash/', include('django_plotly_dash.urls')),
 
     path('admin/', admin.site.urls),

@@ -24,7 +24,7 @@ from .forms import GuiaForm, ClienteForm
 
 
 class GuiaView( SinPrivilegios, ListView):
-    permission_required = "guias.view_guia"
+    permission_required = "guiasenv.view_guiasenv"
     model = GuiasEnv
     template_name = "guiasenv/guialist.html"
     context_object_name = "obj"
@@ -52,13 +52,13 @@ class GuiaView( SinPrivilegios, ListView):
 
 class GuiaNew(SuccessMessageMixin, SinPrivilegios,\
     CreateView):
-    permission_required = "guiasenv.create_guia"
+    permission_required = "guiasenv.add_guiasenv"
     model = GuiasEnv
     template_name = "guiasenv/guianew.html"
     context_object_name = "obj"
     form_class = GuiaForm
     succes_url = reverse_lazy("guiasenv:guialist")
-    success_message = 'CORRELATIVO DE GUIAS IMPRESAS AGREGADO CORRECTAMENTE'
+    success_message = 'REGISTRO AGREGADO CORRECTAMENTE'
     login_url = "bases:login"
 
     def form_valid(self, form):
@@ -73,7 +73,7 @@ class GuiaEdit(SuccessMessageMixin, SinPrivilegios, UpdateView):
     context_object_name="obj"
     form_class = GuiaForm
     success_url=reverse_lazy("guiasenv:guialist")
-    success_message = 'CORRELATIVO DE GUIAS IMPRESAR ACTUALIZADO CORRECTAMENTE'
+    success_message = 'REGISTRO ACTUALIZADO CORRECTAMENTE'
     login_url = "bases:login"
 
     def form_valid(self, form):

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Datos DBF</title>
+</head>
+<body>
+    <h1>Lista de Datos DBF</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Madre</th>
+                <th>Hija</th>
+                <!-- Agrega más encabezados de columna según la estructura de tu tabla DBF -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for registro in registros_dbf %}
+                <tr>
+                    <td>{{ registro.madre }}</td>
+                    <td>{{ registro.hija }}</td>
+                    <!-- Agrega más campos según la estructura de tu tabla DBF -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -49,7 +49,7 @@
 					</a>
 				</li>
 					<li>
-						{% if perms.guisenv.view_guia %}
+						{% if perms.guiasenv.view_guiasenv %}
 						<a href="{% url 'guiasenv:guialist' %}">
 							
 							<span class="icon"><ion-icon name="newspaper-outline"></ion-icon></span>
@@ -73,6 +73,30 @@
 						</a>
 						{% endif %}
 					</li>
+					<li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+								<span class="icon"><ion-icon name="radio-outline"></ion-icon></span>
+								<span class="title">Proveedores</span>
+							</a>
+							
+							<div class="dropdown-menu">
+							  <a class="dropdown-item" href="{% url 'porvee:listprove' %}">
+								<span class="icon" ><ion-icon name="add-outline"></ion-icon></span>
+								<span class="title">Registrar Proveedor</span>
+							</a>
+							  <a class="dropdown-item" href="#">
+								<span class="icon"><ion-icon name="add-outline"></ion-icon></span>
+								<span class="title">Registrar facturas</span>
+							</a>
+							  <a class="dropdown-item" href="#">
+								<span class="icon"><ion-icon name="add-outline"></ion-icon></span>
+								<span class="title">Reportes Facturas</span>
+							</a>
+							</div>
+						</li>
+					</li>
+					
 					<li>
 						{% if perms.guiasenv.view_lote %}
 						<a href="">
@@ -126,7 +150,7 @@
 				<!-- userImg -->
 				{% if user.is_authenticated %}
 				<div class="user">
-					<span class="alert alert-warning"><b>Iniciaste Sesión como: {{ user.get_username }}</b> </span><ion-icon name="person-circle-outline"></ion-icon>
+					<span class="alert alert-warning"><b style="text-transform: uppercase;">Iniciaste Sesión como: {{ user.get_username }}</b> </span><ion-icon name="person-circle-outline"></ion-icon>
 				</div>
 				{% endif %}
 			</div>
@@ -185,7 +209,7 @@
 		list.forEach((item)=>{
 			item.addEventListener('mouseover', activeLink)
 		})
-
+		
 		
 	</script>
 	{% block control_modal %}
@@ -219,7 +243,8 @@
         mensaje("{{ message }}","{{ message.tags }}");
       {% endfor %}
     {% endif %}       
-			
+		
+	
 	</script>
 	{% endblock%}
 		

@@ -144,25 +144,14 @@
                         {"data": "numfin"},
                         {"data": "totenvio"},
                         {"data": "fpago"},
-                        {"data": "entregado"},
+                        {"data": "entregado", "render":function(data){
+                            return data ? 'Entregado' : 'No Entregado';
+                        }},
                         {"data": "Acciones"},
                        
                         
                     ],
-                    columnDefs:[
-                    //{
-                    //    targets: [9],
-                    //    class: 'text-center',
-                    //    orderable: false,
-                    //    render: function(data, type, row) {
-                    //        //return data;
-                    //        var url = "'"+ row.id+"'";
-                    //        
-                    //        var buttons = '<button class="btn btn-warning btn-circle" onclick="return inactivar('+url+')"><i class="fa-regular fa-thumbs-up"></i>';
-                    //            return buttons;
-                    //    }   
-                    //},
-                    
+                    columnDefs:[                  
                         {
                             targets: [-1],
                             class: 'text-center',

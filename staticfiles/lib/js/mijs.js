@@ -1,4 +1,4 @@
-function mensaje(msg,color='green')
+function mensaje(msg,color)
     {
       if (color=="success")
       {
@@ -11,8 +11,8 @@ function mensaje(msg,color='green')
 
 
       $.alert({
-        title:'',
-        theme:'supervan',
+        title:'Mensaje!',
+        theme:'dark',
         type:color,
         content:msg
       });

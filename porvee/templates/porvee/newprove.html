@@ -1,0 +1,137 @@
+<div class="modal-dialog modal_lg prov_new">
+    <div class="modal-content">
+        {% if obj %}
+        <form method="POST" role="form" action="{% url 'porvee:editprove' obj.pk %}">
+        {% else %}
+        <form method="POST" role="form" action="{% url 'porvee:newprove' %}">
+        {% endif %}
+
+            <div class="col-xl-12 col-md-12 mb-12">
+                {% if obj %}
+                <div class="card border-left-warning shadow h-100 py-2">
+                {% else %}
+                <div class="card border-left-success shadow h-100 py-2">
+                {% endif %}
+                    <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                <h2>{% if obj %} Editar {% else %} Nuevo {% endif %} Proveedor</h2>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            {% csrf_token %}
+                            
+                                <div class="form-row">
+                                    <p class="form-group col-md-6">
+                                        <label for="id_nit">Nit:</label> 
+                                        <input type="number" name="nit" class="form-control" required id="id_nit" value="{{ obj.nit }}">
+                                    </p>
+                                    <p class="form-group col-md-6">
+                                        <label for="id_nombre">Nombre:</label> 
+                                        <input type="text" name="nombre" maxlength="200" class="form-control" required id="id_nombre" value="{{ obj.nombre}}">
+                                    </p>
+                                </div>
+                                <div class="form-row">
+                                    <p class="form-group col-md-6">
+                                        <label for="id_direccion">Direccion:</label> 
+                                        <input type="text" name="direccion" maxlength="200" class="form-control" required id="id_direccion" value="{{ obj.direccion}}">
+                                    </p>
+                                    <p class="form-group col-md-6">
+                                        <label for="id_telefono">Telefono:</label> 
+                                        <input type="text" name="telefono" maxlength="9" class="form-control" required id="id_telefono" value="{{ obj.telefono}}">    
+                                    </p>                                    
+                                </div>
+                                <div class="form-row">
+                                    <p class="form group col-md-6">
+                                        <label for="id_contacto">Contacto:</label> 
+                                        <input type="text" name="contacto" maxlength="200" class="form-control" required id="id_contacto" value="{{ obj.contacto}}">
+                                    </p>                             
+                                    <p class="form-group col-lg-3">
+                                        <input type="checkbox" name="estado" class="form-check-input" id="id_estado">
+                                        <label for="id_estado">Estado</label> 
+                                    </p>                                    
+                                </div> 
+                            
+                            <div class="dropdown-divider"></div>
+                            <div class="row">
+                                <div class="col">
+                                    <button type="submit" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button>
+                                    
+                                    <button type="button" class="btn btn-success" onclick="return cerrar_modal()">
+                                     Salir   
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        //Calculo de total enviado
+                       
+
+                        // Funcion que agrega guión(-) al escribir 3 caracteres
+                        var idco = $("input#id_codigo");
+                        var idtel = $("input#id_telefono");
+                        // Código Cliente Funcion
+                        $("#id_fecha").attr('type', 'date');
+                        idco.keyup(function(event) {
+                            if (event.keyCode !== 8) {
+                                value = idco.val()
+
+                                if (value.length == 3) {
+                                    idco.val(value + '-');
+                                }
+                            }
+                        })
+                        // Telefono Funcion
+                        idtel.keyup(function(event) {
+                            if (event.keyCode !== 8) {
+                                value = idtel.val()
+
+                                if (value.length == 4) {
+                                    idtel.val(value + '-');
+                                }
+                            }
+                        })
+
+                    function buscarCliente()
+                    {
+                        var codigo = $("#id_nit").val();
+                        var path = "{% url 'api:porvee_list' %}" + nit;
+                        $.ajax({
+                            type:"GET",
+                            url: path,
+                            success: function(r){
+                                console.log(r);
+                                
+                                $("#id_nit").val(r.codigo);
+                                $("#id_nombre").val(r.nombre);
+                                $("#id_nit").focus();
+                            },
+                            error: function(a,b,c){
+                                console.log(a);
+                                if(a.status==404){
+                                    mensaje("Nit -" + nit + "- Proveedor no existe","red");
+                                    $("#id_nit").val("");
+                                    $("#id_nombre").val("");
+                                    $("#id_nit").focus("");
+                                }
+
+                            }
+                            
+                        });
+                        
+
+                    }
+                    console.log(buscarCliente);
+                    $("#id_nit").keypress(function(e){
+                            if(e.keyCode===13){
+                                buscarCliente();
+                            }
+                        });
+                    </script>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

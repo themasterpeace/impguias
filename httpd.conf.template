@@ -1,20 +1,20 @@
 ServerName 172.16.10.1:8080
 
 #Django project
-LoadFile "C:/Python310/python310.dll"
-LoadModule wsgi_module "C:/Python310/lib/site-packages/mod_wsgi/server/mod_wsgi.cp310-win_amd64.pyd"
-WSGIPythonHome "C:/Python310"
+LoadFile "C:/Python311/python311.dll"
+LoadModule wsgi_module "C:/Python311/lib/site-packages/mod_wsgi/server/mod_wsgi.cp310-win_amd64.pyd"
+WSGIPythonHome "C:/python311"
 
-WSGIScriptAlias / "C:/Apache24/htdocs/imp/impguias/impguias/wsgi.py"
-WSGIPythonPath "C:/Apache24/htdocs/imp/impguias/"
+WSGIScriptAlias / "C:/Apache24/htdocs/impguias/impguias/wsgi.py"
+WSGIPythonPath "C:/Apache24/htdocs/impguias/"
 
-<Directory "C:/Apache24/htdocs/imp/impguias/impguias/">
+<Directory "C:/Apache24/htdocs/impguias/impguias/">
     <Files wsgi.py>
         Require all granted
     </Files>
 </Directory>
 
-Alias /static "C:/Apache24/htdocs/imp/impguias/static/"
-<Directory "C:/Apache24/htdocs/imp/impguias/static/">
+Alias /static "C:/Apache24/htdocs/impguias/staticfiles/"
+<Directory "C:/Apache24/htdocs/impguias/staticfiles/">
     Require all granted
 </Directory>

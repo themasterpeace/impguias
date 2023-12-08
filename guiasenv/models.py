@@ -33,14 +33,17 @@ FPAGO=[
 ]
 
 class Cliente(models.Model):
-    codigo = models.CharField(max_length=8)
+    codigo = models.CharField(max_length=8, unique=True, verbose_name="Codigo Cliente")
     nombre = models.CharField(max_length=200)
     direccion = models.CharField(max_length=200)
     formapago = models.CharField(max_length=20)
-    telefono = models.IntegerField(default=0)
+    telefono = models.CharField(max_length=10)
+
+    def get_absolute_url(self):
+        return reverse_lazy("guiasenv:clientelist")
 
     def __str__(self):
-        return self.codigo
+        return '{}'.format(self.codigo)
 
     def save(self):
         self.codigo = self.codigo.upper()

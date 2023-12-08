@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*q*m5_sa1y0bec6p!m*h1w2of&_gtq7!+b*qbi(ugflq4v(r+0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['localhost','172.16.10.1','127.0.0.1']
 
 
@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'bases',
     'guiasenv',
     'rutas',
+    'rest_framework',
+    'api',
+    'conectdbf',
+    'porvee',
     
    
     
@@ -85,10 +89,12 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'impguias',
         'USER': 'root',
-        'PASSWORD': '021TR@dmin/*-',
+        'PASSWORD': '021ManEse*',
         'HOST': 'localhost',
-        'PORT': '3306',
-        
+        'PORT': '3306', 
+        #'OPTIONS': {
+        #    'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        #}       
     }
 }
 

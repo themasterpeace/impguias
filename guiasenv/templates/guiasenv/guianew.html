@@ -66,6 +66,64 @@
                                 }
                             }
                         })
+
+                        //Calculo de total enviado
+                        // Obtén los elementos de los campos y el resultado
+                        const numini = document.getElementById('id_numini');
+                        const numfin = document.getElementById('id_numfin');
+                        const totenvio = document.getElementById('id_totenvio');
+
+                        // Función para calcular y actualizar el resultado
+                        function calcularResultado() {
+                            const valorNumini = parseFloat(id_numini.value);
+                            const valorNumfin = parseFloat(id_numfin.value);
+                            
+                            // Realiza el cálculo que necesites
+                            const resultadoCalculdo = valorNumfin - valorNumini + 1;
+
+                            // Actualiza el valor del resultado
+                            totenvio.value = resultadoCalculdo;
+                        }
+
+                        // Escucha los eventos 'input' en los campos para actualizar el resultado
+                        numini.addEventListener('input', calcularResultado);
+                        numfin.addEventListener('input', calcularResultado);
+                    
+                    function buscarCliente()
+                    {
+                        var codigo = $("#id_codigo").val();
+                        var path = "{% url 'api:cliente_list' %}" + codigo;
+                        $.ajax({
+                            type:"GET",
+                            url: path,
+                            success: function(r){
+                                console.log(r);
+                                
+                                $("#id_codigo").val(r.codigo);
+                                $("#id_cliente").val(r.nombre);
+                                $("#id_fecha").focus();
+                            },
+                            error: function(a,b,c){
+                                console.log(a);
+                                if(a.status==404){
+                                    mensaje("Codigo -" + codigo + "- Cliente no existe","red");
+                                    $("#id_codigo").val("");
+                                    $("#id_cliente").val("");
+                                    $("#id_codigo").focus("");
+                                }
+
+                            }
+                            
+                        });
+                        
+
+                    }
+                    console.log(buscarCliente);
+                    $("#id_codigo").keypress(function(e){
+                            if(e.keyCode===13){
+                                buscarCliente();
+                            }
+                        });
                     </script>
                     </div>
                 </div>

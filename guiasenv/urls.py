@@ -21,3 +21,4 @@ urlpatterns = [
     path('guia/excelgen', ReporteGeneralExcel.as_view(), name="guiaexcelgen"),
     path('guia/excelfech', ReporteFechaExcel.as_view(), name="guiaexcelfech"),
 ]
+
