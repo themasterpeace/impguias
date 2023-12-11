@@ -1,9 +1,9 @@
-<div class="modal-dialog modal_lg cli_new">
+<div class="modal-dialog modal_lg fac_new">
     <div class="modal-content">
         {% if obj %}
-        <form method="POST" role="form" class="form-inline" action="{% url 'guiasenv:guiaedit' obj.pk %}">
+        <form method="POST" role="form" action="{% url 'porvee:editfac' obj.pk %}">
         {% else %}
-        <form method="POST" role="form" class="form-inline" action="{% url 'guiasenv:guianew' %}">
+        <form method="POST" role="form" action="{% url 'porvee:newfac' %}">
         {% endif %}
 
             <div class="col-xl-12 col-md-12 mb-12">
@@ -16,16 +16,42 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                {% if obj %} Editar {% else %} Nuevo {% endif %} Correlativo
+                                <h2>{% if obj %} Editar {% else %} Nueva {% endif %} Factura</h2>
                             </div>
                             <div class="dropdown-divider"></div>
                             {% csrf_token %}
-                            <div class="row cli_new">
-                             <style>
-                              
-                             </style>       
-                                {{ form.as_p }} 
-                            </div>
+                            
+                                <div class="form-row">
+                                    <p class="form-group col-md-6">
+                                        <label for="id_nit">Nit:</label> 
+                                        <input type="number" name="nit" class="form-control" required id="id_nit" value="{{ obj.nit }}">
+                                    </p>
+                                    <p class="form-group col-md-6">
+                                        <label for="id_nombre">Nombre:</label> 
+                                        <input type="text" name="nombre" maxlength="200" class="form-control" required id="id_nombre" value="{{ obj.nombre}}">
+                                    </p>
+                                </div>
+                                <div class="form-row">
+                                    <p class="form-group col-md-6">
+                                        <label for="id_direccion">Direccion:</label> 
+                                        <input type="text" name="direccion" maxlength="200" class="form-control" required id="id_direccion" value="{{ obj.direccion}}">
+                                    </p>
+                                    <p class="form-group col-md-6">
+                                        <label for="id_telefono">Telefono:</label> 
+                                        <input type="text" name="telefono" maxlength="9" class="form-control" required id="id_telefono" value="{{ obj.telefono}}">    
+                                    </p>                                    
+                                </div>
+                                <div class="form-row">
+                                    <p class="form group col-md-6">
+                                        <label for="id_contacto">Contacto:</label> 
+                                        <input type="text" name="contacto" maxlength="200" class="form-control" required id="id_contacto" value="{{ obj.contacto}}">
+                                    </p>                             
+                                    <p class="form-group col-lg-3">
+                                        <input type="checkbox" name="estado" class="form-check-input" id="id_estado">
+                                        <label for="id_estado">Estado</label> 
+                                    </p>                                    
+                                </div> 
+                            
                             <div class="dropdown-divider"></div>
                             <div class="row">
                                 <div class="col">
@@ -67,49 +93,27 @@
                             }
                         })
 
-                        //Calculo de total enviado
-                        // Obtén los elementos de los campos y el resultado
-                        const numini = document.getElementById('id_numini');
-                        const numfin = document.getElementById('id_numfin');
-                        const totenvio = document.getElementById('id_totenvio');
-
-                        // Función para calcular y actualizar el resultado
-                        function calcularResultado() {
-                            const valorNumini = parseFloat(id_numini.value);
-                            const valorNumfin = parseFloat(id_numfin.value);
-                            
-                            // Realiza el cálculo que necesites
-                            const resultadoCalculdo = valorNumfin - valorNumini + 1;
-
-                            // Actualiza el valor del resultado
-                            totenvio.value = resultadoCalculdo;
-                        }
-
-                        // Escucha los eventos 'input' en los campos para actualizar el resultado
-                        numini.addEventListener('input', calcularResultado);
-                        numfin.addEventListener('input', calcularResultado);
-                    
                     function buscarCliente()
                     {
-                        var codigo = $("#id_codigo").val();
-                        var path = "{% url 'api:cliente_list' %}" + codigo;
+                        var codigo = $("#id_nit").val();
+                        var path = "{% url 'api:porvee_list' %}" + nit;
                         $.ajax({
                             type:"GET",
                             url: path,
                             success: function(r){
                                 console.log(r);
                                 
-                                $("#id_codigo").val(r.codigo);
-                                $("#id_cliente").val(r.nombre);
-                                $("#id_fecha").focus();
+                                $("#id_nit").val(r.codigo);
+                                $("#id_nombre").val(r.nombre);
+                                $("#id_nit").focus();
                             },
                             error: function(a,b,c){
                                 console.log(a);
                                 if(a.status==404){
-                                    mensaje("Codigo -" + codigo + "- Cliente no existe","red");
-                                    $("#id_codigo").val("");
-                                    $("#id_cliente").val("");
-                                    $("#id_codigo").focus("");
+                                    mensaje("Nit -" + nit + "- Proveedor no existe","red");
+                                    $("#id_nit").val("");
+                                    $("#id_nombre").val("");
+                                    $("#id_nit").focus("");
                                 }
 
                             }
@@ -119,7 +123,7 @@
 
                     }
                     console.log(buscarCliente);
-                    $("#id_codigo").keypress(function(e){
+                    $("#id_nit").keypress(function(e){
                             if(e.keyCode===13){
                                 buscarCliente();
                             }

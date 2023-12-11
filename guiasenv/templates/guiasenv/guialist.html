@@ -33,7 +33,7 @@
                 {% else %}
                 <table class="table table-striped table-hover" id="guias">
                     <thead>
-                        <th>Id</th>
+                        
                         <th>Fecha</th>
                         <th>Codigo</th>
                         <th>Cliente</th>
@@ -144,7 +144,9 @@
                         {"data": "numfin"},
                         {"data": "totenvio"},
                         {"data": "fpago"},
-                        {"data": "entregado"},
+                        {"data": "entregado", "render":function(data){
+                            return data ? 'Entregado' : 'No Entregado'
+                        }},
                         {"data": "Acciones"},
                        
                         

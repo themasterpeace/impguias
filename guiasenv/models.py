@@ -36,12 +36,15 @@ class Cliente(models.Model):
     codigo = models.CharField(max_length=8)
     nombre = models.CharField(max_length=200)
     direccion = models.CharField(max_length=200)
-    telefono = models.IntegerField(default=0)
+    telefono = models.CharField(max_length=9)
     #nit = models.CharField(max_length=10)
     #departamento = models.CharField(max_length=50)
     #municipio = models.CharField(max_length=150)
     #contacto = models.CharField(max_length=150)
     formapago = models.CharField(max_length=20,choices=FPAGO)
+
+    def get_absolute_url(self):
+        return reverse_lazy("guiasenv:clientelist")
 
     def __str__(self):
         return self.codigo
@@ -77,14 +80,6 @@ class GuiasEnv(models.Model):
     
     def toJSON(self):
         item = model_to_dict(self)
-        item['id'] = self.id.toJSON()
-        item['fecha'] = self.fecha.strftime('%Y-%m-%d')
-        item['codigo'] = self.codigo.toJson()
-        item['cliente'] = self.cliente.toJson()
-        item['tipo_envio'] = self.tipo_envio.toJson()
-        item['numini'] = self.numini.toJson()
-        item['numfin'] = self.numfin.toJson()
-        item['totenvio'] = format(self.totenvio, '2f')
         return item
     
     def save(self):

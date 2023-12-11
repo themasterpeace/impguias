@@ -11,7 +11,7 @@ function mensaje(msg,color='green')
 
 
       $.alert({
-        title:'¡¡Lo sentimos!!',
+        title:'¡¡AVISO IMPORTANTE!!',
         theme:'bootstrap',
         type:color,
         content:msg

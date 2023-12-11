@@ -20,10 +20,12 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include(('bases.urls','bases'), namespace='bases')),
+    path('api/', include(('api.urls', 'api'), namespace='api')),
     path('guiasenv/', include(('guiasenv.urls', 'guiasenv'), namespace='guiasenv')),
     path('rutas/', include(('rutas.urls', 'rutas'), namespace='rutas')),
     path('imphijas/', include(('imphijas.urls', 'imphijas'), namespace='imphijas')),
     path('empleados/', include(('empleados.urls', 'empleados'), namespace='empleado')),
+    path('porvee/', include(('porvee.urls', 'porvee'), namespace='porvee')),
     path("accounts/", include("django.contrib.auth.urls")),
     path('django_plotly_dash/', include('django_plotly_dash.urls')),
 

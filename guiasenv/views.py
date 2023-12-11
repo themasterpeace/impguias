@@ -55,7 +55,7 @@ class GuiaView( SinPrivilegios, ListView):
 
 class GuiaNew(SuccessMessageMixin, SinPrivilegios,\
     CreateView):
-    permission_required = "guiasenv.create_guia"
+    permission_required = "guiasenv.add_guiasenv"
     model = GuiasEnv
     template_name = "guiasenv/guianew.html"
     context_object_name = "obj"
@@ -124,7 +124,7 @@ class Reportes(LoginRequiredMixin, TemplateView):
                 for s in search:
                     data.append([
                         s.id,
-                        s.fecha.strfdate('%Y-%m-%d'),
+                        s.fecha,
                         s.codigo,
                         s.cliente,
                         s.tipo_envio,
