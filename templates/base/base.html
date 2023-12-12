@@ -81,7 +81,7 @@
 					</a>
 					<ol>
 						<li><a href="{% url 'porvee:listprove' %}"><ion-icon name="logo-playstation"></ion-icon>Nuevo Proveedor</a></li>
-						<li><a href="#"><ion-icon name="document-attach-outline"></ion-icon>Registrar Factura</a></li>
+						<li><a href="{% url 'porvee:listfac' %}"><ion-icon name="document-attach-outline"></ion-icon>Registrar Factura</a></li>
 						<li><a href="#"><ion-icon name="barcode-outline"></ion-icon>Reporte factura</a></li>
 					</ol>
 				</li>
@@ -183,7 +183,7 @@
 				<!-- userImg -->
 				{% if user.is_authenticated %}
 				<div class="user">
-					<span class="alert alert-warning"><b>Iniciaste Sesión como: {{ user.get_username }}</b> </span><ion-icon name="person-circle-outline"></ion-icon>
+					<span class="alert alert-warning"><b>En este momento estra trabajando:    {{ user.get_username }}</b> </span><ion-icon name="person-circle-outline"></ion-icon>
 				</div>
 				{% endif %}
 			</div>

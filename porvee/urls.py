@@ -10,8 +10,8 @@ urlpatterns = [
     path('porvee/edit/<int:pk>', ProveEdit.as_view(), name="editprove"),
 
     ###urls facturas###
-    path('porvee/list', FacView.as_view(), name="listfac"),
-    path('porvee/new', FacNew.as_view(), name="newfac"),
-    path('porvee/edit/<int:pk>', FacEdit.as_view(), name="editfac"),
+    path('porvee/porvee/listfac', FacView.as_view(), name="listfac"),
+    path('porvee/newfac', FacNew.as_view(), name="newfac"),
+    path('porvee/editfac/<int:pk>', FacEdit.as_view(), name="editfac"),
 
 ]

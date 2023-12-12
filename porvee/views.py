@@ -68,7 +68,7 @@ class FacNew(BaseCreate):
     model = Factura
     template_name = "porvee/newfac.html"
     form_class = FacForm
-    success_url = reverse_lazy("porvee:listprove")
+    success_url = reverse_lazy("porvee:listfac")
     success_message = "FACTURA AGREGADO CORRECTAMENTE"
 
 class FacEdit(BaseUpdate):
@@ -76,5 +76,5 @@ class FacEdit(BaseUpdate):
     model = Factura
     template_name = "porvee/newfac.html"
     form_class = FacForm
-    success_url = reverse_lazy("porvee:listprove")
+    success_url = reverse_lazy("porvee:listfac")
     success_message = "FACTURA ACTUALIZADO CORRECTAMENTE"

@@ -23,8 +23,8 @@
                             
                                 <div class="form-row">
                                     <p class="form-group col-md-6">
-                                        <label for="id_nit">Nit:</label> 
-                                        <input type="number" name="nit" class="form-control" required id="id_nit" value="{{ obj.nit }}">
+                                        <label for="id_prove">Proveedor:</label> 
+                                        <input type="text" name="prove" class="form-control" required id="id_prove" value="{{ obj.prove }}">
                                     </p>
                                     <p class="form-group col-md-6">
                                         <label for="id_nombre">Nombre:</label> 
@@ -33,12 +33,42 @@
                                 </div>
                                 <div class="form-row">
                                     <p class="form-group col-md-6">
-                                        <label for="id_direccion">Direccion:</label> 
-                                        <input type="text" name="direccion" maxlength="200" class="form-control" required id="id_direccion" value="{{ obj.direccion}}">
+                                        <label for="id_seriefac">Serie Factura:</label> 
+                                        <input type="text" name="seriefac" maxlength="200" class="form-control" required id="id_seriefac" value="{{ obj.seriefac}}">
                                     </p>
                                     <p class="form-group col-md-6">
-                                        <label for="id_telefono">Telefono:</label> 
-                                        <input type="text" name="telefono" maxlength="9" class="form-control" required id="id_telefono" value="{{ obj.telefono}}">    
+                                        <label for="id_numefac">Numero Factura:</label> 
+                                        <input type="number" name="numefac" maxlength="9" class="form-control" required id="id_numefac" value="{{ obj.numefac}}">    
+                                    </p>                                    
+                                </div>
+                                <div class="form-row">
+                                    <p class="form-group col-md-6">
+                                        <label for="id_fechafac">Fecha Factura:</label> 
+                                        <input type="datetime " name="fechafac" maxlength="200" class="form-control" required id="id_fechafac" value="{{ obj.fechafac}}">
+                                    </p>
+                                    <p class="form-group col-md-6">
+                                        <label for="id_descripcion">Descripcion Pedido:</label> 
+                                        <input type="text" name="descripcion"    maxlength="9" class="form-control" required id="id_descripcion"    value="{{ obj.descripcion}    }">    
+                                    </p>                                    
+                                </div>
+                                <div class="form-row">
+                                    <p class="form-group col-md-6">
+                                        <label for="id_numini">Numero Inicial:</label> 
+                                        <input type="number" name="numini" maxlength="7" class="form-control" required id="id_numini" value="{{ obj.numini}}">
+                                    </p>
+                                    <p class="form-group col-md-6">
+                                        <label for="id_numfin">Numero Factura:</label> 
+                                        <input type="number" name="numfin" maxlength="7" class="form-control" required id="id_numfin" value="{{ obj.numfin}}">    
+                                    </p>                                    
+                                </div>
+                                <div class="form-row">
+                                    <p class="form-group col-md-6">
+                                        <label for="id_cantidad">Cantidad:</label> 
+                                        <input type="number" name="cantidad" maxlength="200" class="form-control" required id="id_cantidad" value="{{ obj.cantidad}}">
+                                    </p>
+                                    <p class="form-group col-md-6">
+                                        <label for="id_preciouni">Precio Unitario:</label> 
+                                        <input type="number" name="preciouni" maxlength="9" class="form-control" required id="id_preciouni" value="{{ obj.preciouni}}">    
                                     </p>                                    
                                 </div>
                                 <div class="form-row">
