@@ -22,6 +22,7 @@ urlpatterns = [
     path('', include(('bases.urls','bases'), namespace='bases')),
     path('api/', include(('api.urls', 'api'), namespace='api')),
     path('guiasenv/', include(('guiasenv.urls', 'guiasenv'), namespace='guiasenv')),
+    path('impa/', include(('impa.urls', 'impa'), namespace='impa')),
     path('rutas/', include(('rutas.urls', 'rutas'), namespace='rutas')),
     path('imphijas/', include(('imphijas.urls', 'imphijas'), namespace='imphijas')),
     path('empleados/', include(('empleados.urls', 'empleados'), namespace='empleado')),

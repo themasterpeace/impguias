@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'api',
     'bases',
     'guiasenv',
+    'impa',
     'rutas',
     'porvee',
     'imphijas',
