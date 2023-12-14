@@ -49,10 +49,10 @@
                 <th>Ruta</th>
                 <th>Forma de Pago</th>
                 <th>Estado</th>
-                <th>Usuario crea</th>
+                <!-- <th>Usuario crea</th>
                 <th>Usuario Modifica</th>
                 <th>F. Creado</th>
-                <th>F. Modif.</th>
+                <th>F. Modif.</th> -->
                 <th class="all">Acciones</th>
             </thead>
             <tbody>
@@ -85,11 +85,11 @@
                         <i class="far fa-thumbs-down text-danger"></i>
                         {% endif %}
                     </td>
-                    <td>{{ item.uc }}</td>
+                    <!-- <td>{{ item.uc }}</td>
                     <td>{{ item.um }}</td>
                     <td>{{ item.fc|date:"d/m/Y H:i:s" }}</td>
-                    <td>{{ item.fm|date:"d/m/Y H:i:s" }}</td>
-                    <td>
+                    <td>{{ item.fm|date:"d/m/Y H:i:s" }}</td>-->
+                    <td> 
                         <button class="btn btn-warning btn-circle" onclick="return abrir_modal('{% url 'impa:editimp' item.id %}')">
                         <i class="far fa-edit"></i></button>
 
@@ -138,5 +138,6 @@
     $(document).ready(function() {
         $('.table').DataTable();
     });
+    
 </script>
 {% endblock %}

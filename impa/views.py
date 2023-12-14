@@ -26,11 +26,11 @@ class impnew(LoginRequiredMixin, generic.CreateView):
     template_name = "impa/newimp.html"
     context_object_name = "obj"
     form_class = ImpresionForm
-    success_url = reverse_lazy("impa:imp_list")
+    success_url = reverse_lazy("impa:listimp")
     login_url = "bases:login"
 
     def form_valid(self, form):
-        form.instance.uc = self.request.user.id
+        form.instance.uc = self.request.user
         return super().form_valid(form)
     
 class impedit(LoginRequiredMixin, generic.UpdateView):
@@ -49,5 +49,5 @@ class impdel(LoginRequiredMixin, generic.DeleteView):
     model = ImpGuias
     template_name='impa/eliminar.html'
     context_object_name='obj'
-    success_url=reverse_lazy("impa:imp_list")
+    success_url=reverse_lazy("impa:listimp")
     login_url = "bases:login"

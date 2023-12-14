@@ -1,467 +1,548 @@
-{% extends 'base/base.html' %} 
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-{% block contenido %}
-<div class="modal-dialog modal_lg" style="max-width: 1120px;" >
-    <div class="modal-content">
-        {% if obj %}
-        <form method="POST" role="form" class="form-inline" action="{% url 'impa:editimp' obj.pk %}">
-        {% else %}
-        <form method="POST" role="form" class="form-inline" action="{% url 'impa:newimp' %}">
-        {% endif %}
+{% extends 'base/base.html' %}
 
-            <div class="col-xl-12 col-md-12 mb-12">
-                {% if obj %}
-                <div class="card border-left-warning shadow h-100 py-2">
-                {% else %}
-                <div class="card border-left-success shadow h-100 py-2">
-                {% endif %}
-                    <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                {% if obj %} Editar {% else %} Impresion {% endif %} De Guias 
-                            </div>
-                            <div class="dropdown-divider"></div> 
-                            {% csrf_token %}
-                            <div class="row">
-                                 
-                                <!-- {{ form.as_p }} -->
-                                
-                              <p>
-                                    <label for="id_fecha">Fecha:</label>
-                                    <input type="date" name="fecha" class="form-control" required id="id_fecha">
-                              </p>
-                                <div class="ing_guiGrid col2">
-                                  <p>
-                                    <label for="id_codigo_cliente">Codigo Cliente:</label>
-                                    <input type="text" name="codigo_cliente" maxlength="8" class="form-control" required id="id_codigo_cliente">
-                                  </p>
-                                  <p>
-                                    <label for="id_remitente">Remitente:</label>
-                                    <input type="text" name="remitente" maxlength="200" class="form-control" required id="id_remitente">
-                                  </p>
-                                </div>
-                                <div class="ing_guiGrid col1">
-                                  <p>
-                                    <label for="id_dirrem">Direccion Remitente:</label>
-                                    <input type="text" name="dirrem" maxlength="300" class="form-control" required id="id_dirrem">
-                                  </p>
-                                </div>
-                                <div class="ing_guiGrid col5">
-                                  <p>
-                                    <label for="id_tel">Telefono:</label>
-                                    <input type="text" name="tel" maxlength="9" class="form-control" required id="id_tel">
-                                  </p>
-                                  <p>
-                                    <label for="id_zona">Zona:</label>
-                                    <input type="text" name="zona" maxlength="2" class="form-control" required id="id_zona">
-                                  </p>
-                                  <p>
-                                    <label for="id_muni">Municipio:</label>
-                                    <input type="text" name="muni" maxlength="50" class="form-control" required id="id_muni">
-                                  </p>
-                                  <p>
-                                    <label for="id_origen">Origen:</label>
-                                    <input type="text" name="origen" maxlength="50" class="form-control" required id="id_origen">
-                                  </p>
-                                  <p>
-                                    <label for="id_ruta">Ruta:</label>
-                                    <input type="text" name="ruta" maxlength="3" class="form-control" required id="id_ruta">
-                                  </p>
-                                </div>
-                                <div class="ing_guiGrid col2">
-                                  <p>
-                                    <label for="id_codigo_desti">Codigo Dest:</label>
-                                    <input type="text" name="codigo_desti" maxlength="8" class="form-control" id="id_codigo_desti">
-                                  </p>
-                                  <p>
-                                    <label for="id_destinatario">Destinatario:</label>
-                                    <input type="text" name="destinatario" maxlength="100" class="form-control" id="id_destinatario">
-                                  </p>
-                                </div>
-                                <div class="ing_guiGrid col1">
-                                  <p>
-                                    <label for="id_dirdes">Direccion Dest:</label>
-                                    <input type="text" name="dirdes" maxlength="300" class="form-control" id="id_dirdes">
-                                  </p>
-                                </div>
-                                <div class="ing_guiGrid col5">
-                                  <p>
-                                    <label for="id_teldes">Telefono:</label>
-                                    <input type="text" name="teldes" maxlength="9" class="form-control" id="id_teldes">
-                                  </p>
-                                  <p>
-                                    <label for="id_zonades">Zona:</label>
-                                    <input type="text" name="zonades" maxlength="2" class="form-control" id="id_zonades">
-                                  </p>
-                                  <p>
-                                    <label for="id_munides">Municipio:</label>
-                                    <input type="text" name="munides" maxlength="50" class="form-control" id="id_munides">
-                                  </p>
-                                  <p>
-                                    <label for="id_destino">Destino:</label>
-                                    <input type="text" name="destino" maxlength="50" class="form-control" id="id_destino">
-                                  </p>
-                                  <p>
-                                    <label for="id_rutades">Ruta:</label>
-                                    <input type="text" name="rutades" maxlength="3" class="form-control" id="id_rutades">
-                                  </p>
-                                </div>
-                                <div class="ing_guiGrid">
-                                  <p>
-                                    <label for="id_fpago">Forma de pago:</label>
-                                    <input type="text" name="fpago" maxlength="8" class="form-control" id="id_fpago">
-                                  </p>
-                                </div>
-                                <div class="ing_guiGrid col1 alt1">
-                                  <p>
-                                    <label for="id_numini">Numero Inicial:</label>
-                                    <input type="number" name="numini" maxlength="6" class="form-control" required id="id_numini">
-                                  </p>
-                                  <p>
-                                    <label for="id_numfin">Numero Final:</label>
-                                    <input type="number" name="numfin" maxlength="6" class="form-control" required id="id_numfin">
-                                  </p>
-                                  <p>
-                                    <label for="id_totalimp">Total Guías A Imprimir:</label>
-                                    <input type="number" name="totalimp" maxlength="6" class="form-control" required id="id_totalimp">
-                                  </p>
-                                </div>
-                            <div class="dropdown-divider"></div>
-                            <div class="row">
-                                <div class="col">
-                                    <button type="submit" class="btn btn-danger"><span class="fa fa-print"></span> Imprimir</button>
-                                    
-                                    <button type="button" class="btn btn-success">  <i class="fas fa-window-close"></i><a href="{% url 'bases:home' %}"> Salir</a>
-                                    
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% block contenido %}
+
+<div class="card">
+    <div class="card-body">
+        <div class="alert alert-success" role="alert">
+            <h5 class="card-title">IMPRESION DE GUIAS MADRE</h5>
+        </div>
+        
+        <form method="POST" role="form" action="{% url 'impa:newimp' %}">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-roup col-md-3 mb-3">
+                    <p>
+                        <label for="id_fecha">Fecha:</label>
+                        <input type="datetime-local" name="fecha" class="form-control" required id="id_fecha">
+                    </p>
+                </div>
+            </div>
+            <!-- SECCION DE DATOS DE REMITENTE -->
+            <div class="alert alert-info" role="info">
+                <h5>DATOS REMITENTE</h5>
+                <div class="form-row">
+                    <div class="form-group col-md-1 mb-3">
+                        <label for="id_codigo_cliente">CODIGO:</label>
+                        <input type="text" name="codigo_cliente" maxlength="8" class="form-control" required id="id_codigo_cliente">
                     </div>
+                    <div class="form-group col-md-5 mb-3">
+                        <label for="id_remitente">Remitente:</label>
+                        <input type="text" name="remitente" maxlength="200" class="form-control" required id="id_remitente">
                     </div>
+                     <div class="form-group col-md-6 mb-3">
+                        <label for="id_dirrem">Direccion Remitente:</label>
+                        <input type="text" name="dirrem" maxlength="300" class="form-control" required id="id_dirrem">
+                     </div>
+                </div>    
+                <div class="form-row">
+                    <div class="form-group col-md-2 mb-3">
+                        
+                            <label for="id_tel">Telefono:</label>
+                            <input type="text" name="tel" maxlength="9" class="form-control" required id="id_tel">
+                        
+                    </div>
+                    <div class="form-group col-md-2 mb-3">
+                            <label for="id_zona">Zona:</label>
+                            <input type="text" name="zona" maxlength="2" class="form-control" required id="id_zona">
+                    </div>
+                    <div class="form-group col-md-2 mb-3">
+                            <label for="id_muni">Municipio:</label>
+                            <input type="text" name="muni" maxlength="50" class="form-control" required id="id_muni">
+                    </div>
+                    <div class="form-group col-md-2 mb-3">
+                            <label for="id_origen">Origen:</label>
+                            <input type="text" name="origen" maxlength="50" class="form-control" required id="id_origen">
+                    </div>
+                    <div class="form-group col-md-2 mb-3">
+                            <label for="id_ruta">Ruta:</label>
+                            <input type="text" name="ruta" maxlength="3" class="form-control" required id="id_ruta">
+                    </div>
+                </div>
+            </div>
+            
+
+        <!-- Seccion para ingresar datos de destinatario si se tubiera que imprimir tambien -->
+        <div class="alert alert-warning" role="alert">
+            <h5>DATOS DESTINATARIO</h5>
+            <div class="form-row">
+                <div class="form-group col-md-1 mb-3">
+                    <label for="id_codigo_desti">Codigo Dest:</label>
+                    <input type="text" name="codigo_desti" maxlength="8" class="form-control" id="id_codigo_desti">
+                </div>
+                <div class="form-group col-md-5 mb-3">
+                    <label for="id_destinatario">Destinatario:</label>
+                    <input type="text" name="destinatario" maxlength="100" class="form-control" id="id_destinatario">
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label for="id_dirdes">Direccion Dest:</label>
+                    <input type="text" name="dirdes" maxlength="300" class="form-control" id="id_dirdes">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-2 mb-3">
+                    <label for="id_teldes">Telefono:</label>
+                    <input type="text" name="teldes" maxlength="9" class="form-control" id="id_teldes">
+                </div>
+                <div class="form-group col-md-2 mb-3">
+                    <label for="id_zonades">Zona:</label>
+                    <input type="text" name="zonades" maxlength="2" class="form-control" id="id_zonades">
+                </div>
+                <div class="form-group col-md-2 mb-3">
+                    <label for="id_munides">Municipio:</label>
+                    <input type="text" name="munides" maxlength="50" class="form-control" id="id_munides">
+                </div>
+                <div class="form-group col-md-2 mb-3">
+                    <label for="id_destino">Destino:</label>
+                    <input type="text" name="destino" maxlength="50" class="form-control" id="id_destino">
+                </div>
+                <div class="form-group col-md-2 mb-3">
+                    <label for="id_rutades">Ruta:</label>
+                    <input type="text" name="rutades" maxlength="3" class="form-control" id="id_rutades">
+                </div>
+            </div>
+        </div>
+           
+            
+            <div class="form-group col-md-6 mb-3">
+                    <label for="id_fpago">Forma de pago:</label>
+                    <select type="number" name="fpago" maxlength="6" class="form-control" required id="id_fpago">
+                        <option selected|>ELIJA FORMA DE PAGO</option>
+                        <option value="1">POR COBRAR</option>
+                        <option value="2">CONTADO</option>
+                        <option value="3">CREDITO</option>
+                        <option value="4">CONTRA ENTREGA</option>
+                        <option value="5">PREPAGO</option>
+                        <option value="6">COMPARTIDA</option>
+                        <option value="7">CORTESIA</option>
+                        <option value="8">CREDITO X COBRAR</option>
+
+                    </select>    
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3 mb-3">
+                    <label for="id_numini">Numero Inicial:</label>
+                    <input type="number" name="numini" maxlength="6" class="form-control" required id="id_numini">
+                </div>
+                <div class="form-group col-md-3 mb-3">
+                    <label for="id_numfin">Numero Final:</label>
+                    <input type="number" name="numfin" maxlength="6" class="form-control" required id="id_numfin">
+                </div>
+                <div class="form-group col-md-3 mb-3">
+                    <label for="id_totalimp">Total Guías A Imprimir:</label>
+                    <input type="number" name="totalimp" maxlength="6" class="form-control" required id="id_totalimp">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn btn-danger print"><span class="fa fa-print"></span> Imprimir</button>
+        
+                    <button type="button" class="btn btn-success"> <i class="fas fa-window-close"></i><a
+                            href="{% url 'bases:home' %}"> Salir</a>
+        
+                    </button>
                 </div>
             </div>
         </form>
     </div>
 </div>
-{% endblock %}    
+
+    
+        {% endblock %}
 
 
-{% block js %}
-<script>
-    $(".tipo_envio").change(function(){
-        buscarProducto(this.id);
-    });
-    $(".cantidad").change(function(){
-        totalEnv(this.id);
-        sumar(); return false;
-    });
-    $("#id_sub_total").blur(function(){
-        total()
-        totalCant()
-        $('.guardar').focus()
-    });
-
-    function buscarCliente()
-    {    
-        var codigo = $("#id_codigo_cliente").val();
-        if(codigo===""){
-            return false;
-        }
-
-        var path = "{% url 'api:cliente_list' %}" + codigo;
-        $.ajax({
-            type:"GET",
-            url: path,
-            success: function(r){
-                console.log(r);
-                //console.log(r.existencia);
-                console.log(r.estado);
-
-                if(!r.estado){
-                    mensaje("Cliente inexistente o inactivo",'orange');
-                    $("#id_codigo_cliente").val("");
-                    $("#id_remitente").val("");
-                    $("#id_dirrem").val("");
-                    $("#id_tel").val("");
-                    $("#id_muni").val("");
-                    $("#id_origen").val("");
-                    $("#id_fpago").val("");
-                    $("#id_codigo_cliente").focus();
-                    return false;
-                }else{
-                $("#id_codigo_cliente").val(r.codigo_cliente);
-                $("#id_remitente").val(r.razonsoc);
-                $("#id_dirrem").val(r.direccion);
-                $("#id_tel").val(r.telefono);
-                $("#id_muni").val(r.municipio);
-                $("#id_origen").val(r.depto);
-                $("#id_fpago").val(r.fpago);
-                $("#id_zona").focus();
-                }
-
-            },
-            error: function(a,b,c){
-                console.log(a);
-                // console.log(b);
-                // console.log(c);
-                // console.log(a.status)
-                // console.log(a.responseText.detail);
-                // a.responseText["detail"]
-                // mensaje(c,'red');
-                if(a.status==404){
-                    mensaje("Cliente -" + codigo_cliente + "- no encontrado o inexistente",'red');
-                    $("#id_codigo_cliente").val("");
-                    $("#id_remitente").val("");
-                    $("#id_dirrem").val("");
-                    $("#id_tel").val("");
-                    $("#id_muni").val("");
-                    $("#id_origen").val("");
-                    $("#id_codigo_cliente").focus();
-                }
-            }
-        });  
-    }
-    function buscarClientedes()
-    {    
-        var codigo = $("#id_codigo_desti").val();
-        if(codigo===""){
-            return false;
-        }
-
-        var path = "{% url 'api:cliente_list' %}" + codigo;
-        $.ajax({
-            type:"GET",
-            url: path,
-            success: function(r){
-                console.log(r);
-                //console.log(r.existencia);
-                console.log(r.estado);
-
-                if(!r.estado){
-                    mensaje("Cliente inexistente o inactivo",'orange');
-                    $("#id_codigo_desti").val("");
-                    $("#id_destinatario").val("");
-                    $("#id_dirdes").val("");
-                    $("#id_teldes").val("");
-                    $("#id_munides").val("");
-                    $("#id_destino").val("");
-                    $("#id_codigo_desti").focus();
-                    return false;
-                }else{
-                $("#id_codigo_desti").val(r.codigo_cliente);
-                $("#id_destinatario").val(r.razonsoc);
-                $("#id_dirdes").val(r.direccion);
-                $("#id_teldes").val(r.telefono);
-                $("#id_munides").val(r.municipio);
-                $("#id_destino").val(r.depto);
-                $("#id_zonades").focus();
-                }
-
-            },
-            error: function(a,b,c){
-                console.log(a);
-                // console.log(b);
-                // console.log(c);
-                // console.log(a.status)
-                // console.log(a.responseText.detail);
-                // a.responseText["detail"]
-                // mensaje(c,'red');
-                if(a.status==404){
-                    mensaje("Cliente -" + codigo_cliente + "- no encontrado o inexistente",'red');
-                    $("#id_codigo_desti").val("");
-                    $("#id_destinatario").val("");
-                    $("#id_dirdes").val("");
-                    $("#id_codigo_desti").focus();
-                }
-
-            }
-
-        });       
-    }
-    function buscarfpago()
-    {    
-        var codigo = $("#id_codigo").val();
-        if(codigo===""){
-            return false;
-        }
-
-        var path = "{% url 'api:cliente_list' %}" + codigo;
-        $.ajax({
-            type:"GET",
-            url: path,
-            success: function(r){
-                console.log(r);
-                //console.log(r.existencia);
-                console.log(r.estado);
-
-                if(!r.estado){
-                    mensaje("Cliente inexistente o inactivo",'orange');
-                    $("#id_codigo").val("");
-                    $("#id_cliente").val("");
-                    
-                    $("#id_codigo").focus();
-                    return false;
-                }else{
-                $("#id_codigo").val(r.codigo_cliente);
-                $("#id_cliente").val(r.razonsoc);
-                $("#id_productodet-0-tipo_envio").focus();
-                }
-
-            },
-            error: function(a,b,c){
-                console.log(a);
-               
-                if(a.status==404){
-                    mensaje("Cliente -" + codigo_cliente + "- no encontrado o inexistente",'red');
-                    $("#id_codigo").val("");
-                    $("#id_cliente").val("");
-                    $("#id_codigo").focus();
-                }
-
-            }
-
-        });
-    }
-    $("#id_codigo_cliente").change(function(e){
-        buscarCliente();
-    });
-    $("#id_codigo_desti").change(function(e){
-        buscarClientedes();
-    });
-    $("#id_codigo").change(function(e){
-        buscarfpago();
-    });
-    // Funcion que agrega guión(-) al escribir 3 caracteres
-    var idco = $("input#id_codigo_cliente");
-    var idcodes = $("input#id_codigo_desti");
-    // Código Cliente Funcion
-    idco.keyup(function(event) {
-        if (event.keyCode !== 8) {
-            value = idco.val()
-
-            if (value.length == 3) {
-                idco.val(value + '-');
-            }
-        }
-    })
-    idcodes.keyup(function(event) {
-        if (event.keyCode !== 8) {
-            value = idcodes.val()
-
-            if (value.length == 3) {
-                idcodes.val(value + '-');
-            }
-        }
-    })
-    //Funcion que valida solo números en un input
-    function Numeros(string){
-        var out = '';
-        var filtro = '1234567890';//Caracteres validos
-        
-        //Recorrer el texto y verificar si el caracter se encuentra en la lista de validos 
-        for (var i=0; i<string.length; i++)
-           if (filtro.indexOf(string.charAt(i)) != -1) 
-                 //Se añaden a la salida los caracteres validos
-             out += string.charAt(i);
-        
-        //Retornar valor filtrado
-        return out;
-    } 
-    var totpieenv = $('input#id_totpieenv')
-    var contadorClicks = 0;
-    // Función para abrir popup de confirmación No.Guia
-    $( ".boton-modal.guardar").click(function() {
-        if ($("#id_no_guia").val() == ""){
-            Swal.fire({
-                position: 'top-end',
-                icon: 'error',
-                title: '¡El campo No. Guía se encuentra vacío!',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true
-            })
-        }else{
-            Swal.fire({
-                title: '<strong>Confirmación del <u>No. Guía</u></strong>',
-                icon: 'info',
-                html:
-                    '<input type="text" id="conf_noguia" onkeyup="this.value=Numeros(this.value)" maxlength="6" placeholder="Introduce nuevamente el No. Guía"><br><br>',
-                showCloseButton: false,
-                showConfirmButton: false,
+        {% block js %}
+        <script>
+            $(".tipo_envio").change(function () {
+                buscarProducto(this.id);
+            });
+            $(".cantidad").change(function () {
+                totalEnv(this.id);
+                sumar(); return false;
+            });
+            $("#id_sub_total").blur(function () {
+                total()
+                totalCant()
+                $('.guardar').focus()
             });
 
-            var conf = $('input#conf_noguia');
-            var codNog = $('input#id_no_guia');
-            var totpieenv = $('input#id_totpieenv')
+            function buscarCliente() {
+                var codigo = $("#id_codigo_cliente").val();
+                if (codigo === "") {
+                    return false;
+                }
 
-            conf.change(function(){
-                if (conf.val() == codNog.val()) {
-                    if (totpieenv.val() > 1) {
-                        Swal.close()
-                        // Guardar valor de no. guia en cookie
-                        sessionStorage.setItem('noguiamadre', codNog.val());
-                        abrir_modal("{% url 'link:ingreso_hijas' %}")
-                    }else{
-                        Swal.close()
-                        document.ing_guias.submit()
+                var path = "{% url 'api:cliente_list' %}" + codigo;
+                $.ajax({
+                    type: "GET",
+                    url: path,
+                    success: function (r) {
+                        console.log(r);
+                        //console.log(r.existencia);
+                        console.log(r.estado);
+
+                        if (!r.estado) {
+                            mensaje("Cliente inexistente o inactivo", 'orange');
+                            $("#id_codigo_cliente").val("");
+                            $("#id_remitente").val("");
+                            $("#id_dirrem").val("");
+                            $("#id_tel").val("");
+                            $("#id_muni").val("");
+                            $("#id_origen").val("");
+                            $("#id_fpago").val("");
+                            $("#id_codigo_cliente").focus();
+                            return false;
+                        } else {
+                            $("#id_codigo_cliente").val(r.codigo_cliente);
+                            $("#id_remitente").val(r.razonsoc);
+                            $("#id_dirrem").val(r.direccion);
+                            $("#id_tel").val(r.telefono);
+                            $("#id_muni").val(r.municipio);
+                            $("#id_origen").val(r.depto);
+                            $("#id_fpago").val(r.fpago);
+                            $("#id_zona").focus();
+                        }
+
+                    },
+                    error: function (a, b, c) {
+                        console.log(a);
+                        // console.log(b);
+                        // console.log(c);
+                        // console.log(a.status)
+                        // console.log(a.responseText.detail);
+                        // a.responseText["detail"]
+                        // mensaje(c,'red');
+                        if (a.status == 404) {
+                            mensaje("Cliente -" + codigo_cliente + "- no encontrado o inexistente", 'red');
+                            $("#id_codigo_cliente").val("");
+                            $("#id_remitente").val("");
+                            $("#id_dirrem").val("");
+                            $("#id_tel").val("");
+                            $("#id_muni").val("");
+                            $("#id_origen").val("");
+                            $("#id_codigo_cliente").focus();
+                        }
                     }
-                    
-                }else{
+                });
+            }
+            function buscarClientedes() {
+                var codigo = $("#id_codigo_desti").val();
+                if (codigo === "") {
+                    return false;
+                }
+
+                var path = "{% url 'api:cliente_list' %}" + codigo;
+                $.ajax({
+                    type: "GET",
+                    url: path,
+                    success: function (r) {
+                        console.log(r);
+                        //console.log(r.existencia);
+                        console.log(r.estado);
+
+                        if (!r.estado) {
+                            mensaje("Cliente inexistente o inactivo", 'orange');
+                            $("#id_codigo_desti").val("");
+                            $("#id_destinatario").val("");
+                            $("#id_dirdes").val("");
+                            $("#id_teldes").val("");
+                            $("#id_munides").val("");
+                            $("#id_destino").val("");
+                            $("#id_codigo_desti").focus();
+                            return false;
+                        } else {
+                            $("#id_codigo_desti").val(r.codigo_cliente);
+                            $("#id_destinatario").val(r.razonsoc);
+                            $("#id_dirdes").val(r.direccion);
+                            $("#id_teldes").val(r.telefono);
+                            $("#id_munides").val(r.municipio);
+                            $("#id_destino").val(r.depto);
+                            $("#id_zonades").focus();
+                        }
+
+                    },
+                    error: function (a, b, c) {
+                        console.log(a);
+                        // console.log(b);
+                        // console.log(c);
+                        // console.log(a.status)
+                        // console.log(a.responseText.detail);
+                        // a.responseText["detail"]
+                        // mensaje(c,'red');
+                        if (a.status == 404) {
+                            mensaje("Cliente -" + codigo_cliente + "- no encontrado o inexistente", 'red');
+                            $("#id_codigo_desti").val("");
+                            $("#id_destinatario").val("");
+                            $("#id_dirdes").val("");
+                            $("#id_codigo_desti").focus();
+                        }
+
+                    }
+
+                });
+            }
+            // Obtener la fecha y hora actual en el formato DD-MM-YYYYTHH:mm
+        function obtenerFechaHoraActual() {
+            const ahora = new Date();
+            const anio = ahora.getFullYear();
+            const mes = (ahora.getMonth() + 1).toString().padStart(2, '0');
+            const dia = ahora.getDate().toString().padStart(2, '0');
+            const horas = ahora.getHours().toString().padStart(2, '0');
+            const minutos = ahora.getMinutes().toString().padStart(2, '0');
+
+            return `${dia}-${mes}-${anio}T${horas}:${minutos}`;
+        }
+
+        // Establecer la fecha actual en el campo
+        document.getElementById('id_fecha').value = obtenerFechaHoraActual();
+        //BUSCAR FORMA DE PAGO
+            function buscarfpago() {
+                var codigo = $("#id_codigo").val();
+                if (codigo === "") {
+                    return false;
+                }
+
+                var path = "{% url 'api:cliente_list' %}" + codigo;
+                $.ajax({
+                    type: "GET",
+                    url: path,
+                    success: function (r) {
+                        console.log(r);
+                        //console.log(r.existencia);
+                        console.log(r.estado);
+
+                        if (!r.estado) {
+                            mensaje("Cliente inexistente o inactivo", 'orange');
+                            $("#id_codigo").val("");
+                            $("#id_cliente").val("");
+
+                            $("#id_codigo").focus();
+                            return false;
+                        } else {
+                            $("#id_codigo").val(r.codigo_cliente);
+                            $("#id_cliente").val(r.razonsoc);
+                            $("#id_productodet-0-tipo_envio").focus();
+                        }
+
+                    },
+                    error: function (a, b, c) {
+                        console.log(a);
+
+                        if (a.status == 404) {
+                            mensaje("Cliente -" + codigo_cliente + "- no encontrado o inexistente", 'red');
+                            $("#id_codigo").val("");
+                            $("#id_cliente").val("");
+                            $("#id_codigo").focus();
+                        }
+
+                    }
+
+                });
+            }
+            $("#id_codigo_cliente").change(function (e) {
+                buscarCliente();
+            });
+            $("#id_codigo_desti").change(function (e) {
+                buscarClientedes();
+            });
+            $("#id_codigo").change(function (e) {
+                buscarfpago();
+            });
+            // Funcion que agrega guión(-) al escribir 3 caracteres
+            var idco = $("input#id_codigo_cliente");
+            var idcodes = $("input#id_codigo_desti");
+            // Código Cliente Funcion
+            idco.keyup(function (event) {
+                if (event.keyCode !== 8) {
+                    value = idco.val()
+
+                    if (value.length == 3) {
+                        idco.val(value + '-');
+                    }
+                }
+            })
+            idcodes.keyup(function (event) {
+                if (event.keyCode !== 8) {
+                    value = idcodes.val()
+
+                    if (value.length == 3) {
+                        idcodes.val(value + '-');
+                    }
+                }
+            })
+            //Funcion que valida solo números en un input
+            function Numeros(string) {
+                var out = '';
+                var filtro = '1234567890';//Caracteres validos
+
+                //Recorrer el texto y verificar si el caracter se encuentra en la lista de validos 
+                for (var i = 0; i < string.length; i++)
+                    if (filtro.indexOf(string.charAt(i)) != -1)
+                        //Se añaden a la salida los caracteres validos
+                        out += string.charAt(i);
+
+                //Retornar valor filtrado
+                return out;
+            }
+            var totpieenv = $('input#id_totpieenv')
+            var contadorClicks = 0;
+            // Función para abrir popup de confirmación No.Guia
+            $(".boton-modal.guardar").click(function () {
+                if ($("#id_no_guia").val() == "") {
                     Swal.fire({
                         position: 'top-end',
                         icon: 'error',
-                        title: 'No. Guía no coincide. ¡Intentalo de nuevo!',
+                        title: '¡El campo No. Guía se encuentra vacío!',
                         showConfirmButton: false,
                         timer: 3000,
                         timerProgressBar: true
                     })
+                } else {
+                    Swal.fire({
+                        title: '<strong>Confirmación del <u>No. Guía</u></strong>',
+                        icon: 'info',
+                        html:
+                            '<input type="text" id="conf_noguia" onkeyup="this.value=Numeros(this.value)" maxlength="6" placeholder="Introduce nuevamente el No. Guía"><br><br>',
+                        showCloseButton: false,
+                        showConfirmButton: false,
+                    });
+
+                    var conf = $('input#conf_noguia');
+                    var codNog = $('input#id_no_guia');
+                    var totpieenv = $('input#id_totpieenv')
+
+                    conf.change(function () {
+                        if (conf.val() == codNog.val()) {
+                            if (totpieenv.val() > 1) {
+                                Swal.close()
+                                // Guardar valor de no. guia en cookie
+                                sessionStorage.setItem('noguiamadre', codNog.val());
+                                abrir_modal("{% url 'link:ingreso_hijas' %}")
+                            } else {
+                                Swal.close()
+                                document.ing_guias.submit()
+                            }
+
+                        } else {
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'error',
+                                title: 'No. Guía no coincide. ¡Intentalo de nuevo!',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                timerProgressBar: true
+                            })
+                        }
+                    })
+                }
+            });
+            // Funcion para comprobar el estado del checkbox
+            $('#switch-label').prop("checked", false);
+            $('#switch-label').click(function () {
+                if ($('#switch-label').is(":checked")) {
+                    $('.ing_guiGrid.col3.anim.hide').removeClass('hide');
+                } else {
+                    $('.ing_guiGrid.col3.anim').addClass('hide');
+                }
+            });
+            // Funcion para pasar a mayusculas datos de los inputs
+            $(document).ready(function () {
+                $("input").on("keypress", function () {
+                    $input = $(this);
+                    setTimeout(function () {
+                        $input.val($input.val().toUpperCase());
+                    }, 50);
+                })
+            });
+            // Funcion para poner siempre fecha actual
+            Date.prototype.toDateInputValue = (function () {
+                var local = new Date(this);
+                local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+                return local.toJSON().slice(0, 10);
+            });
+
+            $(document).ready(function () {
+                $('#id_fecha').val(new Date().toDateInputValue());
+            });
+            // Funcion Abrir Modal buscar_remi
+            $(document).keydown(function (e) {
+                if (e.keyCode === 113) {
+                    abrir_modal("{% url 'link:buscar_cli' %}")
                 }
             })
-        }
-    });
-    // Funcion para comprobar el estado del checkbox
-    $('#switch-label').prop("checked", false);
-    $('#switch-label').click(function(){
-        if($('#switch-label').is(":checked")){
-            $('.ing_guiGrid.col3.anim.hide').removeClass('hide');
-        }else{
-            $('.ing_guiGrid.col3.anim').addClass('hide');
-        }
-    });
-    // Funcion para pasar a mayusculas datos de los inputs
-    $(document).ready( function () {
-        $("input").on("keypress", function () {
-            $input=$(this);
-            setTimeout(function () {
-                $input.val($input.val().toUpperCase());
-            },50);
-        })
-    });
-    // Funcion para poner siempre fecha actual
-    Date.prototype.toDateInputValue = (function() {
-        var local = new Date(this);
-        local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-        return local.toJSON().slice(0,10);
-    });
+            // Funciion abrir modal buscar_desti
+            $(document).keydown(function (e) {
+                if (e.keyCode === 115) {
+                    abrir_modal("{% url 'link:buscar_des' %}")
+                }
+            })
+            
+            // DATE
+		var today = new Date();
+		var day = today.getDate();
+		var month = today.getMonth() + 1;
+		var year = today.getFullYear();
+		var hour = today.getHours();
+		var minutes = today.getMinutes();
 
-    $(document).ready( function() {
-        $('#id_fecha').val(new Date().toDateInputValue());
-    });
-    // Funcion Abrir Modal buscar_remi
-    $(document).keydown(function(e){
-        if(e.keyCode===113){
-            abrir_modal("{% url 'link:buscar_cli' %}")
-        }
-    })
-    // Funciion abrir modal buscar_desti
-    $(document).keydown(function(e){
-        if(e.keyCode===115){
-            abrir_modal("{% url 'link:buscar_des' %}")
-        }
-    })
-   
-  
-</script>
-{% endblock %}
+		var numInicial;
+		var numFinal;
+
+		let print = $('.print');
+
+		$("form").submit(function (e) {
+			numInicial = parseInt($('#id_numini').val());
+			numFinal = parseInt($('#id_numfin').val());
+
+		    e.preventDefault();
+
+		    imprSelec('canvas');
+		});
+
+		function imprSelec(nombre) {
+			var ficha = document.getElementById(nombre)
+			var ventana = window.open(' ', 'popimpr');
+			ventana.document.write('<html><head><title>' + document.title + '</title>');
+			ventana.document.write('<link rel="stylesheet" href="print.css">'); //Aquí agregué la hoja de estilos
+			ventana.document.write('</head><body >');
+			//ventana.document.write('<div class="canvas"></div>')
+			for(var i = numInicial; i <= numFinal; i++){
+				ventana.document.write(
+				`
+						<div class="guia">
+							<div class="formapago">
+								<p class="">${$('#id_fpago').val()}</p>
+							</div>
+              <div class="datos">
+                <div class="datosRemitente">
+                  <p class="remitente">${$('#id_remitente').val()}</p>
+                  <p class="dirRemitente">${$('#id_dirrem').val()}</p>
+                  <p class="telRemitente">${$('#id_tel').val()}</p>
+                  <p class="origen">${$('#id_origen').val()}</p>
+                </div>
+                <div class="datosDestinatario">
+                  <p class="destinatario">${$('#id_destinatario').val()}</p>
+                  <p class="dirDestinatario">${$('#id_dirdes').val()}</p>
+                  <p class="telDestinatario">${$('#id_teldes').val()}</p>
+                  <p class="destino">${$('#id_destino').val()}</p>
+                </div>
+              </div>
+							<div class="codigoCliente">
+								<p>${$('#id_codigo_cliente').val()}</p>
+							</div>
+						</div>
+            <div class="break"></div>
+					`
+				);
+			}
+			ventana.document.write('</body></html>');
+			ventana.document.close();
+			setTimeout(()=>{
+				ventana.print( );
+			}, 100)
+		}
+
+        </script>
+        {% endblock %}
