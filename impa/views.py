@@ -11,6 +11,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
+from guiasenv.views import ClienteListView
 
 # Create your views here.
 
@@ -51,3 +52,12 @@ class impdel(LoginRequiredMixin, generic.DeleteView):
     context_object_name='obj'
     success_url=reverse_lazy("impa:listimp")
     login_url = "bases:login"
+
+class buscarcli(ClienteListView):
+    template_name='link/buscar_cli.html'
+
+class buscardes(ClienteListView):
+    template_name='link/buscar_des.html'
+
+#class buscarprod(tarifarioview):
+#    template_name='link/buscar_prod.html'

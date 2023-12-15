@@ -1,0 +1,91 @@
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="col-xl-12 col-md-12 mb-12">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Bruscar Tipo De Envio
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        
+                        <div class="row">
+                                <table
+                                id="tblprod"
+                                data-pagination="true"
+                                data-search="true"
+                                {% comment %} data-show-columns="true" {% endcomment %}
+                                {% comment %} data-show-fullscreen="true" {% endcomment %}
+                                data-locale="es-NI"
+                                >
+                                <thead>
+                                        
+                                  <th data-sortable="true" data-field="id">Código</th>
+                                  <th data-field="descripcion">Descripcion</th>
+                                  <th data-field="precio">Tarifa</th>
+                                  <th class="all">Acciones</th>
+                                </thead>
+                                <tbody>
+                                  {% for item in obj%}
+                                  <tr>
+                                    
+                                    <td>{{ item.id }}</td>
+                                    <td>{{ item.descripcion }}</td>
+                                    <td>Q. {{ item.precio }}</td>
+                                    <td>
+                                        {% if item.estado %}
+                                        <button class="btn btn-warning btn-circle" id="btnSelect" 
+                                        onclick="seleccionarprod('{{item.id}}','{{item.descripcion}}','{{item.precio}}');">
+                                            <i class="far fa-hand-pointer"></i>
+                                        </button>
+                                        {% endif %}
+                                    </td>
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="row">
+                            <div class="col">
+                                <!-- <button type="submit" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button> -->
+                                <button type="button" id="btnCancelar" class="btn btn-success">
+                                        <!-- onclick="return cerrar_modal()" -->
+                                        Cancelar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+{% block js_page %}
+<script>
+    $(function () {
+
+        $("#btnCancelar").click(function(e){
+            e.preventDefault();
+            cerrar_modal();
+
+        });
+    });
+    $('#tblprod').bootstrapTable();
+
+    function seleccionarprod(id,descripcion,precio){
+        var tt = parseInt(total_forms.value) - 1
+        $("#id_productodet-" + tt +"-tipo_envio").val(id);
+        $("#id_productodet-" + tt + "-descripcion").val(descripcion);
+        $("#id_productodet-" + tt + "-precio").val(precio);
+
+        $("#id_productodet-" + tt + "-cantidad").focus();
+
+        cerrar_modal()
+    }
+
+</script>
+{% endblock %}

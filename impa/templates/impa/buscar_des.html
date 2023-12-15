@@ -1,0 +1,99 @@
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="col-xl-12 col-md-12 mb-12">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Buscar Cliente
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        
+                        <div class="row">
+                                <table
+                                id="tbldes"
+                                data-pagination="true"
+                                data-search="true"
+                                {% comment %} data-show-columns="true" {% endcomment %}
+                                {% comment %} data-show-fullscreen="true" {% endcomment %}
+                                data-locale="es-NI"
+                                >
+                                <thead>
+                                        
+                                  <th data-sortable="true" data-field="codigo_cliente">Código</th>
+                                  <th data-sortable="true" data-field="razonsoc">Nombre</th>
+                                  <th data-field="direccion">Direccion</th>
+                                  <th data-field="telefono">Telefono</th>
+                                  <th data-field="municipio">Municipio</th>
+                                  <th data-field="depto">Departamento</th>
+                                  
+                                  <th class="all">Acciones</th>
+                                </thead>
+                                <tbody>
+                                  {% for item in obj%}
+                                  <tr>
+                                    
+                                    <td>{{ item.codigo_cliente }}</td>
+                                    <td>{{ item.razonsoc }}</td>
+                                    <td>{{item.direccion}}</td>
+                                    <td>{{item.telefono}}</td>
+                                    <td>{{item.municipio}}</td>
+                                    <td>{{item.depto}}</td>
+                                    <td>
+                                        {% if item.estado %}
+                                        <button class="btn btn-warning btn-circle" id="btnSelect" 
+                                        onclick="seleccionarcliente('{{item.codigo_cliente}}','{{item.razonsoc}}','{{item.direccion}}','{{item.telefono}}','{{item.municipio}}','{{item.depto}}')">
+                                            <i class="far fa-hand-pointer"></i>
+                                        </button>
+                                        {% endif %}
+                                    </td>
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="row">
+                            <div class="col">
+                                <!-- <button type="submit" class="btn btn-danger"><span class="fa fa-save"></span> Guardar</button> -->
+                                <button type="button" id="btnCancelar" class="btn btn-success">
+                                        <!-- onclick="return cerrar_modal()" -->
+                                        Cancelar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+{% block js_page %}
+<script>
+    $(function () {
+
+        $("#btnCancelar").click(function(e){
+            e.preventDefault();
+            cerrar_modal();
+
+        });
+    });
+    $('#tbldes').bootstrapTable();
+
+    function seleccionarcliente(codigo_cliente,remitente,dirrem,tel,municipio,depto){
+        $("#id_codigo_desti").val(codigo_cliente);
+        $("#id_destinatario").val(remitente);
+        $("#id_dirdes").val(dirrem);
+        $("#id_teldes").val(tel);
+        $("#id_munides").val(municipio);
+        $("#id_destino").val(depto);
+        $("#btnCancelar").click();
+        $("#id_codigo_desti").select();
+        $("#id_zonades").focus();
+    }
+
+</script>
+{% endblock %}

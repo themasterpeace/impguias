@@ -7,7 +7,7 @@
 <div class="card">
     <div class="card-body">
         <div class="alert alert-success" role="alert">
-            <h5 class="card-title">IMPRESION DE GUIAS MADRE</h5>
+            <h5 class="card-title" style="text-align: center;">IMPRESION DE GUIAS MADRE</h5>
         </div>
         
         <form method="POST" role="form" action="{% url 'impa:newimp' %}">
@@ -16,13 +16,13 @@
                 <div class="form-roup col-md-3 mb-3">
                     <p>
                         <label for="id_fecha">Fecha:</label>
-                        <input type="datetime-local" name="fecha" class="form-control" required id="id_fecha">
+                        <input type="datetime" name="fecha" class="form-control" required id="id_fecha">
                     </p>
                 </div>
             </div>
             <!-- SECCION DE DATOS DE REMITENTE -->
             <div class="alert alert-info" role="info">
-                <h5>DATOS REMITENTE</h5>
+                <h6 style="text-align: center;">DATOS REMITENTE</h6>
                 <div class="form-row">
                     <div class="form-group col-md-1 mb-3">
                         <label for="id_codigo_cliente">CODIGO:</label>
@@ -66,7 +66,7 @@
 
         <!-- Seccion para ingresar datos de destinatario si se tubiera que imprimir tambien -->
         <div class="alert alert-warning" role="alert">
-            <h5>DATOS DESTINATARIO</h5>
+            <h6 style="text-align: center;">DATOS DESTINATARIO</h6>
             <div class="form-row">
                 <div class="form-group col-md-1 mb-3">
                     <label for="id_codigo_desti">Codigo Dest:</label>
@@ -106,7 +106,9 @@
         </div>
            
             
-            <div class="form-group col-md-6 mb-3">
+            
+            <div class="form-row">
+                <div class="form-group col-md-2 mb-3">
                     <label for="id_fpago">Forma de pago:</label>
                     <select type="number" name="fpago" maxlength="6" class="form-control" required id="id_fpago">
                         <option selected|>ELIJA FORMA DE PAGO</option>
@@ -120,17 +122,16 @@
                         <option value="8">CREDITO X COBRAR</option>
 
                     </select>    
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-3 mb-3">
+                </div>
+                <div class="form-group col-md-2 mb-3">
                     <label for="id_numini">Numero Inicial:</label>
                     <input type="number" name="numini" maxlength="6" class="form-control" required id="id_numini">
                 </div>
-                <div class="form-group col-md-3 mb-3">
+                <div class="form-group col-md-2 mb-3">
                     <label for="id_numfin">Numero Final:</label>
                     <input type="number" name="numfin" maxlength="6" class="form-control" required id="id_numfin">
                 </div>
-                <div class="form-group col-md-3 mb-3">
+                <div class="form-group col-md-2 mb-3">
                     <label for="id_totalimp">Total Guías A Imprimir:</label>
                     <input type="number" name="totalimp" maxlength="6" class="form-control" required id="id_totalimp">
                 </div>
@@ -416,7 +417,7 @@
                                 Swal.close()
                                 // Guardar valor de no. guia en cookie
                                 sessionStorage.setItem('noguiamadre', codNog.val());
-                                abrir_modal("{% url 'link:ingreso_hijas' %}")
+                                abrir_modal("{% url 'imphijas:hijanew' %}")
                             } else {
                                 Swal.close()
                                 document.ing_guias.submit()
@@ -466,13 +467,13 @@
             // Funcion Abrir Modal buscar_remi
             $(document).keydown(function (e) {
                 if (e.keyCode === 113) {
-                    abrir_modal("{% url 'link:buscar_cli' %}")
+                    abrir_modal("{% url 'impa:buscar_cli' %}")
                 }
             })
             // Funciion abrir modal buscar_desti
             $(document).keydown(function (e) {
                 if (e.keyCode === 115) {
-                    abrir_modal("{% url 'link:buscar_des' %}")
+                    abrir_modal("{% url 'impa:buscar_des' %}")
                 }
             })
             
