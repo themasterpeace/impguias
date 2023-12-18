@@ -110,18 +110,7 @@
             <div class="form-row">
                 <div class="form-group col-md-2 mb-3">
                     <label for="id_fpago">Forma de pago:</label>
-                    <select type="number" name="fpago" maxlength="6" class="form-control" required id="id_fpago">
-                        <option selected|>ELIJA FORMA DE PAGO</option>
-                        <option value="1">POR COBRAR</option>
-                        <option value="2">CONTADO</option>
-                        <option value="3">CREDITO</option>
-                        <option value="4">CONTRA ENTREGA</option>
-                        <option value="5">PREPAGO</option>
-                        <option value="6">COMPARTIDA</option>
-                        <option value="7">CORTESIA</option>
-                        <option value="8">CREDITO X COBRAR</option>
-
-                    </select>    
+                    <input type="text" name="fpago" maxlength="6" class="form-control" required id="id_fpago"></input>    
                 </div>
                 <div class="form-group col-md-2 mb-3">
                     <label for="id_numini">Numero Inicial:</label>
@@ -180,8 +169,18 @@
                         console.log(r);
                         //console.log(r.existencia);
                         console.log(r.estado);
+                        console.log("A")
 
-                        if (!r.estado) {
+                        if (r) {
+                            $("#id_codigo_cliente").val(r.codigo);
+                            $("#id_remitente").val(r.nombre);
+                            $("#id_dirrem").val(r.direccion);
+                            $("#id_tel").val(r.telefono);
+                            $("#id_muni").val(r.municipio);
+                            $("#id_origen").val(r.depto);
+                            $("#id_fpago").val(r.formapago);
+                            $("#id_zona").focus();
+                        } else {
                             mensaje("Cliente inexistente o inactivo", 'orange');
                             $("#id_codigo_cliente").val("");
                             $("#id_remitente").val("");
@@ -192,15 +191,6 @@
                             $("#id_fpago").val("");
                             $("#id_codigo_cliente").focus();
                             return false;
-                        } else {
-                            $("#id_codigo_cliente").val(r.codigo_cliente);
-                            $("#id_remitente").val(r.razonsoc);
-                            $("#id_dirrem").val(r.direccion);
-                            $("#id_tel").val(r.telefono);
-                            $("#id_muni").val(r.municipio);
-                            $("#id_origen").val(r.depto);
-                            $("#id_fpago").val(r.fpago);
-                            $("#id_zona").focus();
                         }
 
                     },
@@ -503,7 +493,7 @@
 			var ficha = document.getElementById(nombre)
 			var ventana = window.open(' ', 'popimpr');
 			ventana.document.write('<html><head><title>' + document.title + '</title>');
-			ventana.document.write('<link rel="stylesheet" href="print.css">'); //Aquí agregué la hoja de estilos
+			ventana.document.write('<link rel="stylesheet" href="../../../static/lib/css/printmadre.css">'); //Aquí agregué la hoja de estilos
 			ventana.document.write('</head><body >');
 			//ventana.document.write('<div class="canvas"></div>')
 			for(var i = numInicial; i <= numFinal; i++){
