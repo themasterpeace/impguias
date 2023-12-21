@@ -231,6 +231,14 @@
                         console.log(r.estado);
 
                         if (!r.estado) {
+                            $("#id_codigo_desti").val(r.codigo);
+                            $("#id_destinatario").val(r.nombre);
+                            $("#id_dirdes").val(r.direccion);
+                            $("#id_teldes").val(r.telefono);
+                            $("#id_munides").val(r.municipio);
+                            $("#id_destino").val(r.depto);
+                            $("#id_zonades").focus();
+                        } else {
                             mensaje("Cliente inexistente o inactivo", 'orange');
                             $("#id_codigo_desti").val("");
                             $("#id_destinatario").val("");
@@ -240,14 +248,6 @@
                             $("#id_destino").val("");
                             $("#id_codigo_desti").focus();
                             return false;
-                        } else {
-                            $("#id_codigo_desti").val(r.codigo_cliente);
-                            $("#id_destinatario").val(r.razonsoc);
-                            $("#id_dirdes").val(r.direccion);
-                            $("#id_teldes").val(r.telefono);
-                            $("#id_munides").val(r.municipio);
-                            $("#id_destino").val(r.depto);
-                            $("#id_zonades").focus();
                         }
 
                     },
@@ -271,6 +271,29 @@
 
                 });
             }
+             // Obtén los elementos de los campos y el resultado
+             const numini = document.getElementById('id_numini');
+                        const numfin = document.getElementById('id_numfin');
+                        const totalimp = document.getElementById('id_totalimp');
+
+                        // Función para calcular y actualizar el resultado
+                        function calcularResultado() {
+                            const valorNumini = parseFloat(id_numini.value);
+                            const valorNumfin = parseFloat(id_numfin.value);
+                            
+                            // Realiza el cálculo que necesites
+                            const resultadoCalculdo = valorNumfin - valorNumini + 1;
+
+                            // Actualiza el valor del resultado
+                            totalimp.value = resultadoCalculdo;
+                        }
+
+                        // Escucha los eventos 'input' en los campos para actualizar el resultado
+                        numini.addEventListener('input', calcularResultado);
+                        numfin.addEventListener('input', calcularResultado);
+                    
+
+
         // Obtener la fecha y hora actual en el formato DD-MM-YYYYTHH:mm
         function obtenerFechaHoraActual() {
             const ahora = new Date();
@@ -456,7 +479,8 @@
             });
             // Funcion Abrir Modal buscar_remi
             $(document).keydown(function (e) {
-                if (e.keyCode === 113) {
+                if (e.keyCode == 113) {
+                    console.log("a")
                     abrir_modal("{% url 'impa:buscar_cli' %}")
                 }
             })

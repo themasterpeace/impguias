@@ -87,7 +87,7 @@
 						<li><a href="#"><ion-icon name="barcode-outline"></ion-icon>Reporte factura</a></li>
 					</ol>
 				</li>
-				{% comment %} URlS de impresiond e guias  {% endcomment %}
+				{% comment %} URLS de impresion de guias  {% endcomment %}
 					<li class="dropdown">
 						<a href="#">
 							<span class="title"><i class="fa-regular fa-shredder"></i>  Impresion de Guías</span>
@@ -185,7 +185,7 @@
 				<!-- userImg -->
 				{% if user.is_authenticated %}
 				<div class="user">
-					<span class="alert alert-warning"><b>En este momento estra trabajando:    {{ user.get_username }}</b> </span><ion-icon name="person-circle-outline"></ion-icon>
+					<span class="alert alert-warning"><b>En este momento estra trabajando el usuario:    {{ user.get_username }}</b> </span><ion-icon name="person-circle-outline"></ion-icon>
 				</div>
 				{% endif %}
 			</div>

@@ -10,7 +10,7 @@
 	</div>
     <div class="break"></div>
 
-	<section>
+	<section class="impHijas">
 		<div class="box">
 			<div class="form">
 				<h2>IMPRESION DE GUIAS HIJA</h2>
@@ -42,7 +42,7 @@
                             <div class="col">
                                 <button type="button" class="print">Imprimir</button>
 
-                                <button type="button" class="btn btn-danger"> <a href="{% url 'bases:home' %}">Regresar a Home</a> </button>
+                                <button type="button" class="backHome"> <a href="{% url 'bases:home' %}">Regresar a Home</a> </button>
                             </div>
                         </div>
                     </div>
@@ -80,7 +80,7 @@
             var ficha = document.getElementById(nombre)
             var ventana = window.open(' ', 'popimpr');
             ventana.document.write('<html><head><title>' + document.title + '</title>');
-            ventana.document.write('<link rel="stylesheet" href="{% static 'lib/css/print.css' %}">'); //Aquí agregué la hoja de estilos
+            ventana.document.write('<link rel="stylesheet" href="../../../static/lib/css/print.css">'); //Aquí agregué la hoja de estilos
             ventana.document.write('</head><body >');
             //ventana.document.write('<div class="canvas"></div>')
             for(var i = piezas; i <= contadorDe; i++){
