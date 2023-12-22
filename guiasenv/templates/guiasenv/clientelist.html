@@ -38,8 +38,10 @@
                         <th>Codigo</th>
                         <th>Nombre</th>
                         <th>Direccion</th>
+                        <th>Municipo</th>
                         <th>Telefono</th>
                         <th>Forma Pago</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
                     </thead>
                     <tbody>
@@ -107,10 +109,13 @@
                         {"data": "codigo"},
                         {"data": "nombre"},
                         {"data": "direccion"},
+                        {"data": "municipio"},
                         {"data": "telefono"},
                         {"data": "formapago"},
-                        {"data": "Acciones"},
-                       
+                        {"data": "estado", "render":function(data){
+                            return data ? 'Activo' : 'Inactivo'
+                        }},
+                        {"data": "Acciones"},                      
                         
                     ],
                     columnDefs:[                   

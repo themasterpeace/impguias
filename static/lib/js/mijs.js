@@ -10,13 +10,14 @@ function mensaje(msg,color='green')
       }
 
 
-      $.alert({
-        title:'¡¡AVISO IMPORTANTE!!',
-        theme:'bootstrap',
-        type:color,
-        content:msg
-      });
-      
-    }
-
+      Swal.fire({
+        position:"top-end",
+        icon: "success",
+        title: '¡¡REGISTRO GUARDADO EXITOSAMENTE!!',
+        text: msg,
+        showConfirmButton: false,
+        timer: 1600
+    });
+  }
+    
     

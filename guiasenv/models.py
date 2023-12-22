@@ -32,14 +32,14 @@ FPAGO=[
     ("GUIA EN BLANCO", "GUIA EN BLANCO"),
 ]
 
-class Cliente(models.Model):
+class Cliente(ClaseModelo):
     codigo = models.CharField(max_length=8)
     nombre = models.CharField(max_length=200)
     direccion = models.CharField(max_length=200)
-    telefono = models.CharField(max_length=9)
+    telefono = models.CharField(max_length=20)
     #nit = models.CharField(max_length=10)
     #departamento = models.CharField(max_length=50)
-    #municipio = models.CharField(max_length=150)
+    municipio = models.CharField(max_length=150)
     #contacto = models.CharField(max_length=150)
     formapago = models.CharField(max_length=20,choices=FPAGO)
 
@@ -59,7 +59,7 @@ class Cliente(models.Model):
 
     class Meta:
         verbose_name_plural = "Clientes"
-        ordering = ['codigo'] 
+        ordering = ['id'] 
 
 class GuiasEnv(models.Model):
     fecha = models.DateField(auto_now=False)

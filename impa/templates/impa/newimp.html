@@ -177,7 +177,7 @@
                             $("#id_dirrem").val(r.direccion);
                             $("#id_tel").val(r.telefono);
                             $("#id_muni").val(r.municipio);
-                            $("#id_origen").val(r.depto);
+                            
                             $("#id_fpago").val(r.formapago);
                             $("#id_zona").focus();
                         } else {
@@ -236,7 +236,7 @@
                             $("#id_dirdes").val(r.direccion);
                             $("#id_teldes").val(r.telefono);
                             $("#id_munides").val(r.municipio);
-                            $("#id_destino").val(r.depto);
+                            
                             $("#id_zonades").focus();
                         } else {
                             mensaje("Cliente inexistente o inactivo", 'orange');
@@ -272,7 +272,7 @@
                 });
             }
              // Obtén los elementos de los campos y el resultado
-             const numini = document.getElementById('id_numini');
+                        const numini = document.getElementById('id_numini');
                         const numfin = document.getElementById('id_numfin');
                         const totalimp = document.getElementById('id_totalimp');
 
@@ -281,11 +281,17 @@
                             const valorNumini = parseFloat(id_numini.value);
                             const valorNumfin = parseFloat(id_numfin.value);
                             
-                            // Realiza el cálculo que necesites
-                            const resultadoCalculdo = valorNumfin - valorNumini + 1;
+                            // Verifica si los valores son numéricos antes de realizar el cálculo
+                            if (!isNaN(valorNumini) && !isNaN(valorNumfin)) {
+                                // Realiza el cálculo que necesites
+                                const resultadoCalculado = valorNumfin - valorNumini + 1;
 
-                            // Actualiza el valor del resultado
-                            totalimp.value = resultadoCalculdo;
+                                // Actualiza el valor del resultado
+                                totalimp.value = resultadoCalculado;
+                            } else {
+                                // Si los valores no son numéricos, deja el campo totalimp en blanco
+                                totalimp.value = '';
+                            }
                         }
 
                         // Escucha los eventos 'input' en los campos para actualizar el resultado

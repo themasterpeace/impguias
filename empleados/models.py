@@ -168,7 +168,7 @@ class Empleado(ClaseModelo):
     hijo = models.CharField(max_length=2)
     nacionalidad = models.ForeignKey("Nacionalidad", on_delete=models.CASCADE)
     sexo = models.ForeignKey("Sexo", on_delete=models.CASCADE)
-    foto = models.ImageField(upload_to='fotos/', null=True, blank=True)
+    foto = models.ImageField(upload_to='static/media/img/', null=True, blank=True)
 
     def __str__(self):
         return self.dpi

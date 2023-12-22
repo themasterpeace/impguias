@@ -562,7 +562,8 @@ class ClienteEdit(SuccessMessageMixin, SinPrivilegios, UpdateView):
     login_url = "bases:login"
 
     def form_valid(self, form):
-        form.instance.um = self.request.user.id
+        user_instance=self.request.user
+        form.instance.um = user_instance
         return super().form_valid(form)
 
 def registro(request):

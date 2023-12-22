@@ -25,7 +25,7 @@ from guiasenv.models import GuiasEnv
 class MixinFormInvalid:
     def form_invalid(self,form):
         response = super().form_invalid(form)
-        if self.request.is_ajax():
+        if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
             return JsonResponse(form.errors, status=400)
         else:
             return response
