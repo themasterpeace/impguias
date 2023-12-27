@@ -18,22 +18,22 @@ class ImpresionForm(forms.ModelForm):
     munides = CharField(required=False)
     destino = CharField(required=False)
     rutades = CharField(required=False)
-    codigo = CharField(required=False)
-    cliente = CharField(required=False)
+    #codigo = CharField(required=False)
+    #cliente = CharField(required=False)
 
     class Meta:
         model = ImpGuias
         fields = ['fecha','codigo_cliente',
-                 'remitente','dirrem','tel','zona','muni','origen',
-                 'ruta','codigo_desti','destinatario','dirdes','teldes',
-                 'zonades','munides','destino','rutades','codigo','cliente',
+                 'remitente','dirrem','tel','origen',
+                 'codigo_desti','destinatario','dirdes','teldes',
+                 'zonades','munides','destino','rutades','fpago',
                  'numini','numfin', 'totalimp'
                  ]
         labels={
             'fecha':"Fecha",'codigo_cliente':"Codigo Cliente",
-            'remitente':"Remitente",'dirrem':"Direccion Remitente",'tel':"Telefono",'zona':"Zona",'muni':"Municipio",'origen':"Origen",
-            'ruta':"Ruta",'codigo_desti':"Codigo Dest",'destinatario':"Destinatario",'dirdes':"Direccion Dest",'teldes':"Telefono",
-            'zonades':"Zona",'munides':"Municipio",'destino':"Destino",'rutades':"Ruta",'codigo':"Codigo",'cliente':"Cliente",
+            'remitente':"Remitente",'dirrem':"Direccion Remitente",'tel':"Telefono",'origen':"Origen",
+            'codigo_desti':"Codigo Dest",'destinatario':"Destinatario",'dirdes':"Direccion Dest",'teldes':"Telefono",
+            'zonades':"Zona",'munides':"Municipio",'destino':"Destino",'rutades':"Ruta",'fpago':"Forma de Pago",
             'numini':"Numero Inicial",'numfin':"Numero Final",'totalimp':"Total Guías A Imprimir"
         }
 

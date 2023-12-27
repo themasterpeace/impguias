@@ -5,6 +5,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+	font-family: monospace;
 }
 .canvas{
 	width: 21.5cm;
@@ -17,7 +18,7 @@
 .guia {
 	width: 715px;
 	padding-top: 1.099cm;
-	padding-left: 1.9cm;
+	padding-left: 1.2cm;
 }
 .formapago {
   display: grid; 

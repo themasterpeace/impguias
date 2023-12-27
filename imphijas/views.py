@@ -48,7 +48,7 @@ class HijaNew(SuccessMessageMixin, SinPrivilegios, CreateView):
     context_object_name = "obj"
     form_class = HijaForm
     success_url = reverse_lazy("imphijas:hijalist")
-    success_message = "IMPRESION DE GUIAS EXITOSA"
+    success_message = "IMPRESION DE GUIAS HIJA EXITOSA"
     login_url = "bases:login"
 
 

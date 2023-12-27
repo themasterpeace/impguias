@@ -44,22 +44,22 @@
                             <input type="text" name="tel" maxlength="9" class="form-control" required id="id_tel">
                         
                     </div>
-                    <div class="form-group col-md-2 mb-3">
+                    <!-- <div class="form-group col-md-2 mb-3">
                             <label for="id_zona">Zona:</label>
                             <input type="text" name="zona" maxlength="2" class="form-control" required id="id_zona">
                     </div>
                     <div class="form-group col-md-2 mb-3">
                             <label for="id_muni">Municipio:</label>
                             <input type="text" name="muni" maxlength="50" class="form-control" required id="id_muni">
-                    </div>
+                    </div> -->
                     <div class="form-group col-md-2 mb-3">
                             <label for="id_origen">Origen:</label>
                             <input type="text" name="origen" maxlength="50" class="form-control" required id="id_origen">
                     </div>
-                    <div class="form-group col-md-2 mb-3">
+                    <!-- <div class="form-group col-md-2 mb-3">
                             <label for="id_ruta">Ruta:</label>
                             <input type="text" name="ruta" maxlength="3" class="form-control" required id="id_ruta">
-                    </div>
+                    </div> -->
                 </div>
             </div>
             
@@ -129,8 +129,8 @@
                 <div class="col">
                     <button type="submit" class="btn btn-danger print"><span class="fa fa-print"></span> Imprimir</button>
         
-                    <button type="button" class="btn btn-success"> <i class="fas fa-window-close"></i><a
-                            href="{% url 'bases:home' %}"> Salir</a>
+                    <button type="button" class="btn btn-success"> <i class="fa fa-window-close"></i><a
+                            href="{% url 'impa:listimp' %}"> Salir</a>
         
                     </button>
                 </div>
@@ -474,11 +474,11 @@
                 })
             });
             // Funcion para poner siempre fecha actual
-            Date.prototype.toDateInputValue = (function () {
-                var local = new Date(this);
-                local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-                return local.toJSON().slice(0, 10);
-            });
+            //Date.prototype.toDateInputValue = (function () {
+            //    var local = new Date(this);
+            //    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+            //    return local.toJSON().slice(0, 10);
+            //});
 
             $(document).ready(function () {
                 $('#id_fecha').val(new Date().toDateInputValue());

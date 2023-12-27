@@ -30,6 +30,7 @@ FPAGO=[
     ("CORTESIA", "CORTESIA"),
     ("TALONARIO", "TALONARIO"),
     ("GUIA EN BLANCO", "GUIA EN BLANCO"),
+    ("CONTRA ENTREGA", "CONTRA ENTREGA"),
 ]
 
 class Cliente(ClaseModelo):
