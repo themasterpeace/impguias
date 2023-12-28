@@ -11,24 +11,24 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
 fpago=[
-    [0, "POR COBRAR"],
-    [1, "CONTADO"],
-    [2, "CREDITO"],
-    [3, "PREPAGO"],
-    [4, "CREDITO X COBRAR"],
-    [5, "CONTADO X COBRAR"],
-    [6, "CREDITO X CREDITO"],
-    [7, "CORTESIA"],
-    [8, "CONTRA ENTREGA"]
+    ["POR COBRAR", "POR COBRAR"],
+    ["CONTADO", "CONTADO"],
+    ["CREDITO", "CREDITO"],
+    ["PREPAGO", "PREPAGO"],
+    ["CREDITO X COBRAR", "CREDITO X COBRAR"],
+    ["CONTADO X COBRAR", "CONTADO X COBRAR"],
+    ["CREDITO X CREDITO", "CREDITO X CREDITO"],
+    ["CORTESIA", "CORTESIA"],
+    ["CONTRA ENTREGA", "CONTRA ENTREGA"]
 ]
 
 class ImpGuias(ClaseModelo):
 
-    fecha = models.DateTimeField()
+    fecha = models.DateField(auto_now=False)
     codigo_cliente = models.CharField(max_length=8)
     remitente = models.CharField(max_length=200, verbose_name="Nombre Remitente")
     dirrem = models.CharField(max_length=300, verbose_name="Direccion Remitente")
-    tel = models.CharField(max_length=9, verbose_name="No. Telefono")
+    tel = models.CharField(max_length=20, verbose_name="No. Telefono")
     zona = models.CharField(max_length=2, verbose_name="Zona")
     muni= models.CharField(max_length=50, verbose_name="Municipio")
     origen = models.CharField(max_length=50, verbose_name="Origen")
@@ -43,7 +43,7 @@ class ImpGuias(ClaseModelo):
     destino = models.CharField(max_length=50, verbose_name="Codigo Destino", null=True, blank=True)
     rutades = models.CharField(max_length=3, verbose_name="Ruta", null=True, blank=True)
     #Forma de pago 
-    fpago= models.IntegerField(choices=fpago, verbose_name="FORMA DE PAGO", null=True)
+    fpago= models.CharField(max_length=20, verbose_name="FORMA DE PAGO", null=False)
     #Rango de impresiones
     numini = models.IntegerField(default=0, verbose_name="Numero inicial", unique=True)
     numfin = models.IntegerField(default=0, verbose_name="Numero Final", unique=True)

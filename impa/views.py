@@ -1,4 +1,5 @@
 import time
+
 from re import  template
 from django.http import request 
 from django.shortcuts import redirect, render, get_object_or_404
@@ -15,7 +16,7 @@ from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from guiasenv.views import ClienteListView
 
-from bases.views import SinPrivilegios
+from bases.views import SinPrivilegios, BaseCreate
 
 # Create your views here.
 
@@ -26,20 +27,15 @@ class impview(LoginRequiredMixin, ListView):
     login_url = "bases:login"
 
 
-class impnew(SuccessMessageMixin, SinPrivilegios, CreateView):
+class impnew(BaseCreate):
     permission_required="impa.create_impguias"
     model = ImpGuias
     template_name = "impa/newimp.html"
-    context_object_name = "obj"
     form_class = ImpresionForm
     success_url = reverse_lazy("impa:listimp")
     success_message = "IMPRESION DE GUIAS MADRE ENVIADA EXITOSAMENTE"
-    login_url = "bases:login"
-
-    def form_valid(self, form):
-        form.instance.uc = self.request.user
-        return super().form_valid(form)
     
+        
 class impedit(LoginRequiredMixin, UpdateView):
     model = ImpGuias
     template_name="impa/newimp.html"

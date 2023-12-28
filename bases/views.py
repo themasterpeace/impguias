@@ -19,7 +19,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from .models import *
 #from .forms import *
-from guiasenv.models import GuiasEnv
+#from guiasenv.models import GuiasEnv
 
 
 class MixinFormInvalid:
@@ -76,11 +76,9 @@ class Home(TemplateView):
   
 
 class HomeSinPrivilegios(LoginRequiredMixin, TemplateView):
-    login_url = "bases:login"
     template_name="bases/sin_privilegios.html"
 
 class BaseView(SinPrivilegios, ListView):
-    login_url="bases:login"
     context_object_name="obj"
 
     @method_decorator(csrf_exempt)
@@ -88,7 +86,6 @@ class BaseView(SinPrivilegios, ListView):
         return super().dispatch(request, *args, **kwargs)
 
 class BaseCreate(SuccessMessageMixin,SinPrivilegios, CreateView):
-    login_url="bases:login"
     context_object_name="obj"
 
     def form_valid(self, form):
@@ -96,7 +93,6 @@ class BaseCreate(SuccessMessageMixin,SinPrivilegios, CreateView):
         return super().form_valid(form)
 
 class BaseUpdate(SuccessMessageMixin,SinPrivilegios, UpdateView):
-    login_url="bases:login"
     context_object_name="obj"
 
     def form_valid(self, form):

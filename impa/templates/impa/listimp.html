@@ -35,10 +35,8 @@
                 <th>Remitente</th>
                 <th>Direccion Remitente</th>
                 <th>Telefono</th>
-                <th>Zona</th>
-                <th>Municipio</th>
                 <th>Origen</th>
-                <th>Ruta</th>
+                
                 <th>Codigo Destinatario</th>
                 <th>Destinatario</th>
                 <th>Direccion Destinatario</th>
@@ -65,10 +63,8 @@
                     <td>{{ item.remitente }}</td>
                     <td>{{ item.dirrem }}</td>
                     <td>{{ item.tel }}</td>
-                    <td>{{ item.zona }}</td>
-                    <td>{{ item.muni }}</td>
                     <td>{{ item.origen }}</td>
-                    <td>{{ item.ruta }}</td>
+                    
                     <td>{{ item.codigo_desti }}</td>
                     <td>{{ item.destinatario }}</td>
                     <td>{{ item.dirdes }}</td>
@@ -77,7 +73,8 @@
                     <td>{{ item.munides }}</td>
                     <td>{{ item.destino }}</td>
                     <td>{{ item.rutades }}</td>
-                    <td>{{ item.codigo }} {{ item.cliente }}</td>
+                    <td>{{ item.codigo }}</td>
+                    <td>{{ item.fpago }}</td>
                     <td onclick="inactivar({{ item.id }})">
                         {% if item.estado %}
                         <i class="far fa-thumbs-up text-primary"></i>
