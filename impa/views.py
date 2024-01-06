@@ -16,6 +16,8 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
+from openpyxl import workbook
+from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from guiasenv.views import ClienteListView
 
 from bases.views import SinPrivilegios, BaseCreate
@@ -83,3 +85,32 @@ class buscardes(ClienteListView):
 
 #class buscarprod(tarifarioview):
 #    template_name='link/buscar_prod.html'
+    
+class ReportImp(TemplateView):
+    def get(self, request, *args, **kwargsa):
+        campo = request.GET.get('campo')
+        clientes = ImpGuias.objects.all()
+
+        wb = workbook()
+        ws = wb.active
+
+        #Seccion de titulo de la hoja electronica
+        ws['A1'].alignment = Alignment(horizontal = "center",vertical = "center")
+        ws['A1'].border = Border(left = Side(border_style = "thin"), right = Side(border_style = "thin"),
+                                    top = Side(border_style = "thin"), bottom = Side(border_style = "thin") ) 
+        ws['A1'].fill = PatternFill(start_color = '66FFCC', end_color = '66FFCC', fill_type = "solid")
+        ws['A1'].font = Font(name = 'Calibri', size = 12, bold = True)
+        ws['A1'] = 'REPORTE GUIAS IMPRESAS A CLIENTES'
+
+        ws.merge_cells('A1:I1')
+        ws.row_dimensions[1].height = 25
+
+        ws.column_dimensions['A'].width = 20
+        ws.column_dimensions['B'].width = 20
+        ws.column_dimensions['C'].width = 20
+        ws.column_dimensions['D'].width = 20
+        ws.column_dimensions['E'].width = 20
+        ws.column_dimensions['F'].width = 20
+        ws.column_dimensions['G'].width = 20
+        ws.column_dimensions['H'].width = 20
+        ws.column_dimensions['I'].width = 20

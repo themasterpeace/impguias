@@ -67,37 +67,37 @@ class ImpGuias(ClaseModelo):
         verbose_name_plural = "Impresiones de Guías"
 
 
-@receiver(post_save, sender=ImpGuias)
-def crear_registros_rango(sender, instance, created, **kwargs):
-        if created:
-            # Tu script para crear registros en el rango
-            for num in range(instance.numini, instance.numfin + 1):
-                # Crea los registros según tus necesidades
-                ImpGuias.objects.create(
-                    fecha=instance.fecha,
-                    codigo_cliente=instance.codigo_cliente,
-                    remitente=instance.remitente,
-                    dirrem=instance.dirrem,
-                    tel=instance.tel,
-                    zona=instance.zona,
-                    muni=instance.muni,
-                    origen=instance.origen,
-                    ruta=instance.ruta,
-                    codigo_desti=instance.codigo_desti,
-                    destinatario=instance.destinatario,
-                    dirdes=instance.dirdes,
-                    teldes=instance.teldes,
-                    zonades=instance.zonades,
-                    munides=instance.munides,
-                    destino=instance.destino,
-                    rutades=instance.rutades,
-                    fpago=instance.fpago,
-                    numini=num,
-                    numfin=num,
-                    totalimp=1,
-                )
-        post_save.disconnect(crear_registros_rango, sender=ImpGuias)
-        post_save.connect(crear_registros_rango, sender=ImpGuias)    
+# @receiver(post_save, sender=ImpGuias)
+# def crear_registros_rango(sender, instance, created, **kwargs):
+#         if created:
+#             # Tu script para crear registros en el rango
+#             for num in range(instance.numini, instance.numfin + 1):
+#                 # Crea los registros según tus necesidades
+#                 ImpGuias.objects.create(
+#                     fecha=instance.fecha,
+#                     codigo_cliente=instance.codigo_cliente,
+#                     remitente=instance.remitente,
+#                     dirrem=instance.dirrem,
+#                     tel=instance.tel,
+#                     zona=instance.zona,
+#                     muni=instance.muni,
+#                     origen=instance.origen,
+#                     ruta=instance.ruta,
+#                     codigo_desti=instance.codigo_desti,
+#                     destinatario=instance.destinatario,
+#                     dirdes=instance.dirdes,
+#                     teldes=instance.teldes,
+#                     zonades=instance.zonades,
+#                     munides=instance.munides,
+#                     destino=instance.destino,
+#                     rutades=instance.rutades,
+#                     fpago=instance.fpago,
+#                     numini=num,
+#                     numfin=num,
+#                     totalimp=1,
+#                 )
+#         post_save.disconnect(crear_registros_rango, sender=ImpGuias)
+#         post_save.connect(crear_registros_rango, sender=ImpGuias)    
 
     
     

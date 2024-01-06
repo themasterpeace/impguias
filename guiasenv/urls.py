@@ -20,6 +20,8 @@ urlpatterns = [
     path('guia/excel', ReporteClienteExcel.as_view(), name="guiaexcel"),
     path('guia/excelgen', ReporteGeneralExcel.as_view(), name="guiaexcelgen"),
     path('guia/excelfech', ReporteFechaExcel.as_view(), name="guiaexcelfech"),
+    ##Generar reporte desde tabla dbf historico
+    path('historico', ReporteHistorico.as_view(), name="historicoexcel"),
 
      path('registro/', registro, name='registro'),
 ]

@@ -19,7 +19,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from .models import *
 #from .forms import *
-#from guiasenv.models import GuiasEnv
+from guiasenv.models import GuiasEnv
+from impa.models import ImpGuias
 
 
 class MixinFormInvalid:
@@ -50,8 +51,8 @@ class Home(TemplateView):
         try:
             year = datetime.now().year -1
             for m in range(1, 13):
-                totenvio = GuiasEnv.objects.filter(fecha__year=year, fecha__month=m).aggregate(r=Coalesce(Sum('totenvio'), 0)).get('r')
-                data.append(float(totenvio))
+                totalimp = ImpGuias.objects.filter(fecha__year=year, fecha__month=m).aggregate(r=Coalesce(Sum('totalimp'), 0)).get('r')
+                data.append(float(totalimp))
         except:
             pass
         return data
@@ -61,8 +62,8 @@ class Home(TemplateView):
         try:
             year = datetime.now().year
             for m in range(1, 13):
-                totenvio = GuiasEnv.objects.filter(fecha__year=year, fecha__month=m).aggregate(r=Coalesce(Sum('totenvio'), 0)).get('r')
-                data.append(float(totenvio))
+                totalimp = ImpGuias.objects.filter(fecha__year=year, fecha__month=m).aggregate(r=Coalesce(Sum('totalimp'), 0)).get('r')
+                data.append(float(totalimp))
         except:
             pass
         return data

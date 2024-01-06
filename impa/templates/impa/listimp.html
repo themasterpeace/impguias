@@ -21,12 +21,12 @@
         </div>
     </div>
     <!-- Card 5Body -->
-    <div class="card-body"> 
+    <div class="card-body" > 
         {% if not obj  %}
            <div class="alert alert-info">No Existen Correlativos Impresos</div>
         {% else %}
 
-        <table class="table table-striped table-hover" id="madres">
+        <table class="table table-striped table-hover" id="madres" style="width: 100%; overflow-x: auto;">
             <thead>
                 <th>Id</th>
                 <th>Fecha</th>
@@ -44,8 +44,8 @@
                 <th>Telefono Destino</th>
                 
                 <th>Destino</th>
-                
                 <th>Forma de Pago</th>
+                <th>Total Impreso</th>
                 <!-- <th>Estado</th> -->
                 <!-- <th>Usuario crea</th>
                 <th>Usuario Modifica</th>
@@ -136,7 +136,8 @@
                             },
 
                         responsive: true,
-                        autoWidth: false,
+                        autoWidth: true,
+                        scrollX: true,
                         destroy: true,
                         deferRender: true,
                         processing: true,
@@ -166,6 +167,7 @@
                         {"data": "teldes"},
                         {"data": "destino"},
                         {"data": "fpago"},
+                        {'data':'totalimp'},
                         // {"data": "estado", "render":function(data){
                         //     return data ? 'Activo' : 'Inactivo'
                         // }},

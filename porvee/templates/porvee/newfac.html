@@ -1,3 +1,4 @@
+
 <div class="modal-dialog modal_lg fac_new">
     <div class="modal-content">
         {% if obj %}
@@ -44,7 +45,7 @@
                                 <div class="form-row">
                                     <p class="form-group col-md-6">
                                         <label for="id_fechafac">Fecha Factura:</label> 
-                                        <input type="datetime " name="fechafac" maxlength="200" class="form-control" required id="id_fechafac" value="{{ obj.fechafac}}">
+                                        <input type="date" name="fechafac" maxlength="200" class="form-control" required id="id_fechafac" value="{{ obj.fechafac}}">
                                     </p>
                                     <p class="form-group col-md-6">
                                         <label for="id_discripcion">Descripcion Pedido:</label> 
@@ -57,7 +58,7 @@
                                         <input type="number" name="numini" maxlength="7" class="form-control" required id="id_numini" value="{{ obj.numini}}">
                                     </p>
                                     <p class="form-group col-md-6">
-                                        <label for="id_numfin">Numero Factura:</label> 
+                                        <label for="id_numfin">Numero Final:</label> 
                                         <input type="number" name="numfin" maxlength="7" class="form-control" required id="id_numfin" value="{{ obj.numfin}}">    
                                     </p>                                    
                                 </div>
@@ -72,6 +73,10 @@
                                     </p>                                    
                                 </div>
                                 <div class="form-row">
+                                    <p class="form group col-md-6">
+                                        <label for="id_total">Total a pagar:</label> 
+                                        <input type="text" placeholder="Q." name="total" maxlength="200" class="form-control" required id="id_total" value="{{ obj.total}}">
+                                    </p>   
                                     <p class="form group col-md-6">
                                         <label for="id_contacto">Contacto:</label> 
                                         <input type="text" name="contacto" maxlength="200" class="form-control" required id="id_contacto" value="{{ obj.contacto}}">
@@ -96,6 +101,34 @@
                     </div>
                     <script>
                         //Calculo de total enviado
+                       const numini = document.getElementById('id_numini');
+                       const numfin = document.getElementById('id_numfin');
+                       const cantidad = document.getElementById('id_cantidad')
+                       const preciouni = document.getElementById('id_preciouni');
+                       const total = document.getElementById('id_total');
+
+                       function calcularcantidad(){
+                        const valorNumini = parseFloat(id_numini.value);
+                        const valorNumfin = parseFloat(id_numfin.value);
+
+                        const resultado = valorNumfin - valorNumini + 1;
+
+                        cantidad.value = resultado;
+                       }
+                       numini.addEventListener('input', calcularcantidad);
+                       numfin.addEventListener('input', calcularcantidad);
+
+                       //Calcular Total a pagar 
+                       function calcularTotal(){
+                        const valorCantidad = parseFloat(id_cantidad.value);
+                        const preciouni = parseFloat(id_preciouni.value);
+                        
+                        const totalcalculado = varlorCantidad * preciouni;
+                        total.value = totalcalculado; 
+                       }
+                       cantidad.addEventListener('input', calcularTotal);
+                       preciouni.addEventListener('input', calcularTotal);
+
                        
 
                         // Funcion que agrega guión(-) al escribir 3 caracteres

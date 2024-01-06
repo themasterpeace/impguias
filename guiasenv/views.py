@@ -173,7 +173,7 @@ class ReporteGeneralExcel(TemplateView):
                                     top = Side(border_style = "thin"), bottom = Side(border_style = "thin") ) 
         ws['A1'].fill = PatternFill(start_color = '66FFCC', end_color = '66FFCC', fill_type = "solid")
         ws['A1'].font = Font(name = 'Calibri', size = 12, bold = True)
-        ws['A1'] = 'REPORTE GENERAL GUIAS IMPRESAS'
+        ws['A1'] = 'REPORTE GUIAS RUTAS Y AGENCIAS'
 
         ws.merge_cells('A1:I1')
         ws.row_dimensions[1].height = 25
@@ -583,3 +583,38 @@ def registro(request):
             return redirect(to="base:home")
         data["form"] = formulario
     return render(request, 'registration/registro.html', data)
+
+#Enviar a excel informacion de tabla dbf
+
+import pandas as pd
+from django.http import HttpResponse
+from django.views import View
+from dbfread import DBF
+
+class ReporteHistorico(View):
+    def get(self, request, *args, **kwargs):
+        fecha_inicial = request.GET.get('fecha_inicial')
+        fecha_final = request.GET.get('fecha_final')
+
+        # Ruta al archivo DBF
+        ruta_dbf = 'C:/Users/mesquite/Desktop/dumpsisam/envioshistorico.dbf'
+
+        # Lee el archivo DBF y convierte a DataFrame
+        dbf_table = DBF(ruta_dbf)
+        df = pd.DataFrame(iter(dbf_table))
+
+        # Filtra los datos por rango de fechas
+        df['fecha'] = pd.to_datetime(df['fecha'])
+        df = df[(df['fecha'] >= fecha_inicial) & (df['fecha'] <= fecha_final)]
+
+        # Escribir DataFrame en un archivo Excel
+        excel_output_path = 'ruta_del_archivo.xlsx'
+        df.to_excel(excel_output_path, index=False, engine='openpyxl')
+
+        # Devolver el archivo Excel como respuesta
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename=reporte.xlsx'
+        df.to_excel(response, index=False, engine='openpyxl')
+
+        return response
+
