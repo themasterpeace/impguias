@@ -49,9 +49,9 @@ class Home(TemplateView):
     def get_graph_sales_pastyear_month(self):
         data = []
         try:
-            year = datetime.now().year -1
+            year = datetime.now().year
             for m in range(1, 13):
-                totalimp = ImpGuias.objects.filter(fecha__year=year, fecha__month=m).aggregate(r=Coalesce(Sum('totalimp'), 0)).get('r')
+                totalimp = GuiasEnv.objects.filter(fecha__year=year, fecha__month=m).aggregate(r=Coalesce(Sum('totenvio'), 0)).get('r')
                 data.append(float(totalimp))
         except:
             pass

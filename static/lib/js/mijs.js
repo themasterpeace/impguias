@@ -13,7 +13,7 @@ function mensaje(msg,color='green')
       Swal.fire({
         position:"top-end",
         icon: "success",
-        title: '¡¡REGISTRO GUARDADO EXITOSAMENTE!!',
+        title: '¡¡FELICIDADES!!',
         text: msg,
         showConfirmButton: false,
         timer: 1600
