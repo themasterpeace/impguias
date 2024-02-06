@@ -11,4 +11,10 @@ urlpatterns = [
     #############para buscar clientes############################
     path('buscar_cli', buscarcli.as_view(), name="buscar_cli"),
     path('buscar_des', buscardes.as_view(), name="buscar_des"),
+
+    #############para generar reportes############################
+    path('imp/reporte', ReportImp.as_view(), name="reporte"),
+    path('imp/reportecli', ReportClie.as_view(), name="reportecli"),
+    path('imp/reportedate', ReportDate.as_view(), name="reportedate"),
+
 ]

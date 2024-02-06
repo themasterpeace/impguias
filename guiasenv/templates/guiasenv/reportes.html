@@ -4,10 +4,10 @@
 
 
 {% block contenido  %}
-<main style="border: #EB984E 5px groove; border-radius: 5px;">
-    <div class = "container">
-        <h1>REPORTES AGENCIAS Y RUTAS</h1>
-        <div class="row">
+<main style="border-radius: 20px;" class="row">
+    <div class = "card text-white bg-danger mb-8" style="max-width: 18rem; margin-left: 30%; margin-right: 100px;">
+        <h1>REPORTE AGENCIAS Y RUTAS</h1>
+        <div class="card-body">
             <div class="col-sm">
                 <h5>Reporte por fecha</h5>
                 <form action="{% url 'guiasenv:guiaexcelfech' %}" method="get" class="form-inline">
@@ -37,37 +37,38 @@
             </div>
         </div>
     </div>
+
     <br>
-    <hr>
-    <div class = "container">
-        <h1>REPORTE DE GUIAS IMPRESAS A CLIENTES</h1>
-        <div class="row">
+    
+    <div class = "card text-white bg-success mb-8" style="max-width: 18rem;">
+        <h1>GUIAS IMPRESAS A CLIENTES</h1>
+        <div class="card-body">
             <div class="col-sm">
                 <h5>Reporte por fecha</h5>
-                <form action="{% url 'guiasenv:historicoexcel' %}" method="get" class="form-inline">
+                <form action="{% url 'impa:reportedate' %}" method="get" class="form-inline">
                     <div class="form group mb-2">
                         <input type="date" id="fecha" class="form-control" name="fecha"  >
                         <input type="date" id="fechfin" class="form-control" name="fecha_hasta">
                         
                     </div>
-                    <button type="submit"  class="btn btn-success">Reporte Por Fecha</button>
+                    <button type="submit"  class="btn btn-primary">Reporte Por Fecha</button>
                 </form>
             </div>
             
             <div class="col-sm">
                 <h5>Reporte Por Cliente</h5>
-                <form action="{% url 'guiasenv:guiaexcel' %}" method="get" class="form-inline">
+                <form action="{% url 'impa:reportecli' %}" method="get" class="form-inline">
                     <div class="form group mb-2">
                         <input type="text" id="id_codigo" class="form-control" name="campo" placeholder="Consulta Por Codigo" style="text-transform:uppercase">
                         
                     </div>
-                    <button type="submit"  class="btn btn-success">Reporte Por Codigo</button>
+                    <button type="submit"  class="btn btn-primary">Reporte Por Codigo</button>
                 </form>
             </div>
             <div class="col-sm">
                 <h5>Reporte General</h5>
                 <div class="form group-mb-2">
-                    <a href="{% url 'guiasenv:guiaexcelgen' %}" class="btn btn-success">Reporte General</a>
+                    <a href="{% url 'impa:reporte' %}" class="btn btn-primary">Reporte General</a>
                 </div>
             </div>
         </div>

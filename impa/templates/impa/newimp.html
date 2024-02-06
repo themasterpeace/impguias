@@ -423,9 +423,13 @@
 								<p>${$('#id_codigo_cliente').val()}</p>
 							</div>
 						</div>
-            <div class="break"></div>
 					`
 				);
+                if (i < numFinal) {
+                    ventana.document.write(`
+                        <div class="break"></div>
+                    `)
+                }
 			}
 			ventana.document.write('</body></html>');
 			ventana.document.close();

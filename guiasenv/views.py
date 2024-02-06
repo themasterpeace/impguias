@@ -1,3 +1,5 @@
+import calendar
+from calendar import month_name
 from datetime import date, timedelta
 from pipes import Template
 from urllib import request
@@ -380,7 +382,7 @@ class ReporteClienteExcel(TemplateView):
             ws.cell(row = cont, column=9).value = cliente.entregado
             cont+=1
 
-        nombre_archivo = "GuiasImpresas.xlsx"
+        nombre_archivo = f"cliente_{campo}.xlsx"
         response = HttpResponse(content_type = "application/ms-excel")
         content = "attachment; filename = {0}".format(nombre_archivo)
         response['Content-Disposition']= content
@@ -390,10 +392,13 @@ class ReporteClienteExcel(TemplateView):
 class ReporteFechaExcel(TemplateView):
 
     def get(self, request, *args, **kwargs):
-        #campo = request.GET.get('campo')
-        fecha_desde = request.GET.get('fecha')
-        fecha_hasta = request.GET.get('fecha_hasta')
-        #clientes= GuiasEnv.objects.all()
+        fecha_desde_str = request.GET.get('fecha')
+        fecha_hasta_str = request.GET.get('fecha_hasta')
+
+        # Convierte las cadenas de fecha a objetos datetime
+        fecha_desde = datetime.strptime(fecha_desde_str, '%Y-%m-%d') if fecha_desde_str else None
+        fecha_hasta = datetime.strptime(fecha_hasta_str, '%Y-%m-%d') if fecha_hasta_str else None
+
         clientes = GuiasEnv.objects.filter(fecha__range=[fecha_desde, fecha_hasta])
                
         wb = Workbook()
@@ -487,6 +492,9 @@ class ReporteFechaExcel(TemplateView):
         cont = 4 
 
         for cliente in clientes:
+            if isinstance(cliente.fecha, str):
+                cliente.fecha = datetime.strptime(cliente.fecha, '%Y-%m-%d')
+            nombre_mes= calendar.month_name[cliente.fecha.month] 
             ws.cell(row = cont, column=1).value = cliente.fecha
             ws.cell(row = cont, column=2).value = cliente.codigo
             ws.cell(row = cont, column=3).value = cliente.cliente
@@ -497,8 +505,12 @@ class ReporteFechaExcel(TemplateView):
             ws.cell(row = cont, column=8).value = cliente.fpago
             ws.cell(row = cont, column=9).value = cliente.entregado
             cont+=1
+        
+        nombre_mes = "desconocido"
+        if fecha_desde:
+            nombre_mes = calendar.month_name[fecha_desde.month]
 
-        nombre_archivo = "GuiasImpresas.xlsx"
+        nombre_archivo = f"Mes_Generado_{nombre_mes}.xlsx"
         response = HttpResponse(content_type = "application/ms-excel")
         content = "attachment; filename = {0}".format(nombre_archivo)
         response['Content-Disposition']= content
