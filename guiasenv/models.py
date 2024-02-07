@@ -41,6 +41,7 @@ class Cliente(ClaseModelo):
     #nit = models.CharField(max_length=10)
     #departamento = models.CharField(max_length=50)
     municipio = models.CharField(max_length=150)
+    origen = models.CharField(max_length=3, null=True)
     #contacto = models.CharField(max_length=150)
     formapago = models.CharField(max_length=20,choices=FPAGO)
 
